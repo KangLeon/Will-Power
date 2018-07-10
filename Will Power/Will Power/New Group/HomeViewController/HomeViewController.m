@@ -834,7 +834,6 @@
                         [self.checkEmptyView removeFromSuperview];
                         [self.view addSubview:self.check_view];
                     }else{
-                        
                     }
                 }
             }else if (j==2){
