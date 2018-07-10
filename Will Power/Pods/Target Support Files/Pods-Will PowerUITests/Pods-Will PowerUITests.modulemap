@@ -1,0 +1,6 @@
+framework module Pods_Will_PowerUITests {
+  umbrella header "Pods-Will PowerUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -1,0 +1,6 @@
+framework module Pods_Will_Power {
+  umbrella header "Pods-Will Power-umbrella.h"
+
+  export *
+  module * { export * }
+}

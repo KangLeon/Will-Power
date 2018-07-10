@@ -1,0 +1,6 @@
+framework module Pods_Will_PowerTests {
+  umbrella header "Pods-Will PowerTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
