@@ -36,22 +36,22 @@
     [alertView show];
 }
 -(void)showAlertWithTitle:(NSString *)title message:(NSString *)message  delegate:(id<FUIAlertViewDelegate>)delegate  cancelButtonTitle:(NSString*)cancleTitle otherButtonTitles:(NSString *)otherTitle{
-    FUIAlertView *alertView = [[FUIAlertView alloc] initWithTitle:title
+    self.myAlertView = [[FUIAlertView alloc] initWithTitle:title
                                                           message:message
                                                          delegate:delegate cancelButtonTitle:cancleTitle
                                                 otherButtonTitles:otherTitle, nil];
-    alertView.titleLabel.textColor = [UIColor cloudsColor];
-    alertView.titleLabel.font = [UIFont boldFlatFontOfSize:16];
-    alertView.messageLabel.textColor = [UIColor cloudsColor];
-    alertView.messageLabel.font = [UIFont flatFontOfSize:14];
-    alertView.backgroundOverlay.backgroundColor = [[UIColor cloudsColor] colorWithAlphaComponent:0.8];
-    alertView.alertContainer.backgroundColor = [UIColor midnightBlueColor];
-    alertView.defaultButtonColor = [UIColor cloudsColor];
+    self.myAlertView.titleLabel.textColor = [UIColor cloudsColor];
+    self.myAlertView.titleLabel.font = [UIFont boldFlatFontOfSize:16];
+    self.myAlertView.messageLabel.textColor = [UIColor cloudsColor];
+    self.myAlertView.messageLabel.font = [UIFont flatFontOfSize:14];
+    self.myAlertView.backgroundOverlay.backgroundColor = [[UIColor cloudsColor] colorWithAlphaComponent:0.8];
+    self.myAlertView.alertContainer.backgroundColor = [UIColor midnightBlueColor];
+    self.myAlertView.defaultButtonColor = [UIColor cloudsColor];
     
-    alertView.defaultButtonShadowColor = [UIColor asbestosColor];
-    alertView.defaultButtonFont = [UIFont boldFlatFontOfSize:16];
-    alertView.defaultButtonTitleColor = [UIColor asbestosColor];
-    [alertView show];
+    self.myAlertView.defaultButtonShadowColor = [UIColor asbestosColor];
+    self.myAlertView.defaultButtonFont = [UIFont boldFlatFontOfSize:16];
+    self.myAlertView.defaultButtonTitleColor = [UIColor asbestosColor];
+    [self.myAlertView show];
 }
 /*
 // Only override drawRect: if you perform custom drawing.

@@ -315,6 +315,13 @@ static NSString *cell_id3=@"subject_cell_3";
     return total_days-days;
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    //不会调用viewDidLoad。但是会调用viewWillAppear方法
+    [self.firstTableView reloadData];
+    [self.secondTableView reloadData];
+    [self.thirdTableView reloadData];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

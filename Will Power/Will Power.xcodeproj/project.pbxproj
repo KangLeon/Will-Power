@@ -31,6 +31,7 @@
 		5928DEEF20E212D7008E5423 /* suncloud.json in Resources */ = {isa = PBXBuildFile; fileRef = 5928DEEE20E212D7008E5423 /* suncloud.json */; };
 		5928DEF520E24A9F008E5423 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5928DEF420E24A9F008E5423 /* AboutViewController.m */; };
 		5928DEF820E2545D008E5423 /* UIImage+Round.m in Sources */ = {isa = PBXBuildFile; fileRef = 5928DEF720E2545D008E5423 /* UIImage+Round.m */; };
+		592AD8FC20F61CA9007B080D /* PickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 592AD8FB20F61CA9007B080D /* PickerView.m */; };
 		593D1FEA20C347930019789D /* complete.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 593D1FE920C347920019789D /* complete.mp3 */; };
 		593D1FEC20C349480019789D /* wrong.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 593D1FEB20C349480019789D /* wrong.mp3 */; };
 		593D1FEF20C34CC10019789D /* WrongMusic.m in Sources */ = {isa = PBXBuildFile; fileRef = 593D1FEE20C34CC10019789D /* WrongMusic.m */; };
@@ -212,6 +213,8 @@
 		5928DEF420E24A9F008E5423 /* AboutViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		5928DEF620E2545D008E5423 /* UIImage+Round.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+Round.h"; sourceTree = "<group>"; };
 		5928DEF720E2545D008E5423 /* UIImage+Round.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Round.m"; sourceTree = "<group>"; };
+		592AD8FA20F61CA9007B080D /* PickerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PickerView.h; sourceTree = "<group>"; };
+		592AD8FB20F61CA9007B080D /* PickerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PickerView.m; sourceTree = "<group>"; };
 		593D1FE920C347920019789D /* complete.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = complete.mp3; sourceTree = "<group>"; };
 		593D1FEB20C349480019789D /* wrong.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = wrong.mp3; sourceTree = "<group>"; };
 		593D1FED20C34CC10019789D /* WrongMusic.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WrongMusic.h; sourceTree = "<group>"; };
@@ -478,6 +481,15 @@
 			path = ScoreView;
 			sourceTree = "<group>";
 		};
+		592AD8F920F61B8D007B080D /* PickerView */ = {
+			isa = PBXGroup;
+			children = (
+				592AD8FA20F61CA9007B080D /* PickerView.h */,
+				592AD8FB20F61CA9007B080D /* PickerView.m */,
+			);
+			path = PickerView;
+			sourceTree = "<group>";
+		};
 		5949A4162070A582003F9106 = {
 			isa = PBXGroup;
 			children = (
@@ -637,6 +649,7 @@
 		59D21C252071F256008DFA94 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				592AD8F920F61B8D007B080D /* PickerView */,
 				59D4D48920EA21C5006449E9 /* MusicSelectView */,
 				59D4D48520E3A319006449E9 /* SignView */,
 				5928DEEA20E20FDD008E5423 /* ScoreView */,
@@ -1246,6 +1259,7 @@
 				590381D920E0B20E004F0489 /* LaunchViewController.m in Sources */,
 				0474EA8C2090535300FA3283 /* CuteMessage.m in Sources */,
 				59D21D2D207CEA48008DFA94 /* CheckTableViewCell.m in Sources */,
+				592AD8FC20F61CA9007B080D /* PickerView.m in Sources */,
 				59D21CF22075F5CF008DFA94 /* NotifiModel.m in Sources */,
 				59D21CF720761752008DFA94 /* AddThirdViewController.m in Sources */,
 				59D21CA3207376B7008DFA94 /* BaseModel.m in Sources */,

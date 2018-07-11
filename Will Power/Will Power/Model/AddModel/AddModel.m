@@ -66,13 +66,69 @@
 }
 #pragma mark 删除数据部分
 //删除数据
--(void)deleteDataByTitle:(NSString *)title{
+-(void)deleteDataByID:(NSInteger)id{
     //删除数据，默认已经执行查询数据了
     if (self.database!=nil) {
         if ([self.database open]) {
-            if([self.database executeUpdate:@"delete from subject where subject_title=?",title]){
+            if([self.database executeUpdate:@"delete from subject where id=?",@(id)]){
                 NSLog(@"删除数据成功");
             }
+        }
+        //1.同时把后面的所有数据都移动到前面
+        //2.同时将所有的关联NotifiModel，SubjectModel，CheckedModel的subject_id都修改
+        if(id==1){
+            //修改后面两条
+            //一.修改第一条
+            if ([self.database executeUpdate:@"update subject set id=? where id=?",@(id),@(id+1)]) {
+                NSLog(@"修改数据成功");//将第三条改成第二条
+            }
+            //修改NotifiModel的
+            if ([self.database executeUpdate:@"update alarm set subject_id=? where subject_id=?",@(id),@(id+1)]) {
+                NSLog(@"修改数据成功");//
+            }
+            //修改SubjectModel的
+            if ([self.database executeUpdate:@"update mission set id=? where id=?",@(id),@(id+1)]) {
+                NSLog(@"修改数据成功");//
+            }
+            //修改CheckModel的
+            if ([self.database executeUpdate:@"update checked set id=? where id=?",@(id),@(id+1)]) {
+                NSLog(@"修改数据成功");//
+            }
+            //二.修改第三条
+            if ([self.database executeUpdate:@"update subject set id=? where id=?",@(id),@(id+2)]) {
+                NSLog(@"修改数据成功");//将第三条改成第二条
+            }
+            //修改NotifiModel的
+            if ([self.database executeUpdate:@"update alarm set subject_id=? where subject_id=?",@(id),@(id+2)]) {
+                NSLog(@"修改数据成功");//
+            }
+            //修改SubjectModel的
+            if ([self.database executeUpdate:@"update mission set id=? where id=?",@(id),@(id+2)]) {
+                NSLog(@"修改数据成功");//
+            }
+            //修改CheckModel的
+            if ([self.database executeUpdate:@"update checked set id=? where id=?",@(id),@(id+2)]) {
+                NSLog(@"修改数据成功");//
+            }
+        }else if (id==2){
+            //修改后面一条
+            if ([self.database executeUpdate:@"update subject set id=? where id=?",@(id),@(id+1)]) {
+                NSLog(@"修改数据成功");//将第三条改成第二条
+            }
+            //修改NotifiModel的
+            if ([self.database executeUpdate:@"update alarm set subject_id=? where subject_id=?",@(id),@(id+1)]) {
+                NSLog(@"修改数据成功");//
+            }
+            //修改SubjectModel的
+            if ([self.database executeUpdate:@"update mission set id=? where id=?",@(id),@(id+1)]) {
+                NSLog(@"修改数据成功");//
+            }
+            //修改CheckModel的
+            if ([self.database executeUpdate:@"update checked set id=? where id=?",@(id),@(id+1)]) {
+                NSLog(@"修改数据成功");//
+            }
+        }else if (id==3){
+            //不需要做修改
         }
     }
 }
@@ -86,7 +142,7 @@
     if (self.database!=nil) {
         if([self.database open]){
             NSLog(@"修改数据，打开数据库成功");
-            if ([self.database executeUpdate:@"update subject set subject_title=? subject_get=? subject_love_get=? subject_best_me=? goal_total=? start_date=? reject_things=? reject_people=? reject_time=? reject_thought=? reward=? where id=?",title,get,love,best,goal,date,things,people,time,thought,reward,id]) {
+            if ([self.database executeUpdate:@"update subject set subject_title=?,subject_get=?,subject_love_get=?,subject_best_me=?,goal_total=?,start_date=?,reject_things=?,reject_people=?,reject_time=?,reject_thought=?,reward=? where id=?",title,get,love,best,@(goal),date,things,people,time,thought,reward,@(id)]) {
                 NSLog(@"修改数据成功");//通过id修改除id外的所有数据
             }
         }

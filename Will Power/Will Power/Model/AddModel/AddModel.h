@@ -35,6 +35,6 @@
 -(NSInteger)countForData;//查询数据库中有多少条数据
 -(NSMutableArray*)selectEveryThing;//查询出数据库中所有数据
 -(void)updateDataWithSubject_title:(NSString *)title subject_get:(NSString *)get subject_love_get:(NSString *)love subject_best_me:(NSString *)best goal_total:(NSInteger)goal start_date:(NSString*)date reject_things:(NSString *)things reject_people:(NSString *)people reject_time:(NSString*)time reject_thought:(NSString*)thought reward:(NSString*)reward where:(NSInteger)id;//修改特定id下的数据
--(void)deleteDataByTitle:(NSString *)title;//删除在指定title下的数据
+-(void)deleteDataByID:(NSInteger)id;//删除在指定title下的数据
 
 @end
