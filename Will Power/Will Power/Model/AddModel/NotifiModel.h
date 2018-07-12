@@ -22,7 +22,7 @@
 
 +(instancetype)notifiModel;
 -(void)insertData;
-//-(void)deleteDataByTitle:(NSInteger )id;
+-(void)deleteDataByID:(NSInteger )id;
 -(NSInteger)countForData;
 -(NSMutableArray*)selectEveryThing;
 

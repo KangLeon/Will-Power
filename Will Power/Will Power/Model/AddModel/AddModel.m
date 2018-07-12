@@ -8,6 +8,7 @@
 
 #import "AddModel.h"
 #import <FMDatabase.h>
+#import "CheckedModel.h"
 
 @interface AddModel ()
 
@@ -74,7 +75,21 @@
                 NSLog(@"删除数据成功");
             }
         }
-        //1.同时把后面的所有数据都移动到前面
+        //忘了一点：同时把NotifiModel，subjectModel和checkedModel里的相关id下的所有内容都要删除
+        //删除NotifiModel的
+        if([self.database executeUpdate:@"delete from alarm where subject_id=?",@(id)]){
+            NSLog(@"删除数据成功");
+        }
+        //删除subjectModel的
+        if([self.database executeUpdate:@"delete from mission where id=?",@(id)]){
+            NSLog(@"删除数据成功");
+        }
+        //删除CheckModel的
+        [[CheckedModel shareCheckedModel] createDataBase];
+        if([self.database executeUpdate:@"delete from checked where id=?",@(id)]){
+            NSLog(@"删除数据成功");
+        }
+        //1.同时把后面的所有数据都移动到前面,
         //2.同时将所有的关联NotifiModel，SubjectModel，CheckedModel的subject_id都修改
         if(id==1){
             //修改后面两条
@@ -91,6 +106,7 @@
                 NSLog(@"修改数据成功");//
             }
             //修改CheckModel的
+            [[CheckedModel shareCheckedModel] createDataBase];
             if ([self.database executeUpdate:@"update checked set id=? where id=?",@(id),@(id+1)]) {
                 NSLog(@"修改数据成功");//
             }
@@ -107,6 +123,7 @@
                 NSLog(@"修改数据成功");//
             }
             //修改CheckModel的
+            [[CheckedModel shareCheckedModel] createDataBase];
             if ([self.database executeUpdate:@"update checked set id=? where id=?",@(id),@(id+2)]) {
                 NSLog(@"修改数据成功");//
             }
@@ -124,6 +141,7 @@
                 NSLog(@"修改数据成功");//
             }
             //修改CheckModel的
+            [[CheckedModel shareCheckedModel] createDataBase];
             if ([self.database executeUpdate:@"update checked set id=? where id=?",@(id),@(id+1)]) {
                 NSLog(@"修改数据成功");//
             }

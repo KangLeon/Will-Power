@@ -377,7 +377,6 @@
         //这里应该订阅两个地方以更新值 1.首先是切换挑战，2.然后是新增任务
         
         //页面初始化时的值
-//        self.yellowView.ball_titleLabel.text=[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:([[AddModel shareAddMode] countForData]-1)] objectForKey:@"subject_title"];//设置标题
         self.yellowView.ball_titleLabel.text=[NSString stringWithFormat:@"The power I want \n %@",[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:([[AddModel shareAddMode] countForData]-1)] objectForKey:@"subject_title"]];
         
         //紫球
@@ -690,8 +689,9 @@
 #pragma mark target-action的方法
 //刷新页面
 -(void)refresh_data{
-    [self loadUI];
-    [self myDragView];
+    [self myTabButton];//加载底部3个button
+    [self myDragView];//加载5个小button
+    [self loadUI];//加载三个球
     NSLog(@"刷新数据吧");
 }
 //通知的selector
@@ -935,6 +935,13 @@
     
     //注册程序进入后台通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector (pauseTimer) name: UIApplicationDidEnterBackgroundNotification object:nil];
+    
+    if ([[AddModel shareAddMode]countForData]==0) {
+        for (UIView *view in self.view.subviews) {
+            [view removeFromSuperview];
+        }
+        [self.view addSubview:self.empty];
+    }
 }
 
 //程序进入前台

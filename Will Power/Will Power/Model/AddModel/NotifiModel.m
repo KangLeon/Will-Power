@@ -66,17 +66,17 @@
     }
 }
 //#pragma mark 删除数据部分
-////删除数据---这里不好分散操作，所以整个数组装填，删除也把该id下的全部删除然后再添加新数组的值
-//-(void)deleteDataByTitle:(NSInteger )id{
-//    //删除数据，默认已经执行查询数据了
-//    if (self.database!=nil) {
-//        if ([self.database open]) {
-//            if([self.database executeUpdate:@"delete from alarm where alarm_id=?",id]){
-//                NSLog(@"删除数据成功");
-//            }
-//        }
-//    }
-//}
+//删除数据---这里不好分散操作，所以整个数组装填，删除也把该id下的全部删除然后再添加新数组的值
+-(void)deleteDataByID:(NSInteger )id{
+    //删除数据，默认已经执行查询数据了
+    if (self.database!=nil) {
+        if ([self.database open]) {
+            if([self.database executeUpdate:@"delete from alarm where subject_id=?",@(id)]){
+                NSLog(@"删除数据成功");
+            }
+        }
+    }
+}
 
 //不用做修改，有删除所有值重新添加值就够了
 //#pragma mark 修改数据部分

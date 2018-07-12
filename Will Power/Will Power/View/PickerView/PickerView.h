@@ -18,6 +18,10 @@
 @property(nonatomic,copy)NSArray *repeatDay_array;//每天，每周一，，，，
 @property(nonatomic,strong)NSMutableArray *repeatHours_array;//每天几点
 @property(nonatomic,strong)NSMutableArray *repeatMinutes_array;//每天几分的时候
+////存放选取器滑轮值的string
+@property(nonatomic,strong)NSString *repeat_day_str;
+@property(nonatomic,strong)NSString *repeat_hour_str;
+@property(nonatomic,strong)NSString *repeat_minute_str;
 //重复周期的
 @property(nonatomic,strong)UIView *forPicker_view_repeat;
 @property(nonatomic,strong)UILabel *pickerStartLabel_repeat;

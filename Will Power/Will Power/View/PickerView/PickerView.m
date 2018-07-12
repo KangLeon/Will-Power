@@ -45,9 +45,6 @@
 @property(nonatomic,strong)NSString *month_str;
 @property(nonatomic,strong)NSString *day_str;
 
-@property(nonatomic,strong)NSString *repeat_day_str;
-@property(nonatomic,strong)NSString *repeat_hour_str;
-@property(nonatomic,strong)NSString *repeat_minute_str;
 @end
 
 @implementation PickerView

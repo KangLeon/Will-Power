@@ -200,7 +200,9 @@ static NSString *cell_ID=@"my_cell";
             //设置id
             //对id值进行判断然后进行加值
             //这里的思路是查询有几条数据
-            [AddModel shareAddMode].subject_id=1;
+            if ([[AddModel shareAddMode] countForData]==0) {
+                [AddModel shareAddMode].subject_id=1;
+            }
             if ([[AddModel shareAddMode] countForData]>0) {
                 //如果有数据就在条数后面+1
                 [AddModel shareAddMode].subject_id=[[AddModel shareAddMode] countForData]+1;

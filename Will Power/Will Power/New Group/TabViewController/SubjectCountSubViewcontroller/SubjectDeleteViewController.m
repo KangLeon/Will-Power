@@ -88,7 +88,9 @@ static NSString *cell_id_eighthStep=@"eighth_modify_tableView_cell_id";
 @property(nonatomic,copy)NSString *subject_best_me;
 
 //2.我要做
-@property(nonatomic,strong)NSMutableArray *alarm_temporary_array;//临时存放提醒时间的array
+@property(nonatomic,strong)NSMutableArray *alarm_temporary_array;//临时存放提醒时间的array,用于显示
+@property(nonatomic,strong)NSMutableArray *alarm_all_array;
+@property(nonatomic,strong)NSDictionary *alarm_single_dic;
 @property(nonatomic,strong)NSString *for_repeat_cell_text;//临时存放坚持目标的字符串
 @property(nonatomic,strong)NSString *for_start_cell_text;//临时存放起始时间的字符串
 
@@ -234,16 +236,24 @@ static NSString *cell_id_eighthStep=@"eighth_modify_tableView_cell_id";
         for (NSDictionary *dic in resultArray) {
           NSString *dateString=[NSString stringWithFormat:@"%@%@点%@分",[dic objectForKey:@"alarm_day"],[dic objectForKey:@"alarm_hour"],[dic objectForKey:@"alarm_minute"]];
             [_alarm_temporary_array addObject:dateString];
+            [self.alarm_all_array addObject:dic];
         }
     }
     return _alarm_temporary_array;
 }
+-(NSMutableArray*)alarm_all_array{
+    if (!_alarm_all_array) {
+        _alarm_all_array=[[NSMutableArray alloc] init];
+    }
+    return _alarm_all_array;
+}
+
 -(PickerView *)pickerView_three{
     if (!_pickerView_three) {
         _pickerView_three=[[PickerView alloc] initWithFrame:self.view.frame];
         _pickerView_three.backgroundColor=[UIColor clearColor];
         _pickerView_three.delegate=self;
-        _pickerView_three.contentSize=CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT*1.7);
+        _pickerView_three.contentSize=CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT*1.7+59*self.alarm_temporary_array.count);
         _pickerView_three.showsVerticalScrollIndicator=NO;//不限时垂直的滚动条
         //1.设置坚持目标的
         [[_pickerView_three.cancelButton_repeat rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
@@ -299,16 +309,101 @@ static NSString *cell_id_eighthStep=@"eighth_modify_tableView_cell_id";
             [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:1 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
                 self->_pickerView_three.forPicker_view.frame=CGRectMake(0, SCREEN_HEIGHT*2.0, SCREEN_WIDTH, SCREEN_HEIGHT*0.45);
                 [self.alarm_temporary_array addObject:self->_pickerView_three.alarm_str];//将值添加到数组中
+                //为了存值到数据库中的操作
+                self.alarm_single_dic=[[NSDictionary alloc] init];
+                //对拿来的字符串进行一次解析
+                NSString *day_type;
+                NSString *hour_type;
+                NSString *minute_type;
+                
+                //第一个滚轮的逻辑 一.
+                if([[self->_pickerView_three.alarm_str substringWithRange:NSMakeRange(0, 1)] isEqualToString:@"每"]){
+                    if ([[self->_pickerView_three.alarm_str substringWithRange:NSMakeRange(1, 1)] isEqualToString:@"周"]) {
+                        //第一个滚轮的逻辑 二.
+                        day_type=[self->_pickerView_three.alarm_str substringWithRange:NSMakeRange(0, 3)];
+                        //第二个滚轮的逻辑 a.
+                        if([[self->_pickerView_three.alarm_str substringWithRange:NSMakeRange(4, 1)] isEqualToString:@"点"]){
+                            hour_type=[self->_pickerView_three.alarm_str substringWithRange:NSMakeRange(3, 1)];
+                            //第三个滚轮的逻辑 1.
+                            if ([[self->_pickerView_three.alarm_str substringWithRange:NSMakeRange(6, 1)] isEqualToString:@"分"]) {
+                                minute_type=[self->_pickerView_three.alarm_str substringWithRange:NSMakeRange(5, 1)];
+                            }else if ([[self->_pickerView_three.alarm_str substringWithRange:NSMakeRange(7, 1)] isEqualToString:@"分"]){
+                                minute_type=[self->_pickerView_three.alarm_str substringWithRange:NSMakeRange(5, 2)];
+                            }
+                            
+                            //第二个滚轮的逻辑 b.
+                        }else if ([[self->_pickerView_three.alarm_str substringWithRange:NSMakeRange(5, 1)] isEqualToString:@"点"]){
+                            hour_type=[self->_pickerView_three.alarm_str substringWithRange:NSMakeRange(3, 2)];
+                            //第三个滚轮的逻辑 2.
+                            if ([[self->_pickerView_three.alarm_str substringWithRange:NSMakeRange(7, 1)] isEqualToString:@"分"]) {
+                                minute_type=[self->_pickerView_three.alarm_str substringWithRange:NSMakeRange(6, 1)];
+                            }else if ([[self->_pickerView_three.alarm_str substringWithRange:NSMakeRange(8, 1)] isEqualToString:@"分"]){
+                                minute_type=[self->_pickerView_three.alarm_str substringWithRange:NSMakeRange(6, 2)];
+                            }
+                        }
+                    }else{
+                        day_type=[self->_pickerView_three.alarm_str substringWithRange:NSMakeRange(0, 2)];
+                        //第二个滚轮的逻辑 a.
+                        if([[self->_pickerView_three.alarm_str substringWithRange:NSMakeRange(3, 1)] isEqualToString:@"点"]){
+                            //第三个滚轮的逻辑 1.
+                            hour_type=[self->_pickerView_three.alarm_str substringWithRange:NSMakeRange(2, 1)];
+                            if ([[self->_pickerView_three.alarm_str substringWithRange:NSMakeRange(5, 1)] isEqualToString:@"分"]) {
+                                minute_type=[self->_pickerView_three.alarm_str substringWithRange:NSMakeRange(4, 1)];
+                            }else if ([[self->_pickerView_three.alarm_str substringWithRange:NSMakeRange(6, 1)] isEqualToString:@"分"]){
+                                minute_type=[self->_pickerView_three.alarm_str substringWithRange:NSMakeRange(4, 2)];
+                            }
+                            
+                            //第二个滚轮的逻辑 b.
+                        }else if ([[self->_pickerView_three.alarm_str substringWithRange:NSMakeRange(4, 1)] isEqualToString:@"点"]){
+                            hour_type=[self->_pickerView_three.alarm_str substringWithRange:NSMakeRange(2, 2)];
+                            //第三个滚轮的逻辑 2.
+                            if ([[self->_pickerView_three.alarm_str substringWithRange:NSMakeRange(6, 1)] isEqualToString:@"分"]) {
+                                minute_type=[self->_pickerView_three.alarm_str substringWithRange:NSMakeRange(5, 1)];
+                            }else if ([[self->_pickerView_three.alarm_str substringWithRange:NSMakeRange(7, 1)] isEqualToString:@"分"]){
+                                minute_type=[self->_pickerView_three.alarm_str substringWithRange:NSMakeRange(5, 2)];
+                            }
+                        }
+                    }
+                }else{
+                    //第一个滚轮的逻辑 二.
+                    day_type=[self->_pickerView_three.alarm_str substringWithRange:NSMakeRange(0, 3)];
+                    //第二个滚轮的逻辑 a.
+                    if([[self->_pickerView_three.alarm_str substringWithRange:NSMakeRange(4, 1)] isEqualToString:@"点"]){
+                        hour_type=[self->_pickerView_three.alarm_str substringWithRange:NSMakeRange(3, 1)];
+                        //第三个滚轮的逻辑 1.
+                        if ([[self->_pickerView_three.alarm_str substringWithRange:NSMakeRange(6, 1)] isEqualToString:@"分"]) {
+                            minute_type=[self->_pickerView_three.alarm_str substringWithRange:NSMakeRange(5, 1)];
+                        }else if ([[self->_pickerView_three.alarm_str substringWithRange:NSMakeRange(7, 1)] isEqualToString:@"分"]){
+                            minute_type=[self->_pickerView_three.alarm_str substringWithRange:NSMakeRange(5, 2)];
+                        }
+                        
+                        //第二个滚轮的逻辑 b.
+                    }else if ([[self->_pickerView_three.alarm_str substringWithRange:NSMakeRange(5, 1)] isEqualToString:@"点"]){
+                        hour_type=[self->_pickerView_three.alarm_str substringWithRange:NSMakeRange(3, 2)];
+                        //第三个滚轮的逻辑 2.
+                        if ([[self->_pickerView_three.alarm_str substringWithRange:NSMakeRange(7, 1)] isEqualToString:@"分"]) {
+                            minute_type=[self->_pickerView_three.alarm_str substringWithRange:NSMakeRange(6, 1)];
+                        }else if ([[self->_pickerView_three.alarm_str substringWithRange:NSMakeRange(8, 1)] isEqualToString:@"分"]){
+                            minute_type=[self->_pickerView_three.alarm_str substringWithRange:NSMakeRange(6, 2)];
+                        }
+                    }
+                }
+                self.alarm_single_dic=@{@"alarm_day":day_type,
+                                        @"alarm_hour":hour_type,
+                                        @"alarm_minute":minute_type
+                                        };
+                [self.alarm_all_array addObject:self.alarm_single_dic];
+                
                 [self.second_modify_tableView reloadData];
                  self.pickerView_three.scrollEnabled=true;
             } completion:nil];
         }];
         
-        //添加点击事件
-        UITapGestureRecognizer *tapGes=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAct)];
-        tapGes.numberOfTapsRequired=1;
-        tapGes.numberOfTapsRequired=1;
-        [_pickerView_three addGestureRecognizer:tapGes];
+//        //添加点击事件
+//        UITapGestureRecognizer *tapGes=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAct)];
+//        tapGes.numberOfTapsRequired=1;
+//        tapGes.numberOfTapsRequired=1;
+//        [_pickerView_three addGestureRecognizer:tapGes];
     }
     return _pickerView_three;
 }
@@ -765,6 +860,33 @@ static NSString *cell_id_eighthStep=@"eighth_modify_tableView_cell_id";
             NSLog(@"%@",self.thought_text);
             NSLog(@"%@",self.reward_text);
             [[AddModel shareAddMode] updateDataWithSubject_title:self.subject_title subject_get:self.subject_get subject_love_get:self.subject_love_get subject_best_me:self.subject_best_me goal_total:[self.for_repeat_cell_text integerValue] start_date:self.for_start_cell_text reject_things:self.things_text reject_people:self.people_text reject_time:self.time_text reject_thought:self.thought_text reward:self.reward_text where:(self.delete_index+1)];
+            //将数组中的提醒时间值存到NotifiModel中
+            //1.先删除
+            [[NotifiModel notifiModel] deleteDataByID:(self.delete_index+1)];
+            //2.再存储
+            NSInteger for_plus=1;
+            for (NSDictionary *dic in self.alarm_all_array) {
+                //每循环一次就存储一条数据到数据库
+                [NotifiModel notifiModel].alarm_id=for_plus;//关联该任务的数据条数累加
+                [NotifiModel notifiModel].subject_id=(self.delete_index+1);
+                [NotifiModel notifiModel].alarm_day=[dic objectForKey:@"alarm_day"];
+                [NotifiModel notifiModel].alarm_hour=[dic objectForKey:@"alarm_hour"];
+                [NotifiModel notifiModel].alarm_minute=[dic objectForKey:@"alarm_minute"];
+                [[NotifiModel notifiModel] insertData];
+                
+                for_plus++;
+            }
+            //取消之前的通知事项，现在重新确立通知事项
+            //关闭每日待办项目提醒
+            //根据标识取消每日通知
+            //循环所有任务取消所有通知
+            for (NSDictionary *dic in [[AddModel shareAddMode] selectEveryThing]) {
+                for (NSInteger i=1; i<8; i++)  {
+                    [self removePending:[NSString stringWithFormat:@"%ldnotifiAND%ld",i,[[dic objectForKey:@"id"] integerValue]]];//取消指定标识符下的通知
+                }
+            }
+            //重新确立通知
+            [self startNotifi];
             //返回上一级
             [self.navigationController popViewControllerAnimated:true];
         }
@@ -793,18 +915,18 @@ static NSString *cell_id_eighthStep=@"eighth_modify_tableView_cell_id";
     }
 
 }
--(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    self.isModify=true;
-//    [self.view endEditing:YES];
-}
--(void)tapAct{
-    [self.pickerView_three endEditing:YES];
-}
-
-- (BOOL)textFieldShouldReturn:(UITextField *)aTextfield {
-    [aTextfield resignFirstResponder];//关闭键盘
-    return YES;
-}
+//-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+//    self.isModify=true;
+////    [self.view endEditing:YES];
+//}
+//-(void)tapAct{
+//    [self.pickerView_three endEditing:YES];
+//}
+//
+//- (BOOL)textFieldShouldReturn:(UITextField *)aTextfield {
+//    [aTextfield resignFirstResponder];//关闭键盘
+//    return YES;
+//}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

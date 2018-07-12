@@ -19,6 +19,7 @@
 
 //方法
 +(instancetype)shareCheckedModel;
+-(void)createDataBase;
 -(void)insertData;
 -(NSInteger)countForData;
 -(NSInteger)countForDataByID:(NSInteger)select_id;

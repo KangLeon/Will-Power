@@ -141,6 +141,7 @@ static NSString *cell_id3=@"subject_cell_3";
     [[barButton_left rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         NSLog(@"左上角的我被惦记了");
         [self.navigationController popViewControllerAnimated:true];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"refresh_subject_data" object:nil];
         self.navigationController.navigationBar.barTintColor=BACKGROUND_COLOR;
     }];
     
@@ -317,10 +318,29 @@ static NSString *cell_id3=@"subject_cell_3";
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    //不会调用viewDidLoad。但是会调用viewWillAppear方法
-    [self.firstTableView reloadData];
-    [self.secondTableView reloadData];
-    [self.thirdTableView reloadData];
+    if ([[AddModel shareAddMode] countForData]==0) {
+        //什么都不做
+        [self.firstTableView removeFromSuperview];
+        [self.secondTableView removeFromSuperview];
+        [self.thirdTableView removeFromSuperview];
+        EmptyView *empty=[[EmptyView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-288)/2, 100, 288, 341)];
+        empty.imageView.image=[UIImage imageNamed:@"empty_mission_2_image"];
+        [self.view addSubview:empty];
+    }else if ([[AddModel shareAddMode] countForData]==1) {
+        [self.firstTableView reloadData];
+    }else if ([[AddModel shareAddMode] countForData]==2){
+        [self.firstTableView reloadData];
+        [self.secondTableView reloadData];
+    }else{
+        [self.firstTableView reloadData];
+        [self.secondTableView reloadData];
+        [self.thirdTableView reloadData];
+    }
+    //把所有内容都删除掉
+    for (UIView *view in self.view.subviews) {
+        [view removeFromSuperview];
+    }
+    [self loadUI];
 }
 
 - (void)didReceiveMemoryWarning {
