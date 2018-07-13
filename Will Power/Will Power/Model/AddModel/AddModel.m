@@ -47,7 +47,7 @@
         NSLog(@"打开数据库成功");
     }
     //创建数据表的sql语句
-    NSString *stringCreateTable=@"create table if not exists subject(id integer preimary key,subject_title varchar(20),subject_get varchar(20),subject_love_get varchar(20),subject_best_me varchar(20),goal_total integer,start_date varchar(20),reject_things varchar(20),reject_people varchar(20),reject_time varchar(20),reject_thought varchar(20),reward varchar(20))";
+    NSString *stringCreateTable=@"create table if not exists subject(id integer preimary key,subject_title varchar(20),subject_get varchar(20),subject_love_get varchar(20),subject_best_me varchar(20),goal_total integer,start_date varchar(20),reject_things varchar(20),reject_people varchar(20),reject_time varchar(20),reject_thought varchar(20),reward varchar(20),image)";
     //检查数据表是否创建成功
     if ([self.database executeUpdate:stringCreateTable]){
         NSLog(@"创建数据表成功");
@@ -59,7 +59,7 @@
     [self createDataBase];
     if (self.database!=nil) {
         if([self.database open]){
-            if ([self.database executeUpdate:@"insert into subject values (?,?,?,?,?,?,?,?,?,?,?,?)",@(self.subject_id),self.subject_title,self.subject_get,self.subject_love_get,self.subject_best_me,@(self.goal_total),self.start_date,self.reject_things,self.reject_people,self.reject_time,self.reject_thought,self.reward]) {
+            if ([self.database executeUpdate:@"insert into subject values (?,?,?,?,?,?,?,?,?,?,?,?,?)",@(self.subject_id),self.subject_title,self.subject_get,self.subject_love_get,self.subject_best_me,@(self.goal_total),self.start_date,self.reject_things,self.reject_people,self.reject_time,self.reject_thought,self.reward,self.subject_image_index]) {
                 NSLog(@"插入数据成功");
             }
         }
@@ -178,6 +178,7 @@
     //创建并且打开数据库
     //如果路径下面没有数据库，就创建指定的数据库，如果路径下已经存在数据库，加载数据库到内存
     self.database=[FMDatabase databaseWithPath:path];
+    [self createDataBase];//不知道为什么会出现no such tabel的错误
     
     NSString *query=@"select * from subject";
     NSInteger count=0;
@@ -204,6 +205,7 @@
     //创建并且打开数据库
     //如果路径下面没有数据库，就创建指定的数据库，如果路径下已经存在数据库，加载数据库到内存
     self.database=[FMDatabase databaseWithPath:path];
+    [self createDataBase];
     
     NSMutableArray *resultArray=[[NSMutableArray alloc] init];
     
@@ -239,6 +241,8 @@
                 NSString *reject_thought=[result stringForColumn:@"reject_thought"];
                 //获取reward字段内容(根据字段名字来获取)
                 NSString *reward=[result stringForColumn:@"reward"];
+                //获取image字段内容(根据字段名字来获取)
+                NSString *image=[result stringForColumn:@"image"];
        
                 //装入字典
                 NSDictionary *resultDicitonary=@{@"id":@(id),
@@ -252,10 +256,11 @@
                                                             @"reject_people":reject_people,
                                                             @"reject_time":reject_time,
                                                             @"reject_thought":reject_thought,
-                                                            @"reward":reward
+                                                            @"reward":reward,
+                                                            @"image":image
                                                         };
                 [resultArray addObject:resultDicitonary];//把取出来的字典添加到数组中
-                NSLog(@"%ld,%@,%@,%@,%@,%ld,%@,%@,%@,%@,%@,%@",id,subject_title,subject_get,subject_love_get,subject_best_me,goal_total,start_date,reject_things,reject_people,reject_time,reject_thought,reward);
+                NSLog(@"%ld,%@,%@,%@,%@,%ld,%@,%@,%@,%@,%@,%@,%@",id,subject_title,subject_get,subject_love_get,subject_best_me,goal_total,start_date,reject_things,reject_people,reject_time,reject_thought,reward,image);
         }
     }
 }

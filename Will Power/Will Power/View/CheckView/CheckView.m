@@ -9,9 +9,9 @@
 #import "CheckView.h"
 #import "SizeDefine.h"
 #import "ColorDefine.h"
+#import "UILabel+SizeToFit.h"
 
 @interface CheckView ()
-
 @end
 
 @implementation CheckView
@@ -57,7 +57,9 @@
     if (!_check_description) {
         _check_description=[[UILabel alloc] initWithFrame:CGRectMake(80, 35, (SCREEN_WIDTH-40-80-80), 15)];
         _check_description.textColor=BACKGROUND_COLOR;
-        _check_description.font=[UIFont systemFontOfSize:14.0 weight:UIFontWeightMedium];
+        _check_description.font=[UIFont systemFontOfSize:14.0 weight:UIFontWeightThin];
+        _check_description.numberOfLines=0;
+        _check_description.adjustsFontSizeToFitWidth=YES;//label的字体的自适应大小
     }
     return _check_description;
 }

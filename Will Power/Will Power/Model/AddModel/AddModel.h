@@ -17,6 +17,7 @@
 @property(nonatomic,copy)NSString *subject_get;
 @property(nonatomic,copy)NSString *subject_love_get;
 @property(nonatomic,copy)NSString *subject_best_me;
+@property(nonatomic,copy)NSString *subject_image_index;
 //我要做的数据
 @property(nonatomic,assign)NSInteger goal_total;//总共坚持多少天
 @property(nonatomic,strong)NSString *start_date;//开始时间

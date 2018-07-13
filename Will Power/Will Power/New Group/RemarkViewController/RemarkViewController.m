@@ -16,6 +16,7 @@
 #import "PopChallengeViewController.h"
 #import "RemarkModel.h"
 #import "EmptyView.h"
+#import "ReviewRemarkViewController.h"
 
 static NSString *cell_title_id=@"cell_title";
 @interface RemarkViewController ()<UITableViewDelegate,UITableViewDataSource,refreshAllRemark>
@@ -129,6 +130,12 @@ static NSString *cell_title_id=@"cell_title";
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 55;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    ReviewRemarkViewController *review_VC=[[ReviewRemarkViewController alloc] init];
+    review_VC.select_index=indexPath.row;
+    [self presentViewController:review_VC animated:true completion:nil];
 }
 
 //RAC信号的理解还不是很深入，所以暂时还是使用代理的方式来反向传值吧

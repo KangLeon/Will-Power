@@ -50,6 +50,14 @@
 		595EDF4120D2387E008F1D28 /* UINavigationController+FDFullscreenPopGesture.m in Sources */ = {isa = PBXBuildFile; fileRef = 595EDF4020D2387E008F1D28 /* UINavigationController+FDFullscreenPopGesture.m */; };
 		595EDF4520D247A7008F1D28 /* DonateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 595EDF4420D247A7008F1D28 /* DonateViewController.m */; };
 		595EDF4820D24AD3008F1D28 /* DonateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 595EDF4720D24AD3008F1D28 /* DonateTableViewCell.m */; };
+		5980F6D420F7C93F00AD9F25 /* SubjectLogoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5980F6D320F7C93F00AD9F25 /* SubjectLogoView.m */; };
+		5980F6DB20F7F33300AD9F25 /* GetColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 5980F6DA20F7F33300AD9F25 /* GetColor.m */; };
+		5980F6DD20F8064F00AD9F25 /* newAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 5980F6DC20F8064F00AD9F25 /* newAnimation.json */; };
+		5980F6E520F8120D00AD9F25 /* done.json in Resources */ = {isa = PBXBuildFile; fileRef = 5980F6E420F8120C00AD9F25 /* done.json */; };
+		5980F6E820F81B6800AD9F25 /* SuccessMusic.m in Sources */ = {isa = PBXBuildFile; fileRef = 5980F6E720F81B6800AD9F25 /* SuccessMusic.m */; };
+		5980F6EA20F81B7B00AD9F25 /* success.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5980F6E920F81B7B00AD9F25 /* success.wav */; };
+		5980F6ED20F8EEEB00AD9F25 /* GetSaying.m in Sources */ = {isa = PBXBuildFile; fileRef = 5980F6EC20F8EEEB00AD9F25 /* GetSaying.m */; };
+		5980F6F020F92B7B00AD9F25 /* ReviewRemarkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5980F6EF20F92B7B00AD9F25 /* ReviewRemarkViewController.m */; };
 		59BB615A20C9353A00923E01 /* SubjectModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 59BB615920C9353A00923E01 /* SubjectModel.m */; };
 		59BB615D20C9E7D800923E01 /* CheckedModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 59BB615C20C9E7D800923E01 /* CheckedModel.m */; };
 		59BB616920CCFC7F00923E01 /* PopRemarkView.m in Sources */ = {isa = PBXBuildFile; fileRef = 59BB616820CCFC7F00923E01 /* PopRemarkView.m */; };
@@ -248,6 +256,19 @@
 		595EDF4420D247A7008F1D28 /* DonateViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DonateViewController.m; sourceTree = "<group>"; };
 		595EDF4620D24AD3008F1D28 /* DonateTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DonateTableViewCell.h; sourceTree = "<group>"; };
 		595EDF4720D24AD3008F1D28 /* DonateTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DonateTableViewCell.m; sourceTree = "<group>"; };
+		5980F6D220F7C93F00AD9F25 /* SubjectLogoView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SubjectLogoView.h; sourceTree = "<group>"; };
+		5980F6D320F7C93F00AD9F25 /* SubjectLogoView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SubjectLogoView.m; sourceTree = "<group>"; };
+		5980F6D920F7F33300AD9F25 /* GetColor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GetColor.h; sourceTree = "<group>"; };
+		5980F6DA20F7F33300AD9F25 /* GetColor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GetColor.m; sourceTree = "<group>"; };
+		5980F6DC20F8064F00AD9F25 /* newAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = newAnimation.json; sourceTree = "<group>"; };
+		5980F6E420F8120C00AD9F25 /* done.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = done.json; sourceTree = "<group>"; };
+		5980F6E620F81B6800AD9F25 /* SuccessMusic.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SuccessMusic.h; sourceTree = "<group>"; };
+		5980F6E720F81B6800AD9F25 /* SuccessMusic.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SuccessMusic.m; sourceTree = "<group>"; };
+		5980F6E920F81B7B00AD9F25 /* success.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = success.wav; sourceTree = "<group>"; };
+		5980F6EB20F8EEEB00AD9F25 /* GetSaying.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GetSaying.h; sourceTree = "<group>"; };
+		5980F6EC20F8EEEB00AD9F25 /* GetSaying.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GetSaying.m; sourceTree = "<group>"; };
+		5980F6EE20F92B7B00AD9F25 /* ReviewRemarkViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReviewRemarkViewController.h; sourceTree = "<group>"; };
+		5980F6EF20F92B7B00AD9F25 /* ReviewRemarkViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReviewRemarkViewController.m; sourceTree = "<group>"; };
 		59BB615820C9353A00923E01 /* SubjectModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SubjectModel.h; sourceTree = "<group>"; };
 		59BB615920C9353A00923E01 /* SubjectModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SubjectModel.m; sourceTree = "<group>"; };
 		59BB615B20C9E7D800923E01 /* CheckedModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CheckedModel.h; sourceTree = "<group>"; };
@@ -403,12 +424,18 @@
 				59D21CAD20738A14008DFA94 /* TapMusic.m */,
 				59D21D2E207CF9E9008DFA94 /* CompleteMusic.h */,
 				59D21D2F207CF9E9008DFA94 /* CompleteMusic.m */,
+				5980F6D920F7F33300AD9F25 /* GetColor.h */,
+				5980F6DA20F7F33300AD9F25 /* GetColor.m */,
 				0474EA79208D867700FA3283 /* CalenderData.h */,
 				0474EA7A208D867700FA3283 /* CalenderData.m */,
 				0474EA87208F581300FA3283 /* CheckMusic.h */,
 				0474EA88208F581300FA3283 /* CheckMusic.m */,
 				593D1FED20C34CC10019789D /* WrongMusic.h */,
 				593D1FEE20C34CC10019789D /* WrongMusic.m */,
+				5980F6E620F81B6800AD9F25 /* SuccessMusic.h */,
+				5980F6E720F81B6800AD9F25 /* SuccessMusic.m */,
+				5980F6EB20F8EEEB00AD9F25 /* GetSaying.h */,
+				5980F6EC20F8EEEB00AD9F25 /* GetSaying.m */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -576,6 +603,15 @@
 			path = SettingsViewController;
 			sourceTree = "<group>";
 		};
+		5980F6D120F7C81F00AD9F25 /* SubjectLogoview */ = {
+			isa = PBXGroup;
+			children = (
+				5980F6D220F7C93F00AD9F25 /* SubjectLogoView.h */,
+				5980F6D320F7C93F00AD9F25 /* SubjectLogoView.m */,
+			);
+			path = SubjectLogoview;
+			sourceTree = "<group>";
+		};
 		59BB616A20CCFCA700923E01 /* PopReamrk */ = {
 			isa = PBXGroup;
 			children = (
@@ -606,6 +642,9 @@
 		59D21C202071F21A008DFA94 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				5980F6E920F81B7B00AD9F25 /* success.wav */,
+				5980F6E420F8120C00AD9F25 /* done.json */,
+				5980F6DC20F8064F00AD9F25 /* newAnimation.json */,
 				59D4D49720ECD3F1006449E9 /* little_girl_jumping_-_loader.json */,
 				59D4D49320ECB454006449E9 /* emoji.json */,
 				59D4D48F20EA298F006449E9 /* Intro.m4a */,
@@ -649,6 +688,7 @@
 		59D21C252071F256008DFA94 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				5980F6D120F7C81F00AD9F25 /* SubjectLogoview */,
 				592AD8F920F61B8D007B080D /* PickerView */,
 				59D4D48920EA21C5006449E9 /* MusicSelectView */,
 				59D4D48520E3A319006449E9 /* SignView */,
@@ -847,6 +887,8 @@
 				59D21D112079FFA3008DFA94 /* RemarkViewController.m */,
 				59D21D15207A04AD008DFA94 /* AddRemarkViewController.h */,
 				59D21D16207A04AD008DFA94 /* AddRemarkViewController.m */,
+				5980F6EE20F92B7B00AD9F25 /* ReviewRemarkViewController.h */,
+				5980F6EF20F92B7B00AD9F25 /* ReviewRemarkViewController.m */,
 			);
 			path = RemarkViewController;
 			sourceTree = "<group>";
@@ -1055,6 +1097,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5980F6EA20F81B7B00AD9F25 /* success.wav in Resources */,
 				5949A42F2070A583003F9106 /* LaunchScreen.storyboard in Resources */,
 				5949A4552070A989003F9106 /* OC代码规范总结.md in Resources */,
 				59D21CBF20739B86008DFA94 /* message.mp3 in Resources */,
@@ -1062,6 +1105,7 @@
 				5903820920E11F42004F0489 /* checked_loading.json in Resources */,
 				593D201820C388440019789D /* 跑步机.png in Resources */,
 				59D4D49420ECB454006449E9 /* emoji.json in Resources */,
+				5980F6E520F8120D00AD9F25 /* done.json in Resources */,
 				5949A42C2070A583003F9106 /* Assets.xcassets in Resources */,
 				5928DEEF20E212D7008E5423 /* suncloud.json in Resources */,
 				593D1FEC20C349480019789D /* wrong.mp3 in Resources */,
@@ -1070,6 +1114,7 @@
 				593D1FEA20C347930019789D /* complete.mp3 in Resources */,
 				5903820320E0FCBF004F0489 /* walking.json in Resources */,
 				590381F820E0EDB5004F0489 /* cubes.json in Resources */,
+				5980F6DD20F8064F00AD9F25 /* newAnimation.json in Resources */,
 				5903820720E11ECD004F0489 /* check_mark_-_done.json in Resources */,
 				59D4D49820ECD3F1006449E9 /* little_girl_jumping_-_loader.json in Resources */,
 			);
@@ -1255,6 +1300,7 @@
 				59D21C6C207215B1008DFA94 /* ToggleView.m in Sources */,
 				0474EA6D208C8DEC00FA3283 /* CalendenView.m in Sources */,
 				0474EA6A208C7D4200FA3283 /* SubSubjectcountViewController.m in Sources */,
+				5980F6DB20F7F33300AD9F25 /* GetColor.m in Sources */,
 				59D4D48C20EA21EA006449E9 /* MusicSelect.m in Sources */,
 				590381D920E0B20E004F0489 /* LaunchViewController.m in Sources */,
 				0474EA8C2090535300FA3283 /* CuteMessage.m in Sources */,
@@ -1289,6 +1335,7 @@
 				59D21C9E20736D64008DFA94 /* AlertView.m in Sources */,
 				59D21D40207E5089008DFA94 /* SetLabelTableViewCell.m in Sources */,
 				593D1FEF20C34CC10019789D /* WrongMusic.m in Sources */,
+				5980F6E820F81B6800AD9F25 /* SuccessMusic.m in Sources */,
 				59D21D30207CF9E9008DFA94 /* CompleteMusic.m in Sources */,
 				59D21C7620721EFF008DFA94 /* RemarkView.m in Sources */,
 				0474EA66208C3E8000FA3283 /* DayView.m in Sources */,
@@ -1310,11 +1357,14 @@
 				595EDF4120D2387E008F1D28 /* UINavigationController+FDFullscreenPopGesture.m in Sources */,
 				59D21C412071FE9C008DFA94 /* HomeViewController.m in Sources */,
 				0474EA89208F581300FA3283 /* CheckMusic.m in Sources */,
+				5980F6F020F92B7B00AD9F25 /* ReviewRemarkViewController.m in Sources */,
+				5980F6ED20F8EEEB00AD9F25 /* GetSaying.m in Sources */,
 				59D21D002079B0A8008DFA94 /* LabelTableViewCell.m in Sources */,
 				59BB615D20C9E7D800923E01 /* CheckedModel.m in Sources */,
 				59D21C9820736006008DFA94 /* TextFieldTableViewCell.m in Sources */,
 				0474EA82208ED29C00FA3283 /* NSDate+LocalDate.m in Sources */,
 				595EDF4520D247A7008F1D28 /* DonateViewController.m in Sources */,
+				5980F6D420F7C93F00AD9F25 /* SubjectLogoView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

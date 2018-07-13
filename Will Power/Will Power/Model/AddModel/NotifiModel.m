@@ -107,6 +107,8 @@
     //创建并且打开数据库
     //如果路径下面没有数据库，就创建指定的数据库，如果路径下已经存在数据库，加载数据库到内存
     self.database=[FMDatabase databaseWithPath:path];
+    [self createDataBase];
+    
     
     NSString *query=@"select * from alarm";
     NSInteger count=0;
@@ -135,6 +137,7 @@
     //创建并且打开数据库
     //如果路径下面没有数据库，就创建指定的数据库，如果路径下已经存在数据库，加载数据库到内存
     self.database=[FMDatabase databaseWithPath:path];
+    [self createDataBase];
     
     NSInteger count=0;
     if (self.database!=nil) {
@@ -161,7 +164,8 @@
     //创建并且打开数据库
     //如果路径下面没有数据库，就创建指定的数据库，如果路径下已经存在数据库，加载数据库到内存
     self.database=[FMDatabase databaseWithPath:path];
-
+    [self createDataBase];
+    
     NSMutableArray *resultArray=[[NSMutableArray alloc] init];
 
     NSString *query=@"select * from alarm";
@@ -208,6 +212,7 @@
     //创建并且打开数据库
     //如果路径下面没有数据库，就创建指定的数据库，如果路径下已经存在数据库，加载数据库到内存
     self.database=[FMDatabase databaseWithPath:path];
+    [self createDataBase];
     
     NSMutableArray *resultArray=[[NSMutableArray alloc] init];
     

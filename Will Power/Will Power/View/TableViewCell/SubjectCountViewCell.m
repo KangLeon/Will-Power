@@ -11,10 +11,12 @@
 #import "ColorDefine.h"
 #import "UILabel+SizeToFit.h"
 #import "DayView.h"
+#import "GetColor.h"
+#import <Lottie/Lottie.h>
 
 @interface SubjectCountViewCell ()
 @property(nonatomic,strong)UIView *backView;
-@property(nonatomic,strong)UIView *headView;
+
 @property(nonatomic,strong)UIView *footerView;
 @property(nonatomic,strong)UIView *bodyView;
 
@@ -30,6 +32,7 @@
 
 @property(nonatomic,strong)UILabel *reward_discription;
 
+@property(nonatomic,strong)LOTAnimationView *animation;
 
 @end
 
@@ -93,7 +96,8 @@
         
         [_bodyView addSubview:self.reward_discription];
         [_bodyView addSubview:self.reward_label];
-        [_bodyView addSubview:self.reward_imageView];
+        
+        [_bodyView addSubview:self.animation];
     }
     return _bodyView;
 }
@@ -102,7 +106,7 @@
 -(UIImageView *)titleImageView{
     if (!_titleImageView) {
         _titleImageView=[[UIImageView alloc] initWithFrame:CGRectMake(10, 5, 50, 50)];
-        _titleImageView.image=[UIImage imageNamed:@"lose-weight_image"];
+        _titleImageView.image=[UIImage imageNamed:@"lose-weight_image"];//默认是加载这张图片，如果用户忘记选择
     }
     return _titleImageView;
 }
@@ -288,27 +292,20 @@
     }
     return _reward_label;
 }
--(UIImageView *)reward_imageView{
-    if (!_reward_imageView) {
-        _reward_imageView=[[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-70, 144, 30, 30)];
-        _reward_imageView.image=[UIImage imageNamed:@"ipad_image"];
-        _reward_imageView.adjustsImageSizeForAccessibilityContentSizeCategory=YES;
-        [self shake];
+
+-(LOTAnimationView *)animation{
+    if (!_animation) {
+        _animation=[LOTAnimationView animationNamed:@"newAnimation"];
+        _animation.frame=CGRectMake(SCREEN_WIDTH-90, 134, 50, 50);
+        _animation.loopAnimation=true;
+        _animation.animationSpeed=1.0;
+        [_animation playWithCompletion:^(BOOL animationFinished) {
+            
+        }];
     }
-    return _reward_imageView;
+    return _animation;
 }
 
-//摇晃动画
--(void)shake{
-    [UIView animateWithDuration:0.15 delay:0 options:UIViewAnimationOptionAutoreverse | UIViewAnimationOptionRepeat animations:^{
-        self.reward_imageView.transform=CGAffineTransformRotate(self.reward_imageView.transform, M_PI_2*0.2);
-        self.reward_imageView.transform=CGAffineTransformRotate(self.reward_imageView.transform, -(M_PI_2*0.4));
-        self.reward_imageView.transform=CGAffineTransformRotate(self.reward_imageView.transform, M_PI_2*0.4);
-        self.reward_imageView.transform=CGAffineTransformRotate(self.reward_imageView.transform, -M_PI_2*0.2);
-    } completion:^(BOOL finished) {
-        [self shake];
-    }];
-}
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code

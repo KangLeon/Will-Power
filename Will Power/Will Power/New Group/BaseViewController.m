@@ -12,6 +12,7 @@
 #import "AddModel.h"
 #import "NotifiModel.h"
 #import <UserNotifications/UserNotifications.h>
+#import "GetSaying.h"
 
 @interface BaseViewController ()
 
@@ -223,6 +224,7 @@
                     NSString *alarm_day=[[[[NotifiModel notifiModel] selectItemsIn:[[dic objectForKey:@"id"] integerValue]] objectAtIndex:i] objectForKey:@"alarm_day"];
                     NSString *alarm_hour=[[[[NotifiModel notifiModel] selectItemsIn:[[dic objectForKey:@"id"] integerValue]] objectAtIndex:i] objectForKey:@"alarm_hour"];
                     NSString *alarm_minute=[[[[NotifiModel notifiModel] selectItemsIn:[[dic objectForKey:@"id"] integerValue]] objectAtIndex:i] objectForKey:@"alarm_minute"];
+                    NSString *imageIndex=[dic objectForKey:@"image"];
                     
                     //周日是从1开始的
                     if ([alarm_day isEqualToString:@"每天"]) {
@@ -237,10 +239,10 @@
                             UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
                             content.title = [dic objectForKey:@"subject_title"];//标题应该是获取到对应项目的标题
                             //获取对应到的每日一句，1.每日一句API？2.或者是本地的数组，然后每个项目跟随一句
-                            content.body = @"美好生活源于自控";
+                            content.body=[[GetSaying shareGetSaying] getRandomSaying];
                             content.badge = @1;
                             NSError *error = nil;
-                            NSString *path = [[NSBundle mainBundle] pathForResource:@"跑步机" ofType:@"png"];
+                            NSString *path = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"%@-%@",imageIndex,imageIndex] ofType:@"png"];
                             
                             // 2.设置通知附件内容
                             UNNotificationAttachment *att = [UNNotificationAttachment attachmentWithIdentifier:@"att1" URL:[NSURL fileURLWithPath:path] options:nil error:&error];
@@ -252,7 +254,7 @@
                             content.categoryIdentifier =@"category";
                             
                             // 2.设置声音
-                           UNNotificationSound *sound = [UNNotificationSound soundNamed:@"caodi.m4a"];
+                           UNNotificationSound *sound = [UNNotificationSound soundNamed:@"intro.m4a"];
                             content.sound = sound;
                             
                             //从选取器中获取的内容，来设置trigger
@@ -284,10 +286,10 @@
                             UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
                             content.title = [dic objectForKey:@"subject_title"];//标题应该是获取到对应项目的标题
                             //获取对应到的每日一句，1.每日一句API？2.或者是本地的数组，然后每个项目跟随一句
-                            content.body = @"美好生活源于自控";
+                            content.body=[[GetSaying shareGetSaying] getRandomSaying];
                             content.badge = @1;
                             NSError *error = nil;
-                            NSString *path = [[NSBundle mainBundle] pathForResource:@"跑步机" ofType:@"png"];
+                            NSString *path = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"%@-%@",imageIndex,imageIndex] ofType:@"png"];
                             
                             // 2.设置通知附件内容
                             UNNotificationAttachment *att = [UNNotificationAttachment attachmentWithIdentifier:@"att1" URL:[NSURL fileURLWithPath:path] options:nil error:&error];
@@ -299,7 +301,7 @@
                             content.categoryIdentifier =@"category";
                             
                             // 2.设置声音
-                           UNNotificationSound *sound = [UNNotificationSound soundNamed:@"caodi.m4a"];
+                           UNNotificationSound *sound = [UNNotificationSound soundNamed:@"intro.m4a"];
                             content.sound = sound;
                             
                             //从选取器中获取的内容，来设置trigger
@@ -331,10 +333,10 @@
                         UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
                         content.title = [dic objectForKey:@"subject_title"];//标题应该是获取到对应项目的标题
                         //获取对应到的每日一句，1.每日一句API？2.或者是本地的数组，然后每个项目跟随一句
-                        content.body = @"美好生活源于自控";
+                        content.body=[[GetSaying shareGetSaying] getRandomSaying];
                         content.badge = @1;
                         NSError *error = nil;
-                        NSString *path = [[NSBundle mainBundle] pathForResource:@"跑步机" ofType:@"png"];
+                        NSString *path = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"%@-%@",imageIndex,imageIndex] ofType:@"png"];
                         
                         // 2.设置通知附件内容
                         UNNotificationAttachment *att = [UNNotificationAttachment attachmentWithIdentifier:@"att1" URL:[NSURL fileURLWithPath:path] options:nil error:&error];
@@ -346,7 +348,7 @@
                         content.categoryIdentifier =@"category";
                         
                         // 2.设置声音
-                       UNNotificationSound *sound = [UNNotificationSound soundNamed:@"caodi.m4a"];
+                       UNNotificationSound *sound = [UNNotificationSound soundNamed:@"intro.m4a"];
                         content.sound = sound;
                         
                         //从选取器中获取的内容，来设置trigger
@@ -376,10 +378,10 @@
                         UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
                         content.title = [dic objectForKey:@"subject_title"];//标题应该是获取到对应项目的标题
                         //获取对应到的每日一句，1.每日一句API？2.或者是本地的数组，然后每个项目跟随一句
-                        content.body = @"美好生活源于自控";
+                        content.body=[[GetSaying shareGetSaying] getRandomSaying];
                         content.badge = @1;
                         NSError *error = nil;
-                        NSString *path = [[NSBundle mainBundle] pathForResource:@"跑步机" ofType:@"png"];
+                        NSString *path = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"%@-%@",imageIndex,imageIndex] ofType:@"png"];
                         
                         // 2.设置通知附件内容
                         UNNotificationAttachment *att = [UNNotificationAttachment attachmentWithIdentifier:@"att1" URL:[NSURL fileURLWithPath:path] options:nil error:&error];
@@ -391,7 +393,7 @@
                         content.categoryIdentifier =@"category";
                         
                         // 2.设置声音
-                       UNNotificationSound *sound = [UNNotificationSound soundNamed:@"caodi.m4a"];
+                       UNNotificationSound *sound = [UNNotificationSound soundNamed:@"intro.m4a"];
                         content.sound = sound;
                         
                         //从选取器中获取的内容，来设置trigger
@@ -421,10 +423,10 @@
                         UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
                         content.title = [dic objectForKey:@"subject_title"];//标题应该是获取到对应项目的标题
                         //获取对应到的每日一句，1.每日一句API？2.或者是本地的数组，然后每个项目跟随一句
-                        content.body = @"美好生活源于自控";
+                        content.body=[[GetSaying shareGetSaying] getRandomSaying];
                         content.badge = @1;
                         NSError *error = nil;
-                        NSString *path = [[NSBundle mainBundle] pathForResource:@"跑步机" ofType:@"png"];
+                        NSString *path = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"%@-%@",imageIndex,imageIndex] ofType:@"png"];
                         
                         // 2.设置通知附件内容
                         UNNotificationAttachment *att = [UNNotificationAttachment attachmentWithIdentifier:@"att1" URL:[NSURL fileURLWithPath:path] options:nil error:&error];
@@ -436,7 +438,7 @@
                         content.categoryIdentifier =@"category";
                         
                         // 2.设置声音
-                       UNNotificationSound *sound = [UNNotificationSound soundNamed:@"caodi.m4a"];
+                       UNNotificationSound *sound = [UNNotificationSound soundNamed:@"intro.m4a"];
                         content.sound = sound;
                         
                         //从选取器中获取的内容，来设置trigger
@@ -466,10 +468,10 @@
                         UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
                         content.title = [dic objectForKey:@"subject_title"];//标题应该是获取到对应项目的标题
                         //获取对应到的每日一句，1.每日一句API？2.或者是本地的数组，然后每个项目跟随一句
-                        content.body = @"美好生活源于自控";
+                        content.body=[[GetSaying shareGetSaying] getRandomSaying];
                         content.badge = @1;
                         NSError *error = nil;
-                        NSString *path = [[NSBundle mainBundle] pathForResource:@"跑步机" ofType:@"png"];
+                        NSString *path = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"%@-%@",imageIndex,imageIndex] ofType:@"png"];
                         
                         // 2.设置通知附件内容
                         UNNotificationAttachment *att = [UNNotificationAttachment attachmentWithIdentifier:@"att1" URL:[NSURL fileURLWithPath:path] options:nil error:&error];
@@ -481,7 +483,7 @@
                         content.categoryIdentifier =@"category";
                         
                         // 2.设置声音
-                       UNNotificationSound *sound = [UNNotificationSound soundNamed:@"caodi.m4a"];
+                       UNNotificationSound *sound = [UNNotificationSound soundNamed:@"intro.m4a"];
                         content.sound = sound;
                         
                         //从选取器中获取的内容，来设置trigger
@@ -511,10 +513,10 @@
                         UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
                         content.title = [dic objectForKey:@"subject_title"];//标题应该是获取到对应项目的标题
                         //获取对应到的每日一句，1.每日一句API？2.或者是本地的数组，然后每个项目跟随一句
-                        content.body = @"美好生活源于自控";
+                        content.body=[[GetSaying shareGetSaying] getRandomSaying];
                         content.badge = @1;
                         NSError *error = nil;
-                        NSString *path = [[NSBundle mainBundle] pathForResource:@"跑步机" ofType:@"png"];
+                        NSString *path = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"%@-%@",imageIndex,imageIndex] ofType:@"png"];
                         
                         // 2.设置通知附件内容
                         UNNotificationAttachment *att = [UNNotificationAttachment attachmentWithIdentifier:@"att1" URL:[NSURL fileURLWithPath:path] options:nil error:&error];
@@ -526,7 +528,7 @@
                         content.categoryIdentifier =@"category";
                         
                         // 2.设置声音
-                       UNNotificationSound *sound = [UNNotificationSound soundNamed:@"caodi.m4a"];
+                       UNNotificationSound *sound = [UNNotificationSound soundNamed:@"intro.m4a"];
                         content.sound = sound;
                         
                         //从选取器中获取的内容，来设置trigger
@@ -556,10 +558,10 @@
                         UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
                         content.title = [dic objectForKey:@"subject_title"];//标题应该是获取到对应项目的标题
                         //获取对应到的每日一句，1.每日一句API？2.或者是本地的数组，然后每个项目跟随一句
-                        content.body = @"美好生活源于自控";
+                        content.body=[[GetSaying shareGetSaying] getRandomSaying];
                         content.badge = @1;
                         NSError *error = nil;
-                        NSString *path = [[NSBundle mainBundle] pathForResource:@"跑步机" ofType:@"png"];
+                        NSString *path = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"%@-%@",imageIndex,imageIndex] ofType:@"png"];
                         
                         // 2.设置通知附件内容
                         UNNotificationAttachment *att = [UNNotificationAttachment attachmentWithIdentifier:@"att1" URL:[NSURL fileURLWithPath:path] options:nil error:&error];
@@ -571,7 +573,7 @@
                         content.categoryIdentifier =@"category";
                         
                         // 2.设置声音
-                       UNNotificationSound *sound = [UNNotificationSound soundNamed:@"caodi.m4a"];
+                       UNNotificationSound *sound = [UNNotificationSound soundNamed:@"intro.m4a"];
                         content.sound = sound;
                         
                         //从选取器中获取的内容，来设置trigger
@@ -601,10 +603,10 @@
                         UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
                         content.title = [dic objectForKey:@"subject_title"];//标题应该是获取到对应项目的标题
                         //获取对应到的每日一句，1.每日一句API？2.或者是本地的数组，然后每个项目跟随一句
-                        content.body = @"美好生活源于自控";
+                        content.body=[[GetSaying shareGetSaying] getRandomSaying];
                         content.badge = @1;
                         NSError *error = nil;
-                        NSString *path = [[NSBundle mainBundle] pathForResource:@"跑步机" ofType:@"png"];
+                        NSString *path = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"%@-%@",imageIndex,imageIndex] ofType:@"png"];
                         
                         // 2.设置通知附件内容
                         UNNotificationAttachment *att = [UNNotificationAttachment attachmentWithIdentifier:@"att1" URL:[NSURL fileURLWithPath:path] options:nil error:&error];
@@ -616,7 +618,7 @@
                         content.categoryIdentifier =@"category";
                         
                         // 2.设置声音
-                       UNNotificationSound *sound = [UNNotificationSound soundNamed:@"caodi.m4a"];
+                       UNNotificationSound *sound = [UNNotificationSound soundNamed:@"intro.m4a"];
                         content.sound = sound;
                         
                         //从选取器中获取的内容，来设置trigger
@@ -651,7 +653,7 @@
         for (NSInteger i=0; i<requests.count; i++) {
             UNNotificationRequest *pendingRequest = [requests objectAtIndex:i];
             if ([pendingRequest.identifier isEqualToString:identi]) {
-                NSString *teststring=pendingRequest.identifier;
+//                NSString *teststring=pendingRequest.identifier;
                 [[UNUserNotificationCenter currentNotificationCenter]removePendingNotificationRequestsWithIdentifiers:@[pendingRequest.identifier]];
             }
         }

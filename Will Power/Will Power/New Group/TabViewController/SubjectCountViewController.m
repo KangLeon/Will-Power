@@ -20,6 +20,7 @@
 #import "NSDate+LocalDate.h"
 #import "CheckedModel.h"
 #import "EmptyView.h"
+#import "GetColor.h"
 
 static NSString *cell_id1=@"subject_cell_1";
 static NSString *cell_id2=@"subject_cell_2";
@@ -186,6 +187,8 @@ static NSString *cell_id3=@"subject_cell_3";
         }else{
             cell.dayView_goal.day_label.text=@"Days";
         }
+        cell.titleImageView.image=[UIImage imageNamed:[NSString stringWithFormat:@"%@",[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row] objectForKey:@"image"]]];
+        cell.headView.backgroundColor=[[GetColor shareGetColor] getMyColorWith:[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row] objectForKey:@"image"]];
         cell.subject_start_time.text=[NSString stringWithFormat:@"Since %@",[[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row] objectForKey:@"start_date"] startDateForm:[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row] objectForKey:@"start_date"]]];
         cell.reward_label.text=[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row] objectForKey:@"reward"];
         
@@ -209,6 +212,8 @@ static NSString *cell_id3=@"subject_cell_3";
         }else{
             cell.dayView_repeat.day_label.text=@"Days";
         }
+        cell.titleImageView.image=[UIImage imageNamed:[NSString stringWithFormat:@"%@",[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+1] objectForKey:@"image"]]];
+        cell.headView.backgroundColor=[[GetColor shareGetColor] getMyColorWith:[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+1] objectForKey:@"image"]];
         cell.goalDiscription.text=[NSString stringWithFormat:@"距%@天目标还有",[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+1] objectForKey:@"goal_total"]];
         cell.goalDay_label.text=[NSString stringWithFormat:@"%ld",[self countDaysAtIndex:indexPath]]; //距离目标天数还有多少天
         //设置DayView的判断逻辑
@@ -240,6 +245,8 @@ static NSString *cell_id3=@"subject_cell_3";
         }else{
             cell.dayView_repeat.day_label.text=@"Days";
         }
+        cell.titleImageView.image=[UIImage imageNamed:[NSString stringWithFormat:@"%@",[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+2] objectForKey:@"image"]]];
+        cell.headView.backgroundColor=[[GetColor shareGetColor] getMyColorWith:[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+2] objectForKey:@"image"]];
         cell.goalDiscription.text=[NSString stringWithFormat:@"距%@天目标还有",[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+2] objectForKey:@"goal_total"]];
         cell.goalDay_label.text=[NSString stringWithFormat:@"%ld",[self countDaysAtIndex:indexPath]]; //距离目标天数还有多少天
         //设置DayView的判断逻辑

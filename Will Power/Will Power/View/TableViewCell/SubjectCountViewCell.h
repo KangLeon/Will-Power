@@ -23,5 +23,6 @@
 @property(nonatomic,strong)UISwitch *subject_isOn_switch;
 
 @property(nonatomic,strong)UILabel *reward_label;
-@property(nonatomic,strong)UIImageView *reward_imageView;
+
+@property(nonatomic,strong)UIView *headView;
 @end

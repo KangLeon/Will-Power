@@ -17,6 +17,7 @@
 #import "AddModel.h"
 #import "SubjectModel.h"
 #import "HomeViewController.h"
+#import "SuccessMusic.h"
 
 static NSString *cell_id=@"text_cell";
 
@@ -132,44 +133,58 @@ static NSString *cell_id=@"text_cell";
         //验证用户是否输入完毕
         if (self.isFinish) {
             
-            //1.设置model
-            [AddModel shareAddMode].reward=self.reward_text;
-            //现在model的所有内容都设置完了，可以收集所有model数据并存储数据了
-            [[AddModel shareAddMode] insertData];//插入所有数据
+            //在子线程中完成存储任务后回到主线程更新视图
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                
+                //1.设置model
+                [AddModel shareAddMode].reward=self.reward_text;
+                //现在model的所有内容都设置完了，可以收集所有model数据并存储数据了
+                [[AddModel shareAddMode] insertData];//插入所有数据
+                
+                //2.设置SubjectModel
+                //需要得到 a.开始时间,b.到目标持续时间 c.关联的任务id
+                //循环存到数据库中
+                
+                NSDate *start_date_for_subject=[self dateFrom:[AddModel shareAddMode].start_date];//2018-07-05 00:00:00 UTC
+                
+                //每循坏一次，存储一次条任务时间到数据库
+                for (NSInteger i=0; i<[AddModel shareAddMode].goal_total; i++) {
+                    [SubjectModel shareSubjectModel].subject_id=[AddModel shareAddMode].subject_id;//当前任务关联的id
+                    [SubjectModel shareSubjectModel].subject_execute=[start_date_for_subject dateByAddingTimeInterval:i*24*60*60];//需要执行的任务时间
+                    [[SubjectModel shareSubjectModel] insertData];
+                }
+                //            [[SubjectModel shareSubjectModel] selectEveryThing];//输出验证一下
+                
+                NSLog(@"现在有%ld条数据",[[AddModel shareAddMode] countForData]);//查询现在有多少条出局用户验证
+                NSLog(@"存储在数据库的字典是%@",[[AddModel shareAddMode] selectEveryThing]);//输出字典
+                
+
+                //4.在这里发送通知告诉首页更新数据，因为还没有完全学会rac的通知，所以这里还是使用oc里面的通知
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"refresh_subject_data" object:nil];
+                
+                //5.这里想要view旋转两次的抖动动画但是没有实现
+                
+                
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                [self.navigationController setNavigationBarHidden:true animated:true];
+                self.navigationController.navigationBar.barTintColor=BACKGROUND_COLOR;
+                //3.弹出顺利立项弹出框
+                self.cuteAlert=[[CuteAlert alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+                [self.view addSubview:self.cuteAlert];
+                    
+                    //4.成功确立计划的声音提示
+                SuccessMusic *successMusic=[[SuccessMusic alloc] init];
+                [successMusic playSoundEffect_success];
+                    //6.轻点返回首页
+                UITapGestureRecognizer *tapGes=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAct)];
+                tapGes.numberOfTapsRequired=1;
+                tapGes.numberOfTapsRequired=1;
+                [self.cuteAlert addGestureRecognizer:tapGes];
+                });
+            });
             
-            //2.设置SubjectModel
-            //需要得到 a.开始时间,b.到目标持续时间 c.关联的任务id
-            //循环存到数据库中
-            
-            NSDate *start_date_for_subject=[self dateFrom:[AddModel shareAddMode].start_date];//2018-07-05 00:00:00 UTC
-            
-            //每循坏一次，存储一次条任务时间到数据库
-            for (NSInteger i=0; i<[AddModel shareAddMode].goal_total; i++) {
-                [SubjectModel shareSubjectModel].subject_id=[AddModel shareAddMode].subject_id;//当前任务关联的id
-                [SubjectModel shareSubjectModel].subject_execute=[start_date_for_subject dateByAddingTimeInterval:i*24*60*60];//需要执行的任务时间
-                [[SubjectModel shareSubjectModel] insertData];
-            }
-//            [[SubjectModel shareSubjectModel] selectEveryThing];//输出验证一下
-            
-            NSLog(@"现在有%ld条数据",[[AddModel shareAddMode] countForData]);//查询现在有多少条出局用户验证
-            NSLog(@"存储在数据库的字典是%@",[[AddModel shareAddMode] selectEveryThing]);//输出字典
-            
-            //3.弹出顺利立项弹出框
-            self.cuteAlert=[[CuteAlert alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-            [self.view addSubview:self.cuteAlert];
-            
-            //4.在这里发送通知告诉首页更新数据，因为还没有完全学会rac的通知，所以这里还是使用oc里面的通知
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"refresh_subject_data" object:nil];
     
-            //5.这里想要view旋转两次的抖动动画但是没有实现
-            
-            //6.轻点返回首页
-            UITapGestureRecognizer *tapGes=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAct)];
-            tapGes.numberOfTapsRequired=1;
-            tapGes.numberOfTapsRequired=1;
-            [self.cuteAlert addGestureRecognizer:tapGes];
-            
-            self.navigationController.navigationBar.barTintColor=BACKGROUND_COLOR;
         }else{
             //这里不新建一个的话，退出去再点就不起作用了，
             self.alertView=[[AlertView alloc] init];

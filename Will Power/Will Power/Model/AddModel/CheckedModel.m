@@ -98,6 +98,7 @@
     //创建并且打开数据库
     //如果路径下面没有数据库，就创建指定的数据库，如果路径下已经存在数据库，加载数据库到内存
     self.database=[FMDatabase databaseWithPath:path];
+    [self createDataBase];
     
     NSString *query=@"select * from checked ";
     NSInteger count=0;
@@ -120,6 +121,7 @@
     //查询数据必须确保数据库已经打开并加载到内存中，至于有没有数据这个不管我查询的事
     NSString *document=[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
     NSString *path=[document stringByAppendingString:@"/subject1.db"];
+    [self createDataBase];
     
     //创建并且打开数据库
     //如果路径下面没有数据库，就创建指定的数据库，如果路径下已经存在数据库，加载数据库到内存
@@ -150,6 +152,7 @@
     //创建并且打开数据库
     //如果路径下面没有数据库，就创建指定的数据库，如果路径下已经存在数据库，加载数据库到内存
     self.database=[FMDatabase databaseWithPath:path];
+    [self createDataBase];
     
     NSMutableArray *resultArray=[[NSMutableArray alloc] init];
     
@@ -190,6 +193,7 @@
     //创建并且打开数据库
     //如果路径下面没有数据库，就创建指定的数据库，如果路径下已经存在数据库，加载数据库到内存
     self.database=[FMDatabase databaseWithPath:path];
+    [self createDataBase];
     
     NSMutableArray *resultArray=[[NSMutableArray alloc] init];
     

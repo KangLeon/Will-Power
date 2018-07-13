@@ -41,7 +41,7 @@
 -(LOTAnimationView *)animation{
     if (!_animation) {
         _animation=[LOTAnimationView animationNamed:@"little_girl_jumping_-_loader."];
-        _animation.frame=CGRectMake((self.contact_image.frame.size.width-250)/2,-64, 250, 250);
+        _animation.frame=CGRectMake((self.contact_image.frame.size.width-250)/2,0, 250, 250);
         _animation.loopAnimation=true;
         _animation.animationSpeed=1.0;
         [_animation playWithCompletion:^(BOOL animationFinished) {

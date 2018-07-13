@@ -18,6 +18,7 @@
 #import "AddModel.h"
 #import <SCLAlertView.h>
 #import "WrongMusic.h"
+#import "SubjectLogoView.h"
 
 static NSString *cell_ID=@"my_cell";
 
@@ -48,6 +49,10 @@ static NSString *cell_ID=@"my_cell";
 @property(nonatomic,strong)NSArray *imageName_array;
 @property(nonatomic,strong)NSArray *placeHoder_array;
 
+@property(nonatomic,strong)UIScrollView *scorllView;
+@property(nonatomic,strong)SubjectLogoView *subjectLogoView;
+
+
 @end
 
 @implementation AddFirstViewController
@@ -63,11 +68,14 @@ static NSString *cell_ID=@"my_cell";
 
 -(void)loadUI{
 
+    [self.view addSubview:self.scorllView];
+    
     //添加控件
     [self.forTextFiled addSubview:self.cellTextFiled];
-    [self.view addSubview:self.forTextFiled];
+    [self.scorllView addSubview:self.forTextFiled];
     [self.forTableView addSubview:self.editTableView];
-    [self.view addSubview:self.forTableView];
+    [self.scorllView addSubview:self.forTableView];
+    [self.scorllView addSubview:self.subjectLogoView];
     
     //array的赋值
     self.imageName_array=@[@"get_image",@"love_image",@"self_image"];
@@ -84,6 +92,16 @@ static NSString *cell_ID=@"my_cell";
 }
 
 #pragma mark 懒加载部分
+
+-(UIScrollView *)scorllView{
+    if (!_scorllView) {
+        _scorllView=[[UIScrollView alloc] initWithFrame:self.view .frame];
+        _scorllView.contentSize=CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT);
+        _scorllView.showsVerticalScrollIndicator=false;
+    }
+    return _scorllView;
+}
+
 - (UIView *)forTableView{
     if (!_forTableView) {
         self.forTableView=[[UIView alloc] initWithFrame:CGRectMake(10, 106, SCREEN_WIDTH-20, SCREEN_HEIGHT*0.26)];
@@ -129,6 +147,13 @@ static NSString *cell_ID=@"my_cell";
     return _editTableView;
 }
 
+-(SubjectLogoView*)subjectLogoView{
+    if (!_subjectLogoView) {
+        _subjectLogoView=[[SubjectLogoView alloc] initWithFrame:CGRectMake(10, 106+SCREEN_HEIGHT*0.26+26, SCREEN_WIDTH-20, 310)];
+
+    }
+    return _subjectLogoView;
+}
 
 #pragma mark 配置导航栏相关的
 
@@ -212,6 +237,7 @@ static NSString *cell_ID=@"my_cell";
             [AddModel shareAddMode].subject_get=self.subject_get;
             [AddModel shareAddMode].subject_love_get=self.subject_love_get;
             [AddModel shareAddMode].subject_best_me=self.subject_best_me;
+            [AddModel shareAddMode].subject_image_index=self.subjectLogoView.image_index;
             
 //            NSLog(@"%@,%@,%@,%@",self.addModel.subject_title,self.addModel.subject_get,self.addModel.subject_love_get,self.addModel.subject_best_me);
             

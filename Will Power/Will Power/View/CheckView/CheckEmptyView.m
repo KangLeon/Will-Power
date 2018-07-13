@@ -22,6 +22,7 @@
         [self addSubview:self.check_title];
         [self addSubview:self.animation_view];
         [self addSubview:self.check_description];
+        [self addSubview:self.subject_backview];
         [self updateConstraintsIfNeeded];
     }
     return self;
@@ -73,6 +74,51 @@
     }
     return _animation;
 }
+-(UIView*)subject_backview{
+    if (!_subject_backview) {
+        _subject_backview=[[UIView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-40-150, 5, 145, 60)];
+        _subject_backview.backgroundColor=[UIColor clearColor];
+        _subject_backview.layer.cornerRadius=8;
+        _subject_backview.layer.borderColor=[UIColor grayColor].CGColor;
+        _subject_backview.layer.borderWidth=1;
+        [_subject_backview addSubview:self.subject_backView_body];
+        [_subject_backview addSubview:self.subject_current_label_description];
+    }
+    return _subject_backview;
+}
+-(UIView*)subject_backView_body{
+    if (!_subject_backView_body) {
+        _subject_backView_body=[[UIView alloc] initWithFrame:CGRectMake(0, 20, 145, 40)];
+        _subject_backView_body.backgroundColor=[UIColor clearColor];
+        _subject_backView_body.layer.cornerRadius=8;
+        _subject_backView_body.layer.borderColor=[UIColor grayColor].CGColor;
+        _subject_backView_body.layer.borderWidth=1;
+        [_subject_backView_body addSubview:self.subject_current_label];
+        
+    }
+    return _subject_backView_body;
+}
+-(UILabel *)subject_current_label_description{
+    if (!_subject_current_label_description) {
+        _subject_current_label_description=[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 145, 20)];
+        _subject_current_label_description.text=@"PROJECT";
+        _subject_current_label_description.textColor=[UIColor grayColor];
+        _subject_current_label_description.textAlignment=NSTextAlignmentCenter;
+        _subject_current_label_description.font=[UIFont systemFontOfSize:18.0 weight:UIFontWeightThin];
+    }
+    return _subject_current_label_description;
+}
+-(UILabel *)subject_current_label{
+    if (!_subject_current_label) {
+        _subject_current_label=[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 145, 40)];
+        _subject_current_label.textColor=[UIColor grayColor];
+        _subject_current_label.textAlignment=NSTextAlignmentCenter;
+        _subject_current_label.font=[UIFont systemFontOfSize:20.0 weight:UIFontWeightThin];//有内容自适应
+    }
+    return _subject_current_label;
+}
+
+
 -(void)loadEmptyCheck{
     [[[CheckMusic alloc] init] playSoundEffect_check];
     //2.播放动画

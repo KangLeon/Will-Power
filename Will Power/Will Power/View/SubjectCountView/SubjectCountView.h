@@ -26,4 +26,5 @@
 @property(nonatomic,strong)UILabel *reward_label;//奖励内容
 @property(nonatomic,strong)UIImageView *reward_imageView;//奖励图片
 
+@property(nonatomic,strong)UIView *headView;
 @end

@@ -96,6 +96,7 @@
     //创建并且打开数据库
     //如果路径下面没有数据库，就创建指定的数据库，如果路径下已经存在数据库，加载数据库到内存
     self.database=[FMDatabase databaseWithPath:path];
+    [self createDataBase];
     
     NSString *query=@"select * from remark";
     NSInteger count=0;
@@ -122,6 +123,7 @@
     //创建并且打开数据库
     //如果路径下面没有数据库，就创建指定的数据库，如果路径下已经存在数据库，加载数据库到内存
     self.database=[FMDatabase databaseWithPath:path];
+    [self createDataBase];
     
     NSMutableArray *resultArray=[[NSMutableArray alloc] init];
     
@@ -147,9 +149,9 @@
                 //装入字典
                 NSDictionary *resultDicitonary=@{@"id":@(id),
                                                  @"remark_title":remark_title,
-                                                 @"remark_title":remark_content,
+                                                 @"remark_content":remark_content,
                                                  @"remark_date":remark_date,
-                                                 @"remark_heart":remark_heart,
+                                                 @"remark_heart":remark_heart
                                                  };
                 [resultArray addObject:resultDicitonary];//把取出来的字典添加到数组中
                 NSLog(@"%ld,%@,%@,%@,%@",id,remark_title,remark_content,remark_date,remark_heart);

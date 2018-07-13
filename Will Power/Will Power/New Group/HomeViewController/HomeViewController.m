@@ -44,6 +44,7 @@
 #import <Lottie/Lottie.h>
 #import "ScoreView.h"
 #import "CheckEmptyView.h"
+#import "GetSaying.h"
 
 @interface HomeViewController ()<UIPopoverPresentationControllerDelegate,FUIAlertViewDelegate>
 @property(nonatomic) TapMusic *tapMusic;
@@ -390,6 +391,9 @@
         //checkview
         self.check_view.check_title.text=[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:([[AddModel shareAddMode] countForData]-1)] objectForKey:@"subject_title"];//开始加载的是倒数第一条数据
         
+        //checkEmptyView
+        self.checkEmptyView.subject_current_label.text=[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:([[AddModel shareAddMode] countForData]-1)] objectForKey:@"subject_title"];
+        
         //积分板
         [self.view addSubview:self.score_view];
         NSString *score=[NSString stringWithFormat:@"%ld",[[[CheckedModel shareCheckedModel] selectEveryThingById:[[AddModel shareAddMode] countForData]] count]];//默认的是取最末尾的一个任务的数据
@@ -509,6 +513,8 @@
         _check_view=[[CheckView alloc] initWithFrame:CGRectMake(20, 500, SCREEN_WIDTH-40, 70)];
         _check_view.backgroundColor=CUTE_GRAY;
         _check_view.layer.cornerRadius=12;
+        _check_view.check_imageView.image=[UIImage imageNamed:[NSString stringWithFormat:@"%@.png",[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:([[AddModel shareAddMode] countForData]-1)] objectForKey:@"image"]]];
+        _check_view.check_description.text=[[GetSaying shareGetSaying] getRandomSaying];
         
         //显示的判断逻辑，是否今天的任务已经完成了，如果完成则将对号打勾
         for (NSInteger i=1; i<([[AddModel shareAddMode] countForData]+1); i++) {//循环所有项目，检测是否和当前checkView的文字标题一致
@@ -707,6 +713,9 @@
     
     //先改变checkView的标题和描述文字，同时也改变项目图片
     self.check_view.check_title.text=[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:[not.userInfo[@"currentIndex"] integerValue]] objectForKey:@"subject_title"];
+    
+    //改变checkEmptyView的标题和描述文字，
+    self.checkEmptyView.subject_current_label.text=[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:[not.userInfo[@"currentIndex"] integerValue]] objectForKey:@"subject_title"];
     
         //收到通知后，每日签到判断是否添加到页面上
         //循环任务
@@ -942,6 +951,8 @@
         }
         [self.view addSubview:self.empty];
     }
+    
+    [self.navigationController setNavigationBarHidden:false animated:true];
 }
 
 //程序进入前台
