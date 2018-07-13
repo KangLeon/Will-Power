@@ -242,7 +242,7 @@
                             content.body=[[GetSaying shareGetSaying] getRandomSaying];
                             content.badge = @1;
                             NSError *error = nil;
-                            NSString *path = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"%@-%@",imageIndex,imageIndex] ofType:@"png"];
+                            NSString *path = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"%@-%@",imageIndex,imageIndex] ofType:@"png"];//图片必须放在文件目录下，不能放入Assets.xcassets
                             
                             // 2.设置通知附件内容
                             UNNotificationAttachment *att = [UNNotificationAttachment attachmentWithIdentifier:@"att1" URL:[NSURL fileURLWithPath:path] options:nil error:&error];

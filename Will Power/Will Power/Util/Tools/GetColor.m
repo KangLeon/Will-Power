@@ -23,7 +23,7 @@
 #define eleven_BACKGROUND_COLOR [UIColor colorWithRed:255/255.0 green:167/255.0 blue:42/255.0 alpha:1.0]
 #define twelve_BACKGROUND_COLOR [UIColor colorWithRed:118/255.0 green:90/255.0 blue:178/255.0 alpha:1.0]
 #define thirteen_BACKGROUND_COLOR [UIColor colorWithRed:65/255.0 green:195/255.0 blue:87/255.0 alpha:1.0]
-#define fourteen_BACKGROUND_COLOR [UIColor colorWithRed:69/255.0 green:157/255.0 blue:143/255.0 alpha:1.0]
+#define fourteen_BACKGROUND_COLOR [UIColor colorWithRed:69/255.0 green:157/255.0 blue:243/255.0 alpha:1.0]
 #define fifteen_BACKGROUND_COLOR [UIColor colorWithRed:255/255.0 green:179/255.0 blue:42/255.0 alpha:1.0]
 #define sixteen_BACKGROUND_COLOR [UIColor colorWithRed:69/255.0 green:157/255.0 blue:243/255.0 alpha:1.0]
 #define seventeen_BACKGROUND_COLOR [UIColor colorWithRed:255/255.0 green:115/255.0 blue:50/255.0 alpha:1.0]
