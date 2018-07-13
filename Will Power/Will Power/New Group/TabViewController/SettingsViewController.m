@@ -273,7 +273,7 @@ static NSString *cell_id_share=@"cell_share";
                     content.categoryIdentifier =@"category";
                     
                     // 2.设置声音
-                    UNNotificationSound *sound = [UNNotificationSound soundNamed:@"intro.m4a"];
+                    UNNotificationSound *sound = [UNNotificationSound soundNamed:@"Intro.m4a"];
                     content.sound = sound;
                     
                     //从选取器中获取的内容，来设置trigger
@@ -333,7 +333,7 @@ static NSString *cell_id_share=@"cell_share";
                         content.categoryIdentifier =@"category";
                         
                         // 2.设置声音
-                        UNNotificationSound *sound = [UNNotificationSound soundNamed:@"intro.m4a"];
+                        UNNotificationSound *sound = [UNNotificationSound soundNamed:@"Intro.m4a"];
                         content.sound = sound;
                         
                         //从选取器中获取的内容，来设置trigger
@@ -572,7 +572,7 @@ static NSString *cell_id_share=@"cell_share";
                         content.categoryIdentifier =@"category";
                         
                         // 2.设置声音
-                        UNNotificationSound *sound = [UNNotificationSound soundNamed:@"intro.m4a"];
+                        UNNotificationSound *sound = [UNNotificationSound soundNamed:@"Intro.m4a"];
                         content.sound = sound;
                         
                         //从选取器中获取的内容，来设置trigger
