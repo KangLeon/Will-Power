@@ -29,7 +29,7 @@
 }
 - (UIButton *)check_button{
     if (!_check_button) {
-        _check_button=[[UIButton alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH-40, 70)];
+        _check_button=[[UIButton alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH*0.903, 70)];
         _check_button.backgroundColor=[UIColor whiteColor];
         _check_button.layer.cornerRadius=12;
     }
@@ -104,7 +104,8 @@
         _subject_current_label_description.text=@"PROJECT";
         _subject_current_label_description.textColor=[UIColor grayColor];
         _subject_current_label_description.textAlignment=NSTextAlignmentCenter;
-        _subject_current_label_description.font=[UIFont systemFontOfSize:18.0 weight:UIFontWeightThin];
+        _subject_current_label_description.font=[UIFont systemFontOfSize:16.0 weight:UIFontWeightThin];
+        _subject_current_label_description.adjustsFontSizeToFitWidth=YES;
     }
     return _subject_current_label_description;
 }
@@ -114,6 +115,7 @@
         _subject_current_label.textColor=[UIColor grayColor];
         _subject_current_label.textAlignment=NSTextAlignmentCenter;
         _subject_current_label.font=[UIFont systemFontOfSize:20.0 weight:UIFontWeightThin];//有内容自适应
+        _subject_current_label.adjustsFontSizeToFitWidth=YES;
     }
     return _subject_current_label;
 }
@@ -135,6 +137,8 @@
         });
     }];
 }
+
+#pragma mark 布局约束部分
 -(void)updateConstraints{
     [super updateConstraints];
     __weak __typeof(self)weakSelf = self;
@@ -158,6 +162,31 @@
     [self.check_description mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(weakSelf.animation.mas_right).offset(-30);
         make.top.equalTo(weakSelf.check_title.mas_bottom).offset(10);
+    }];
+    //项目预览部分的布局约束
+    [self.subject_backview mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(weakSelf.check_title.mas_right);
+        make.top.equalTo(weakSelf.check_button.mas_top).offset(5);
+        make.right.equalTo(weakSelf.check_button.mas_right).offset(-5);
+        make.bottom.equalTo(weakSelf.check_button.mas_bottom).offset(-5);
+    }];
+    [self.subject_backView_body mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(weakSelf.subject_backview.mas_left);
+        make.top.equalTo(weakSelf.subject_backview.mas_top).offset(20);
+        make.right.equalTo(weakSelf.subject_backview.mas_right);
+        make.bottom.equalTo(weakSelf.subject_backview.mas_bottom);
+    }];
+    [self.subject_current_label_description mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(weakSelf.subject_backview.mas_left);
+        make.top.equalTo(weakSelf.subject_backview.mas_top);
+        make.right.equalTo(weakSelf.subject_backview.mas_right);
+        make.bottom.equalTo(weakSelf.subject_backview.mas_top).offset(20);
+    }];
+    [self.subject_current_label mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(weakSelf.subject_backview.mas_left);
+        make.top.equalTo(weakSelf.subject_backview.mas_top).offset(20);
+        make.right.equalTo(weakSelf.subject_backview.mas_right);
+        make.bottom.equalTo(weakSelf.subject_backview.mas_bottom);
     }];
 }
 /*

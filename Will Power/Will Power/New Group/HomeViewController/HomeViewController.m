@@ -45,6 +45,7 @@
 #import "ScoreView.h"
 #import "CheckEmptyView.h"
 #import "GetSaying.h"
+#import <Masonry.h>
 
 @interface HomeViewController ()<UIPopoverPresentationControllerDelegate,FUIAlertViewDelegate>
 @property(nonatomic) TapMusic *tapMusic;
@@ -137,6 +138,9 @@
     dispatch_once(&onceToken, ^{
         self.subject_index=[[AddModel shareAddMode] countForData]-1;
     });
+    
+    //屏幕适配
+    [self.view updateConstraintsIfNeeded];
 }
 
 //懒加载
@@ -196,7 +200,7 @@
 //底部三个button
 -(void)myTabButton{
     //1
-    UIButton *listButton=[[UIButton alloc] initWithFrame:CGRectMake(96, 615, 48, 39.96)];
+    UIButton *listButton=[[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH*0.231, SCREEN_HEIGHT*0.835, SCREEN_WIDTH*0.115, SCREEN_HEIGHT*0.054)];
     listButton.backgroundColor=[UIColor clearColor];
     [listButton setImage:[UIImage imageNamed:@"calender_image"] forState:UIControlStateNormal];
     [[listButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
@@ -208,7 +212,7 @@
     [self.view addSubview:listButton];
     
     //2
-    UIButton *checkButton=[[UIButton alloc] initWithFrame:CGRectMake(187, 615, 50, 40)];
+    UIButton *checkButton=[[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH*0.451, SCREEN_HEIGHT*0.835, SCREEN_WIDTH*0.120, SCREEN_HEIGHT*0.054)];
     checkButton.backgroundColor=[UIColor clearColor];
     [checkButton setImage:[UIImage imageNamed:@"checked_image"] forState:UIControlStateNormal];
     [[checkButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
@@ -220,7 +224,7 @@
     [self.view addSubview:checkButton];
     
     //3.
-    UIButton *settingsButton=[[UIButton alloc] initWithFrame:CGRectMake(278, 615, 48, 40)];
+    UIButton *settingsButton=[[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH*0.671, SCREEN_HEIGHT*0.835, SCREEN_WIDTH*0.115, SCREEN_HEIGHT*0.054)];
     settingsButton.backgroundColor=[UIColor clearColor];
     [settingsButton setImage:[UIImage imageNamed:@"settings_image"] forState:UIControlStateNormal];
     [[settingsButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
@@ -309,7 +313,7 @@
 //懒加载5个小button,
 -(ToggleView *)changeChanllenge{
     if (!_changeChanllenge) {
-        _changeChanllenge=[[ToggleView alloc] initWithFrame:CGRectMake(-29, 185, 93, 37)];
+        _changeChanllenge=[[ToggleView alloc] initWithFrame:CGRectMake(-29, SCREEN_HEIGHT*0.251, 92, 37)];
         _changeChanllenge.toggle_imageView.image=[UIImage imageNamed:@"toggle_image"];
         _changeChanllenge.toggle_imageView.adjustsImageSizeForAccessibilityContentSizeCategory=YES;
     }
@@ -317,7 +321,7 @@
 }
 -(RewardView *)reward{
     if (!_reward) {
-        _reward=[[RewardView alloc] initWithFrame:CGRectMake(-29, 229, 93, 37)];
+        _reward=[[RewardView alloc] initWithFrame:CGRectMake(-29, 50, 92, 37)];
         _reward.reward_imageView.image=[UIImage imageNamed:@"reward_image"];
         _reward.reward_imageView.adjustsImageSizeForAccessibilityContentSizeCategory=YES;
     }
@@ -325,7 +329,7 @@
 }
 -(RemarkView *)remark{
     if (!_remark) {
-        _remark=[[RemarkView alloc] initWithFrame:CGRectMake(352, 185, 93, 37)];
+        _remark=[[RemarkView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-(92-29), SCREEN_HEIGHT*0.251, 92, 37)];
         _remark.remark_imageView.image=[UIImage imageNamed:@"remark_image"];
         _remark.remark_imageView.adjustsImageSizeForAccessibilityContentSizeCategory=YES;
     }
@@ -333,7 +337,7 @@
 }
 -(HelpView *)help{
     if (!_help) {
-        _help=[[HelpView alloc] initWithFrame:CGRectMake(352, 229, 93, 37)];
+        _help=[[HelpView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-(92-29), 50, 92, 37)];
         _help.help_imageView.image=[UIImage imageNamed:@"help_image"];
         _help.help_imageView.adjustsImageSizeForAccessibilityContentSizeCategory=YES;
     }
@@ -341,7 +345,7 @@
 }
 -(CountView *)count{
     if (!_count) {
-        _count=[[CountView alloc] initWithFrame:CGRectMake(352, 273, 93, 37)];
+        _count=[[CountView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-(92-29), 63, 92, 37)];
         _count.count_imageView.image=[UIImage imageNamed:@"count_image"];
         _count.count_imageView.adjustsImageSizeForAccessibilityContentSizeCategory=YES;
     }
@@ -444,7 +448,7 @@
     if (!_animation) {
         // Do any additional setup after loading the view.
         _animation=[LOTAnimationView animationNamed:@"walking"];
-        _animation.frame=CGRectMake(-67,200 , 550, 280);
+        _animation.frame=CGRectMake(-SCREEN_WIDTH*0.161,SCREEN_HEIGHT*0.271 , SCREEN_WIDTH*1.328, SCREEN_HEIGHT*0.380);
         _animation.loopAnimation=true;
         _animation.contentMode=UIViewContentModeScaleToFill;
         [_animation playWithCompletion:^(BOOL animationFinished) {
@@ -458,7 +462,7 @@
     if (!_sun_animation) {
         // Do any additional setup after loading the view.
         _sun_animation=[LOTAnimationView animationNamed:@"suncloud"];
-        _sun_animation.frame=CGRectMake(90, 140 , 80, 80);
+        _sun_animation.frame=CGRectMake(SCREEN_WIDTH*0.217, SCREEN_HEIGHT*0.190 , SCREEN_WIDTH*0.193, SCREEN_HEIGHT*0.108);
         _sun_animation.loopAnimation=true;
         [_sun_animation playWithCompletion:^(BOOL animationFinished) {
             
@@ -469,7 +473,7 @@
 
 -(ScoreView*)score_view{
     if (!_score_view) {
-        _score_view=[[ScoreView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-195)/2-80, 26, 275, 110)];
+        _score_view=[[ScoreView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH*0.0724, SCREEN_HEIGHT*0.0353, SCREEN_WIDTH*0.664, SCREEN_HEIGHT*0.1494)];
     }
     return _score_view;
 }
@@ -510,7 +514,7 @@
 -(CheckView *)check_view{
     if (!_check_view) {
         //初始化操作
-        _check_view=[[CheckView alloc] initWithFrame:CGRectMake(20, 500, SCREEN_WIDTH-40, 70)];
+        _check_view=[[CheckView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH*0.048, SCREEN_HEIGHT*0.677, SCREEN_WIDTH-SCREEN_WIDTH*0.048*2, SCREEN_HEIGHT*0.095)];
         _check_view.backgroundColor=CUTE_GRAY;
         _check_view.layer.cornerRadius=12;
         _check_view.check_imageView.image=[UIImage imageNamed:[NSString stringWithFormat:@"%@.png",[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:([[AddModel shareAddMode] countForData]-1)] objectForKey:@"image"]]];
@@ -655,7 +659,7 @@
 }
 -(CheckEmptyView*)checkEmptyView{
     if (!_checkEmptyView) {
-        _checkEmptyView=[[CheckEmptyView alloc] initWithFrame:CGRectMake(20, 500, SCREEN_WIDTH-40, 70)];
+        _checkEmptyView=[[CheckEmptyView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH*0.048, SCREEN_HEIGHT*0.677, SCREEN_WIDTH-SCREEN_WIDTH*0.048*2, SCREEN_HEIGHT*0.095)];
         [[_checkEmptyView.check_button rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
             [self->_checkEmptyView loadEmptyCheck];
         }];
@@ -971,6 +975,24 @@
     // Dispose of any resources that can be recreated.
 }
 
+
+- (void)updateViewConstraints {
+    [super updateViewConstraints];
+
+    //三个toggleView的布局约束
+    [self.reward mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.changeChanllenge.mas_bottom).offset(13);
+        make.left.equalTo(@(-29));
+    }];
+    [self.help mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.remark.mas_bottom).offset(13);
+        make.left.equalTo(self.view.mas_left).offset(SCREEN_WIDTH-(92-29));
+    }];
+    [self.count mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.remark.mas_bottom).offset(63);
+        make.left.equalTo(self.view.mas_left).offset(SCREEN_WIDTH-(92-29));
+    }];
+}
 /*
 #pragma mark - Navigation
 

@@ -158,14 +158,6 @@ static NSString *cell_id=@"text_cell";
                 NSLog(@"现在有%ld条数据",[[AddModel shareAddMode] countForData]);//查询现在有多少条出局用户验证
                 NSLog(@"存储在数据库的字典是%@",[[AddModel shareAddMode] selectEveryThing]);//输出字典
                 
-
-                //4.在这里发送通知告诉首页更新数据，因为还没有完全学会rac的通知，所以这里还是使用oc里面的通知
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"refresh_subject_data" object:nil];
-                
-                //5.这里想要view旋转两次的抖动动画但是没有实现
-                
-                
-                
                 dispatch_async(dispatch_get_main_queue(), ^{
                 [self.navigationController setNavigationBarHidden:true animated:true];
                 self.navigationController.navigationBar.barTintColor=BACKGROUND_COLOR;
@@ -181,6 +173,10 @@ static NSString *cell_id=@"text_cell";
                 tapGes.numberOfTapsRequired=1;
                 tapGes.numberOfTapsRequired=1;
                 [self.cuteAlert addGestureRecognizer:tapGes];
+                    
+                    
+                //4.在这里发送通知告诉首页更新数据，因为还没有完全学会rac的通知，所以这里还是使用oc里面的通知
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"refresh_subject_data" object:nil];
                 });
             });
             

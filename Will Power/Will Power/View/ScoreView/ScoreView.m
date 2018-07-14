@@ -7,6 +7,7 @@
 //
 
 #import "ScoreView.h"
+#import "SizeDefine.h"
 
 @interface ScoreView ()
 
@@ -38,7 +39,7 @@
 //懒加载部分
 -(UILabel*)repeat_label{
     if (!_repeat_label) {
-        _repeat_label=[[UILabel alloc] initWithFrame:CGRectMake(50, 0, 100, 40)];
+        _repeat_label=[[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH*0.120, 0, SCREEN_WIDTH*0.241, SCREEN_HEIGHT*0.054)];
         _repeat_label.backgroundColor=[UIColor whiteColor];
         _repeat_label.layer.cornerRadius = 8;
         _repeat_label.clipsToBounds = YES;
@@ -46,27 +47,28 @@
         _repeat_label.textColor=[UIColor blackColor];
         _repeat_label.textAlignment=NSTextAlignmentCenter;
         _repeat_label.font=[UIFont systemFontOfSize:17.0 weight:UIFontWeightLight];
+        _repeat_label.adjustsFontSizeToFitWidth=YES;
     }
     return _repeat_label;
 }
 
 -(UIImageView *)first_number{
     if (!_first_number) {
-        _first_number=[[UIImageView alloc] initWithFrame:CGRectMake(80, 50, 48, 60)];
+        _first_number=[[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH*0.193, SCREEN_HEIGHT*0.067, SCREEN_WIDTH*0.115, SCREEN_HEIGHT*0.081)];
         _first_number.image=[UIImage imageNamed:@"0_number_image"];
     }
     return _first_number;
 }
 -(UIImageView *)second_number{
     if (!_second_number) {
-        _second_number=[[UIImageView alloc] initWithFrame:CGRectMake(129, 50, 48, 60)];
+        _second_number=[[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH*0.311, SCREEN_HEIGHT*0.067, SCREEN_WIDTH*0.115, SCREEN_HEIGHT*0.081)];
         _second_number.image=[UIImage imageNamed:@"0_number_image"];
     }
     return _second_number;
 }
 -(UIImageView *)third_number{
     if (!_third_number) {
-        _third_number=[[UIImageView alloc] initWithFrame:CGRectMake(178, 50, 48, 60)];
+        _third_number=[[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH*0.429, SCREEN_HEIGHT*0.067, SCREEN_WIDTH*0.115, SCREEN_HEIGHT*0.081)];
         _third_number.image=[UIImage imageNamed:@"0_number_image"];
     }
     return _third_number;
@@ -74,7 +76,7 @@
 
 -(UILabel*)day_label{
     if (!_day_label) {
-        _day_label=[[UILabel alloc] initWithFrame:CGRectMake(227, 50, 48, 60)];
+        _day_label=[[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH*0.548, SCREEN_HEIGHT*0.067, SCREEN_WIDTH*0.115, SCREEN_HEIGHT*0.081)];
         _day_label.text=@"Day";
         _day_label.textColor=[UIColor blackColor];
         _day_label.font=[UIFont systemFontOfSize:25.0 weight:UIFontWeightThin];
@@ -82,6 +84,7 @@
         _day_label.layer.cornerRadius = 8;
         _day_label.clipsToBounds = YES;
         _day_label.backgroundColor=[UIColor whiteColor];
+        _day_label.adjustsFontSizeToFitWidth=YES;
     }
     return _day_label;
 }
