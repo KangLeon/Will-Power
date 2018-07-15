@@ -27,7 +27,7 @@
     
     // Do any additional setup after loading the view.
     self.animation=[LOTAnimationView animationNamed:@"cubes"];
-    self.animation.frame=CGRectMake((SCREEN_WIDTH-100)/2,150, 100, 200);
+    self.animation.frame=CGRectMake((SCREEN_WIDTH-100)/2,SCREEN_HEIGHT*0.203804, 100, 200);
     self.animation.loopAnimation=false;
     self.animation.contentMode=UIViewContentModeScaleToFill;
     self.animation.animationSpeed=1.0;
@@ -41,7 +41,7 @@
     //一秒后显示
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         //添加label 到页面上
-        self.label_title=[[UILabel alloc] initWithFrame:CGRectMake(20, 400, SCREEN_WIDTH-40, 50)];
+        self.label_title=[[UILabel alloc] initWithFrame:CGRectMake(20, SCREEN_HEIGHT*0.543782, SCREEN_WIDTH-40, 50)];
         self.label_title.text=@"Will    Power";
         self.label_title.backgroundColor=[UIColor clearColor];
         self.label_title.font=[UIFont systemFontOfSize:35.0 weight:UIFontWeightThin];
@@ -61,7 +61,6 @@
             }];
             //一秒后跳转到首页
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                
                 [self.navigationController pushViewController:[[HomeViewController alloc] init] animated:true];
             });
         });
@@ -79,9 +78,6 @@
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
 }
 
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    [self.navigationController pushViewController:[[HomeViewController alloc] init] animated:true];
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -49,6 +49,8 @@ static NSString *cell_label_id=@"cell_label";
 @property(nonatomic,copy)NSString *time_text;
 @property(nonatomic,copy)NSString *thought_text;
 
+@property(nonatomic,strong)UIScrollView *scrollView;
+
 @end
 
 @implementation AddThirdViewController
@@ -69,6 +71,9 @@ static NSString *cell_label_id=@"cell_label";
 
 -(void)loadUI{
     
+    self.scrollView=[[UIScrollView alloc] initWithFrame:self.view.frame];
+    self.scrollView.contentSize=CGSizeMake(SCREEN_WIDTH, 332+240+80);
+    self.scrollView.showsVerticalScrollIndicator=false;
     //第一个tableView
     UILabel *titleLabel_discovery=[[UILabel alloc] initWithFrame:CGRectMake(30, 10, 80, 30)];
     titleLabel_discovery.text=@"发现";
@@ -79,11 +84,11 @@ static NSString *cell_label_id=@"cell_label";
     UIView *line=[[UIView alloc] initWithFrame:CGRectMake(25, 35, 50, 2)];
     line.backgroundColor=[UIColor darkGrayColor];
     
-    self.for_discovery=[[UIView alloc] initWithFrame:CGRectMake(10, 26, SCREEN_WIDTH-20, 270+10)];
+    self.for_discovery=[[UIView alloc] initWithFrame:CGRectMake(10, 26, SCREEN_WIDTH-20, 236+30+10)];
     self.for_discovery.backgroundColor=[UIColor whiteColor];
     self.for_discovery.layer.cornerRadius=12;
     
-    self.discovery_tableView=[[UITableView alloc] initWithFrame:CGRectMake(0, 40, SCREEN_WIDTH-20, 240)];
+    self.discovery_tableView=[[UITableView alloc] initWithFrame:CGRectMake(0, 40, SCREEN_WIDTH-20, 236)];
     self.discovery_tableView.layer.cornerRadius=12;
     self.discovery_tableView.scrollEnabled=NO;
     self.discovery_tableView.dataSource=self;
@@ -93,7 +98,7 @@ static NSString *cell_label_id=@"cell_label";
     [self.for_discovery addSubview:titleLabel_discovery];
     [self.for_discovery addSubview:line];
     [self.for_discovery addSubview: self.discovery_tableView];
-    [self.view addSubview:self.for_discovery];
+    [self.scrollView addSubview:self.for_discovery];
     
     self.cell_textFiled_array=@[@"bad_thing_image",@"bad_people_image",@"bad_time_image",@"bad_will_image"];
     self.cell_textField_placeHolder=@[@"可能让我失控的事情或东西",@"可能让我失控的人",@"可能让我失控的时间",@"可能让我失控的心理"];
@@ -115,7 +120,7 @@ static NSString *cell_label_id=@"cell_label";
     self.for_delete.layer.cornerRadius=12;
     self.for_delete.backgroundColor=[UIColor whiteColor];
     
-    self.delete_tableView=[[UITableView alloc] initWithFrame:CGRectMake(0, 40, SCREEN_WIDTH-20, 190)];
+    self.delete_tableView=[[UITableView alloc] initWithFrame:CGRectMake(0, 44, SCREEN_WIDTH-20, 196)];
     self.delete_tableView.layer.cornerRadius=12;
     self.delete_tableView.scrollEnabled=NO;
     self.delete_tableView.dataSource=self;
@@ -124,7 +129,8 @@ static NSString *cell_label_id=@"cell_label";
     [self.for_delete addSubview:titleLabel_delete];
     [self.for_delete addSubview:line2];
     [self.for_delete addSubview:self.delete_tableView];
-    [self.view addSubview:self.for_delete];
+    [self.scrollView addSubview:self.for_delete];
+    [self.view addSubview:self.scrollView];
 }
 
 //配置导航栏标题
@@ -295,7 +301,7 @@ static NSString *cell_label_id=@"cell_label";
 }
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    [self.view endEditing:YES];
+    [self.scrollView endEditing:YES];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

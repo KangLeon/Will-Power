@@ -39,6 +39,7 @@
         _content_label.textColor=BACKGROUND_COLOR;
         _content_label.font=[UIFont systemFontOfSize:25.0 weight:UIFontWeightThin];
         _content_label.textAlignment=NSTextAlignmentCenter;
+        _content_label.adjustsFontSizeToFitWidth=YES;
     }
     return _content_label;
 }

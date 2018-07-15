@@ -80,7 +80,7 @@
 }
 -(UIImageView *)arrow_imageView{
     if(!_arrow_imageView){
-        _arrow_imageView=[[UIImageView alloc] initWithFrame:CGRectMake(150-40, 19, 20, 12)];
+        _arrow_imageView=[[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH*0.39573-40, 19, 20, 12)];
         _arrow_imageView.backgroundColor=[UIColor clearColor];
         _arrow_imageView.image=[UIImage imageNamed:@"arrow_heart_select_image"];
     }

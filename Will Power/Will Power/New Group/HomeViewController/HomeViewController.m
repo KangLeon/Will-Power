@@ -413,7 +413,7 @@
         //1.拿到subjectModel中查询到的数组，转化后拿到年月日，
         //2.当前时间,转化后拿到年月日，
         for (NSInteger j=1; j<([[AddModel shareAddMode] countForData]+1); j++) {
-            if ([[self.yellowView.ball_titleLabel.text substringFromIndex:19] isEqualToString: [[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:j-1] objectForKey:@"subject_title"]]) {
+            if ([self.check_view.check_title.text isEqualToString: [[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:j-1] objectForKey:@"subject_title"]]) {
                 //添加您今天没有项目
                 [self.view addSubview:self.checkEmptyView];
                 for (NSInteger i=0; i<[[SubjectModel shareSubjectModel] countForDataAtId:j]; i++) {
@@ -717,11 +717,13 @@
     //改变checkEmptyView的标题和描述文字，
     self.checkEmptyView.subject_current_label.text=[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:[not.userInfo[@"currentIndex"] integerValue]] objectForKey:@"subject_title"];
     
+    //改变项目图片
+    self.check_view.check_imageView.image=[UIImage imageNamed:[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:[not.userInfo[@"currentIndex"] integerValue]] objectForKey:@"image"]];
         //收到通知后，每日签到判断是否添加到页面上
         //循环任务
         for (NSInteger j=1; j<([[AddModel shareAddMode] countForData]+1); j++) {
             //如果当前是当前显示的任务的话
-            if ([[self.yellowView.ball_titleLabel.text substringFromIndex:19] isEqualToString: [[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:j-1] objectForKey:@"subject_title"]]) {
+            if ([self.check_view.check_title.text isEqualToString: [[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:j-1] objectForKey:@"subject_title"]]) {
                 //添加您今天没有项目label
                 [self.view addSubview:self.checkEmptyView];
                 if (j==1) {
@@ -731,6 +733,7 @@
                         //3.比较二者，如果相等的话，则添加check_view到页面上------------------------------------------>selectEveryThing的参数可能有误，
                         //这里默认显示最新的一条任务的关联提醒，
                         //如果今天的日期等于总计划数组里的日期值，则把view添加到视图上
+
                         if ([[self stringFrom:[NSDate localdate]] isEqualToString:[self stringFrom:[[self.array_mission1 objectAtIndex:i] objectForKey:@"subject_execute"]]]) {
                             [self.checkEmptyView removeFromSuperview];
                             [self.view addSubview:self.check_view];

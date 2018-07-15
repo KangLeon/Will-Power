@@ -240,7 +240,7 @@ static NSString *cell_picker_id_add=@"picker_add";
 - (UIView *)forTableView{
     if (!_forTableView) {
         //选择坚持目标与设置起始日期
-        self.forTableView=[[UIView alloc]initWithFrame:CGRectMake(10, 26, SCREEN_WIDTH-20, 60*2+5)];
+        self.forTableView=[[UIView alloc]initWithFrame:CGRectMake(10, 26, SCREEN_WIDTH-20, 59*2)];
         self.forTableView.backgroundColor=[UIColor whiteColor];
         self.forTableView.layer.cornerRadius=12;
     }
@@ -261,7 +261,7 @@ static NSString *cell_picker_id_add=@"picker_add";
 }
 - (UIView *)forTableView_notifi{
     if (!_forTableView_notifi) {
-        self.forTableView_notifi=[[UIView alloc]initWithFrame:CGRectMake(10, 177, SCREEN_WIDTH-20, 60*(self.cellTitle_notifi.count+self.cellTitle_added.count)+5)];//根据项目数来决定frame的大小
+        self.forTableView_notifi=[[UIView alloc]initWithFrame:CGRectMake(10, 177, SCREEN_WIDTH-20, 59*(self.cellTitle_notifi.count+self.cellTitle_added.count))];//根据项目数来决定frame的大小
         
         self.forTableView_notifi.backgroundColor=[UIColor whiteColor];
         self.forTableView_notifi.layer.cornerRadius=12;
@@ -655,10 +655,10 @@ static NSString *cell_picker_id_add=@"picker_add";
             [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:1 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
                 if (self.notifiModel.notifi_date_array.count>6) {
                     //首先将scrollView滚动到指定位置
-                    [self.secondView setContentOffset:CGPointMake(0,SCREEN_HEIGHT*0.55+60*(self.notifiModel.notifi_date_array.count-6)*0.55) animated:YES];
+                    [self.secondView setContentOffset:CGPointMake(0,SCREEN_HEIGHT*0.50+60*(self.notifiModel.notifi_date_array.count-6)*0.55) animated:YES];
                     self.secondView.forPicker_view_repeat.frame=CGRectMake(0, SCREEN_HEIGHT+60*(self.notifiModel.notifi_date_array.count-6), SCREEN_WIDTH, SCREEN_HEIGHT*0.45);//根据当前secondView的frame高计算应该将当前的选取器添加到哪里
                 }else{
-                    self.secondView.forPicker_view_repeat.frame=CGRectMake(0, SCREEN_HEIGHT*0.55, SCREEN_WIDTH, SCREEN_HEIGHT*0.45);
+                    self.secondView.forPicker_view_repeat.frame=CGRectMake(0, SCREEN_HEIGHT*0.50, SCREEN_WIDTH, SCREEN_HEIGHT*0.45);
                 }
                 
             } completion:nil];
@@ -687,12 +687,12 @@ static NSString *cell_picker_id_add=@"picker_add";
             [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:1 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
                 if (self.notifiModel.notifi_date_array.count>6) {
                     //首先将scrollView滚动到指定位置
-                    [self.secondView setContentOffset:CGPointMake(0,SCREEN_HEIGHT*0.55+60*(self.notifiModel.notifi_date_array.count-6)*0.55) animated:YES];
+                    [self.secondView setContentOffset:CGPointMake(0,SCREEN_HEIGHT*0.50+60*(self.notifiModel.notifi_date_array.count-6)*0.55) animated:YES];
                     self.secondView.forPicker_view_start.frame=CGRectMake(0, SCREEN_HEIGHT+60*(self.notifiModel.notifi_date_array.count-6), SCREEN_WIDTH, SCREEN_HEIGHT*0.45);//根据当前secondView的frame高计算应该将当前的选取器添加到哪里
                 }else{
-                    self.secondView.forPicker_view_start.frame=CGRectMake(0, SCREEN_HEIGHT*0.55, SCREEN_WIDTH, SCREEN_HEIGHT*0.45);
+                    self.secondView.forPicker_view_start.frame=CGRectMake(0, SCREEN_HEIGHT*0.50, SCREEN_WIDTH, SCREEN_HEIGHT*0.45);
                 }
-//                self.secondView.forPicker_view_start.frame=CGRectMake(0, SCREEN_HEIGHT*0.55, SCREEN_WIDTH, SCREEN_HEIGHT*0.45);
+//                self.secondView.forPicker_view_start.frame=CGRectMake(0, SCREEN_HEIGHT*0.50, SCREEN_WIDTH, SCREEN_HEIGHT*0.45);
             } completion:nil];
             //将另两个pickerView推下去
             [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:1 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
@@ -754,12 +754,12 @@ static NSString *cell_picker_id_add=@"picker_add";
                 [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:1 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
                     if (self.notifiModel.notifi_date_array.count>6) {
                         //首先将scrollView滚动到指定位置
-                        [self.secondView setContentOffset:CGPointMake(0,SCREEN_HEIGHT*0.55+60*(self.notifiModel.notifi_date_array.count-6)*0.55) animated:YES];
+                        [self.secondView setContentOffset:CGPointMake(0,SCREEN_HEIGHT*0.50+60*(self.notifiModel.notifi_date_array.count-6)*0.55) animated:YES];
                         self.secondView.forPicker_view.frame=CGRectMake(0, SCREEN_HEIGHT+60*(self.notifiModel.notifi_date_array.count-6), SCREEN_WIDTH, SCREEN_HEIGHT*0.45);//根据当前secondView的frame高计算应该将当前的选取器添加到哪里
                     }else{
-                        self.secondView.forPicker_view.frame=CGRectMake(0, SCREEN_HEIGHT*0.55, SCREEN_WIDTH, SCREEN_HEIGHT*0.45);
+                        self.secondView.forPicker_view.frame=CGRectMake(0, SCREEN_HEIGHT*0.50, SCREEN_WIDTH, SCREEN_HEIGHT*0.45);
                     }
-//                    self.secondView.forPicker_view.frame=CGRectMake(0, SCREEN_HEIGHT*0.55, SCREEN_WIDTH, SCREEN_HEIGHT*0.45);
+//                    self.secondView.forPicker_view.frame=CGRectMake(0, SCREEN_HEIGHT*0.50, SCREEN_WIDTH, SCREEN_HEIGHT*0.45);
                 } completion:nil];
                 
                 //将两外两个选取器推下去

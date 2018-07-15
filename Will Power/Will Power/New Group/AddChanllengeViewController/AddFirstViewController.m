@@ -95,8 +95,8 @@ static NSString *cell_ID=@"my_cell";
 
 -(UIScrollView *)scorllView{
     if (!_scorllView) {
-        _scorllView=[[UIScrollView alloc] initWithFrame:self.view .frame];
-        _scorllView.contentSize=CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT);
+        _scorllView=[[UIScrollView alloc] initWithFrame:self.view.frame];
+        _scorllView.contentSize=CGSizeMake(SCREEN_WIDTH, 106+59*3+26+310+70);
         _scorllView.showsVerticalScrollIndicator=false;
     }
     return _scorllView;
@@ -104,7 +104,7 @@ static NSString *cell_ID=@"my_cell";
 
 - (UIView *)forTableView{
     if (!_forTableView) {
-        self.forTableView=[[UIView alloc] initWithFrame:CGRectMake(10, 106, SCREEN_WIDTH-20, SCREEN_HEIGHT*0.26)];
+        self.forTableView=[[UIView alloc] initWithFrame:CGRectMake(10, 106, SCREEN_WIDTH-20, 59*3)];
     }
     return _forTableView;
 }
@@ -149,7 +149,7 @@ static NSString *cell_ID=@"my_cell";
 
 -(SubjectLogoView*)subjectLogoView{
     if (!_subjectLogoView) {
-        _subjectLogoView=[[SubjectLogoView alloc] initWithFrame:CGRectMake(10, 106+SCREEN_HEIGHT*0.26+26, SCREEN_WIDTH-20, 310)];
+        _subjectLogoView=[[SubjectLogoView alloc] initWithFrame:CGRectMake(10, 106+59*3+26, SCREEN_WIDTH-20, 310)];
 
     }
     return _subjectLogoView;

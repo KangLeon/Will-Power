@@ -61,7 +61,7 @@ static NSString *cell_id=@"text_cell";
 #pragma mark 懒加的部分
 -(UIView*)backView{
     if (!_backView) {
-        _backView=[[UIView alloc] initWithFrame:CGRectMake(10, 26, SCREEN_WIDTH-20, 60)];
+        _backView=[[UIView alloc] initWithFrame:CGRectMake(10, 26, SCREEN_WIDTH-20, 55)];
         _backView.backgroundColor=[UIColor whiteColor];
         _backView.layer.cornerRadius=12;
     }
@@ -69,7 +69,7 @@ static NSString *cell_id=@"text_cell";
 }
 -(UITableView*)reward_tableView{
     if (!_reward_tableView) {
-        _reward_tableView=[[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH-20, 60)];
+        _reward_tableView=[[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH-20, 55)];
         _reward_tableView.backgroundColor=[UIColor whiteColor];
         _reward_tableView.layer.cornerRadius=12;
         

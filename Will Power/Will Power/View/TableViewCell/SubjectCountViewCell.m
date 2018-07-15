@@ -263,6 +263,7 @@
         _subject_start_time.textColor=[UIColor grayColor];
         _subject_start_time.font=[UIFont systemFontOfSize:15.0 weight:UIFontWeightThin];
         _subject_start_time.textAlignment=NSTextAlignmentLeft;
+        _subject_start_time.adjustsFontSizeToFitWidth=YES;
     }
     return _subject_start_time;
 }
