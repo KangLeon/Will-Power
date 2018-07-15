@@ -77,44 +77,30 @@
 -(UIView*)subject_backview{
     if (!_subject_backview) {
         _subject_backview=[[UIView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-40-150, 5, 145, 60)];
-        _subject_backview.backgroundColor=[UIColor clearColor];
+        _subject_backview.backgroundColor=twenty_three_BACKGROUND_COLOR;
         _subject_backview.layer.cornerRadius=8;
-        _subject_backview.layer.borderColor=[UIColor grayColor].CGColor;
-        _subject_backview.layer.borderWidth=1;
         [_subject_backview addSubview:self.subject_backView_body];
-        [_subject_backview addSubview:self.subject_current_label_description];
     }
     return _subject_backview;
 }
 -(UIView*)subject_backView_body{
     if (!_subject_backView_body) {
         _subject_backView_body=[[UIView alloc] initWithFrame:CGRectMake(0, 20, 145, 40)];
-        _subject_backView_body.backgroundColor=[UIColor clearColor];
+        _subject_backView_body.backgroundColor=twenty_three_BACKGROUND_COLOR;
         _subject_backView_body.layer.cornerRadius=8;
-        _subject_backView_body.layer.borderColor=[UIColor grayColor].CGColor;
-        _subject_backView_body.layer.borderWidth=1;
         [_subject_backView_body addSubview:self.subject_current_label];
         
     }
     return _subject_backView_body;
 }
--(UILabel *)subject_current_label_description{
-    if (!_subject_current_label_description) {
-        _subject_current_label_description=[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 145, 20)];
-        _subject_current_label_description.text=@"PROJECT";
-        _subject_current_label_description.textColor=[UIColor grayColor];
-        _subject_current_label_description.textAlignment=NSTextAlignmentCenter;
-        _subject_current_label_description.font=[UIFont systemFontOfSize:16.0 weight:UIFontWeightThin];
-        _subject_current_label_description.adjustsFontSizeToFitWidth=YES;
-    }
-    return _subject_current_label_description;
-}
+
 -(UILabel *)subject_current_label{
     if (!_subject_current_label) {
         _subject_current_label=[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 145, 40)];
-        _subject_current_label.textColor=[UIColor grayColor];
+        _subject_current_label.textColor=[UIColor whiteColor];
         _subject_current_label.textAlignment=NSTextAlignmentCenter;
         _subject_current_label.font=[UIFont systemFontOfSize:20.0 weight:UIFontWeightThin];//有内容自适应
+        _subject_current_label.numberOfLines=0;
         _subject_current_label.adjustsFontSizeToFitWidth=YES;
     }
     return _subject_current_label;
@@ -176,15 +162,9 @@
         make.right.equalTo(weakSelf.subject_backview.mas_right);
         make.bottom.equalTo(weakSelf.subject_backview.mas_bottom);
     }];
-    [self.subject_current_label_description mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(weakSelf.subject_backview.mas_left);
-        make.top.equalTo(weakSelf.subject_backview.mas_top);
-        make.right.equalTo(weakSelf.subject_backview.mas_right);
-        make.bottom.equalTo(weakSelf.subject_backview.mas_top).offset(20);
-    }];
     [self.subject_current_label mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(weakSelf.subject_backview.mas_left);
-        make.top.equalTo(weakSelf.subject_backview.mas_top).offset(20);
+        make.top.equalTo(weakSelf.subject_backview.mas_top);
         make.right.equalTo(weakSelf.subject_backview.mas_right);
         make.bottom.equalTo(weakSelf.subject_backview.mas_bottom);
     }];

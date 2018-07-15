@@ -50,7 +50,7 @@
 #pragma mark 懒加载部分
 -(UILabel *)date_label{
     if (!_date_label) {
-        _date_label=[[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/2+45, 176+26+SCREEN_HEIGHT-300, 150, 50)];
+        _date_label=[[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-SCREEN_WIDTH*0.4033*2-20)+10+SCREEN_WIDTH*0.4033, 176+26+SCREEN_HEIGHT-300, SCREEN_WIDTH*0.4033, 50)];
         _date_label.backgroundColor=[UIColor whiteColor];
         _date_label.layer.cornerRadius=12;
         _date_label.clipsToBounds=YES;//iOS 7.0之后设置圆角需要设置该项
@@ -63,7 +63,7 @@
 
 -(TapMusicButton *)heart_select_button{
     if(!_heart_select_button){
-        _heart_select_button=[[TapMusicButton alloc] initWithFrame:CGRectMake(10, 176+26+SCREEN_HEIGHT-300, 150, 50)];
+        _heart_select_button=[[TapMusicButton alloc] initWithFrame:CGRectMake(10, 176+26+SCREEN_HEIGHT-300, SCREEN_WIDTH*0.4033, 50)];
         _heart_select_button.backgroundColor=[UIColor whiteColor];
         _heart_select_button.layer.cornerRadius=12;
         [_heart_select_button addSubview:self.heart_imageView];
@@ -218,6 +218,57 @@
 }
 
 -(void)loadNav{
+    if (kDevice_Is_iPhoneX) {
+        UIView *nav_view=[[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 84)];
+        nav_view.backgroundColor=NAV_BACKGROUND;
+        
+        TapMusicButton *left_back_button=[[TapMusicButton alloc] init];
+        left_back_button.frame=CGRectMake(22, 42, 52, 41);
+        left_back_button.backgroundColor=[UIColor clearColor];
+        [left_back_button setImage:[UIImage imageNamed:@"back_image"] forState:UIControlStateNormal];
+        [[left_back_button rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+            NSLog(@"左上角的我被惦记了");
+            [self dismissViewControllerAnimated:true completion:^{
+                
+            }];
+        }];
+        
+        UILabel *title_label=[[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-150)/2, 55, 150, 20)];
+        title_label.text=@"新建一个备注";
+        title_label.textColor=BACKGROUND_COLOR;
+        title_label.textAlignment=NSTextAlignmentCenter;
+        title_label.font=[UIFont systemFontOfSize:20.0 weight:UIFontWeightBold];
+        
+        
+        TapMusicButton *right_add_button=[[TapMusicButton alloc] init];
+        right_add_button.frame=CGRectMake(SCREEN_WIDTH-80, 42, 70, 41);
+        right_add_button.backgroundColor=[UIColor clearColor];
+        [right_add_button setImage:[UIImage imageNamed:@"complete_edit_image"] forState:UIControlStateNormal];
+        [[right_add_button rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+            NSLog(@"右上角的我被惦记了");
+            //获得所有需要的界面内容
+            //在这里存储构造数据并存储数据,并设置代理更新tableView更新值
+            [RemarkModel shareAddMode].remark_id=[[RemarkModel shareAddMode] countForData]+1;
+            [RemarkModel shareAddMode].remark_title=self.float_Textfield.text;
+            [RemarkModel shareAddMode].remark_content=self.float_TextField_content.text;
+            [RemarkModel shareAddMode].remark_date=self.remark_dateString;
+            [RemarkModel shareAddMode].remark_heart=self.heart_string;
+            
+            [[RemarkModel shareAddMode] insertData];
+            
+            //通知代理已经完成数据存储可以刷新数据了
+            [self.delegate refresh];
+            
+            [self dismissViewControllerAnimated:true completion:^{
+                
+            }];
+        }];
+        
+        [nav_view addSubview:right_add_button];
+        [nav_view addSubview:title_label];
+        [nav_view addSubview:left_back_button];
+        [self.view addSubview:nav_view];
+    }else{
     UIView *nav_view=[[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 64)];
     nav_view.backgroundColor=NAV_BACKGROUND;
     
@@ -267,6 +318,7 @@
     [nav_view addSubview:title_label];
     [nav_view addSubview:left_back_button];
     [self.view addSubview:nav_view];
+    }
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)aTextfield {

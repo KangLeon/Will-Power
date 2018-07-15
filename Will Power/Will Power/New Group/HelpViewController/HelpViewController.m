@@ -33,7 +33,7 @@
     
 }
 -(void)loadUI{
-    self.contact_image=[[UIImageView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-344)/2, (SCREEN_HEIGHT-407)/2, 344, 407)];
+    self.contact_image=[[UIImageView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-SCREEN_WIDTH*0.83091)/2, 100, SCREEN_WIDTH*0.83091, SCREEN_HEIGHT*0.55298)];
     self.contact_image.image=[UIImage imageNamed:@"contact_image"];
     [self.contact_image addSubview:self.animation];
     [self.view addSubview:self.contact_image];
@@ -42,7 +42,7 @@
 -(LOTAnimationView *)animation{
     if (!_animation) {
         _animation=[LOTAnimationView animationNamed:@"little_girl_jumping_-_loader."];
-        _animation.frame=CGRectMake((self.contact_image.frame.size.width-250)/2,0, 250, 250);
+        _animation.frame=CGRectMake((self.contact_image.frame.size.width-SCREEN_WIDTH*0.6038)/2,0, SCREEN_WIDTH*0.6038, SCREEN_WIDTH*0.6038);
         _animation.loopAnimation=true;
         _animation.animationSpeed=1.0;
         [_animation playWithCompletion:^(BOOL animationFinished) {

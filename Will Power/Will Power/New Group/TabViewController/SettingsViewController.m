@@ -54,7 +54,7 @@ static NSString *cell_id_share=@"cell_share";
 -(void)loadUI{
     //一些变量的初始化
     self.scollrView=[[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-    self.scollrView.contentSize=CGSizeMake(SCREEN_WIDTH, 870);
+    self.scollrView.contentSize=CGSizeMake(SCREEN_WIDTH, 700);
     
     self.scollrView.backgroundColor=BACKGROUND_COLOR;
     [self.view addSubview:self.scollrView];
@@ -116,23 +116,23 @@ static NSString *cell_id_share=@"cell_share";
     
     [self.scollrView addSubview:self.about_tableView_set];
     
-    //捐赠
-    UILabel *donate_label=[[UILabel alloc] initWithFrame:CGRectMake(20, 575, 100, 55)];
-    donate_label.text=@"支持";
-    donate_label.font=[UIFont systemFontOfSize:20.0 weight:UIFontWeightBold];
-    donate_label.backgroundColor=[UIColor clearColor];
-    donate_label.textColor=[UIColor whiteColor];
-    
-    [self.scollrView addSubview:donate_label];
-    
-    self.donate_tableView_set=[[UITableView alloc] initWithFrame:CGRectMake(10, 625, SCREEN_WIDTH-20, 55*3)];
-    self.donate_tableView_set.layer.cornerRadius=12;
-    self.donate_tableView_set.dataSource=self;
-    self.donate_tableView_set.delegate=self;
-    self.donate_tableView_set.scrollEnabled=NO;
-    [self.donate_tableView_set registerClass:[SetSwitchTableViewCell class] forCellReuseIdentifier:cell_id_switch];
-    
-    [self.scollrView addSubview:self.donate_tableView_set];
+//    //捐赠
+//    UILabel *donate_label=[[UILabel alloc] initWithFrame:CGRectMake(20, 575, 100, 55)];
+//    donate_label.text=@"支持";
+//    donate_label.font=[UIFont systemFontOfSize:20.0 weight:UIFontWeightBold];
+//    donate_label.backgroundColor=[UIColor clearColor];
+//    donate_label.textColor=[UIColor whiteColor];
+//
+//    [self.scollrView addSubview:donate_label];
+//
+//    self.donate_tableView_set=[[UITableView alloc] initWithFrame:CGRectMake(10, 625, SCREEN_WIDTH-20, 55*3)];
+//    self.donate_tableView_set.layer.cornerRadius=12;
+//    self.donate_tableView_set.dataSource=self;
+//    self.donate_tableView_set.delegate=self;
+//    self.donate_tableView_set.scrollEnabled=NO;
+//    [self.donate_tableView_set registerClass:[SetSwitchTableViewCell class] forCellReuseIdentifier:cell_id_switch];
+//
+//    [self.scollrView addSubview:self.donate_tableView_set];
     
     
 }

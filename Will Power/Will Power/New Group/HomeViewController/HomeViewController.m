@@ -139,8 +139,6 @@
         self.subject_index=[[AddModel shareAddMode] countForData]-1;
     });
     
-    //屏幕适配
-    [self.view updateConstraintsIfNeeded];
 }
 
 //懒加载
@@ -321,7 +319,7 @@
 }
 -(RewardView *)reward{
     if (!_reward) {
-        _reward=[[RewardView alloc] initWithFrame:CGRectMake(-29, 50, 92, 37)];
+        _reward=[[RewardView alloc] initWithFrame:CGRectMake(-29, SCREEN_HEIGHT*0.251+50, 92, 37)];
         _reward.reward_imageView.image=[UIImage imageNamed:@"reward_image"];
         _reward.reward_imageView.adjustsImageSizeForAccessibilityContentSizeCategory=YES;
     }
@@ -337,7 +335,7 @@
 }
 -(HelpView *)help{
     if (!_help) {
-        _help=[[HelpView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-(92-29), 50, 92, 37)];
+        _help=[[HelpView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-(92-29), SCREEN_HEIGHT*0.251+50, 92, 37)];
         _help.help_imageView.image=[UIImage imageNamed:@"help_image"];
         _help.help_imageView.adjustsImageSizeForAccessibilityContentSizeCategory=YES;
     }
@@ -345,14 +343,12 @@
 }
 -(CountView *)count{
     if (!_count) {
-        _count=[[CountView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-(92-29), 63, 92, 37)];
+        _count=[[CountView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-(92-29), SCREEN_HEIGHT*0.251+50*2, 92, 37)];
         _count.count_imageView.image=[UIImage imageNamed:@"count_image"];
         _count.count_imageView.adjustsImageSizeForAccessibilityContentSizeCategory=YES;
     }
     return _count;
 }
-
-
 
 
 //加载球视图
@@ -976,23 +972,6 @@
 }
 
 
-- (void)updateViewConstraints {
-    [super updateViewConstraints];
-
-    //三个toggleView的布局约束
-    [self.reward mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.changeChanllenge.mas_bottom).offset(13);
-        make.left.equalTo(@(-29));
-    }];
-    [self.help mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.remark.mas_bottom).offset(13);
-        make.left.equalTo(self.view.mas_left).offset(SCREEN_WIDTH-(92-29));
-    }];
-    [self.count mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.remark.mas_bottom).offset(63);
-        make.left.equalTo(self.view.mas_left).offset(SCREEN_WIDTH-(92-29));
-    }];
-}
 /*
 #pragma mark - Navigation
 

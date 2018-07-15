@@ -15,7 +15,6 @@
 @property(nonatomic,strong)UILabel *check_description;
 @property(nonatomic,strong)UIView *animation_view;
 @property(nonatomic,strong)LOTAnimationView *animation;
-@property(nonatomic,strong)UILabel *subject_current_label_description;
 @property(nonatomic,strong)UILabel *subject_current_label;
 @property(nonatomic,strong)UIView *subject_backview;
 @property(nonatomic,strong)UIView *subject_backView_body;

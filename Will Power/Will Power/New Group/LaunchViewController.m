@@ -28,7 +28,7 @@
     // Do any additional setup after loading the view.
     self.animation=[LOTAnimationView animationNamed:@"cubes"];
     self.animation.frame=CGRectMake((SCREEN_WIDTH-100)/2,150, 100, 200);
-    self.animation.loopAnimation=true;
+    self.animation.loopAnimation=false;
     self.animation.contentMode=UIViewContentModeScaleToFill;
     self.animation.animationSpeed=1.0;
     [self.animation playWithCompletion:^(BOOL animationFinished) {
@@ -51,16 +51,16 @@
         [self.view addSubview:self.label_title];
         
         
-        [UIView animateWithDuration:1.0 animations:^{
+        [UIView animateWithDuration:2.0 animations:^{
             self.label_title.alpha=1.0;
         }];
         //4秒后消失
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [UIView animateWithDuration:2.0 animations:^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [UIView animateWithDuration:1.0 animations:^{
                 self.label_title.alpha=0.0;
             }];
             //一秒后跳转到首页
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 
                 [self.navigationController pushViewController:[[HomeViewController alloc] init] animated:true];
             });
@@ -79,6 +79,9 @@
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
 }
 
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [self.navigationController pushViewController:[[HomeViewController alloc] init] animated:true];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

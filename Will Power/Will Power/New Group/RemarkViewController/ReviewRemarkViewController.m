@@ -120,30 +120,58 @@
 
 //配置导航栏相关
 -(void)loadNav{
-    UIView *nav_view=[[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 64)];
-    nav_view.backgroundColor=NAV_BACKGROUND;
-    
-    TapMusicButton *left_back_button=[[TapMusicButton alloc] init];
-    left_back_button.frame=CGRectMake(22, 22, 52, 41);
-    left_back_button.backgroundColor=[UIColor clearColor];
-    [left_back_button setImage:[UIImage imageNamed:@"back_image"] forState:UIControlStateNormal];
-    [[left_back_button rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
-        NSLog(@"左上角的我被惦记了");
-        [self dismissViewControllerAnimated:true completion:^{
-            
+    if (kDevice_Is_iPhoneX) {
+        UIView *nav_view=[[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 84)];
+        nav_view.backgroundColor=NAV_BACKGROUND;
+        
+        TapMusicButton *left_back_button=[[TapMusicButton alloc] init];
+        left_back_button.frame=CGRectMake(22, 42, 52, 41);
+        left_back_button.backgroundColor=[UIColor clearColor];
+        [left_back_button setImage:[UIImage imageNamed:@"back_image"] forState:UIControlStateNormal];
+        [[left_back_button rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+            NSLog(@"左上角的我被惦记了");
+            [self dismissViewControllerAnimated:true completion:^{
+                
+            }];
         }];
-    }];
+        
+        UILabel *title_label=[[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-150)/2, 55, 150, 20)];
+        title_label.text=[[[[RemarkModel shareAddMode] selectEveryThing] objectAtIndex:self.select_index] objectForKey:@"remark_title"];
+        title_label.textColor=BACKGROUND_COLOR;
+        title_label.textAlignment=NSTextAlignmentCenter;
+        title_label.font=[UIFont systemFontOfSize:20.0 weight:UIFontWeightBold];
+        
+        
+        [nav_view addSubview:title_label];
+        [nav_view addSubview:left_back_button];
+        [self.view addSubview:nav_view];
+    }else{
+        UIView *nav_view=[[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 64)];
+        nav_view.backgroundColor=NAV_BACKGROUND;
+        
+        TapMusicButton *left_back_button=[[TapMusicButton alloc] init];
+        left_back_button.frame=CGRectMake(22, 22, 52, 41);
+        left_back_button.backgroundColor=[UIColor clearColor];
+        [left_back_button setImage:[UIImage imageNamed:@"back_image"] forState:UIControlStateNormal];
+        [[left_back_button rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+            NSLog(@"左上角的我被惦记了");
+            [self dismissViewControllerAnimated:true completion:^{
+                
+            }];
+        }];
+        
+        UILabel *title_label=[[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-150)/2, 35, 150, 20)];
+        title_label.text=[[[[RemarkModel shareAddMode] selectEveryThing] objectAtIndex:self.select_index] objectForKey:@"remark_title"];
+        title_label.textColor=BACKGROUND_COLOR;
+        title_label.textAlignment=NSTextAlignmentCenter;
+        title_label.font=[UIFont systemFontOfSize:20.0 weight:UIFontWeightBold];
+        
+        
+        [nav_view addSubview:title_label];
+        [nav_view addSubview:left_back_button];
+        [self.view addSubview:nav_view];
+    }
     
-    UILabel *title_label=[[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-150)/2, 35, 150, 20)];
-    title_label.text=[[[[RemarkModel shareAddMode] selectEveryThing] objectAtIndex:self.select_index] objectForKey:@"remark_title"];
-    title_label.textColor=BACKGROUND_COLOR;
-    title_label.textAlignment=NSTextAlignmentCenter;
-    title_label.font=[UIFont systemFontOfSize:20.0 weight:UIFontWeightBold];
-    
-
-    [nav_view addSubview:title_label];
-    [nav_view addSubview:left_back_button];
-    [self.view addSubview:nav_view];
 }
 
 - (void)didReceiveMemoryWarning {
