@@ -829,15 +829,6 @@
 			path = Category;
 			sourceTree = "<group>";
 		};
-		0474EA7C208DD6DD00FA3283 /* CollectionViewCell */ = {
-			isa = PBXGroup;
-			children = (
-				0474EA7D208DD70700FA3283 /* CalenderCollectionViewCell.h */,
-				0474EA7E208DD70700FA3283 /* CalenderCollectionViewCell.m */,
-			);
-			path = CollectionViewCell;
-			sourceTree = "<group>";
-		};
 		0474EA83208F4EA800FA3283 /* CheckView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1327,7 +1318,6 @@
 		59D21C692072156B008DFA94 /* ToggleView */ = {
 			isa = PBXGroup;
 			children = (
-				0474EA7C208DD6DD00FA3283 /* CollectionViewCell */,
 				59D21C6A207215B1008DFA94 /* ToggleView.h */,
 				59D21C6B207215B1008DFA94 /* ToggleView.m */,
 				59D21C6F20721C5B008DFA94 /* RewardView.h */,
@@ -1389,6 +1379,8 @@
 				59E9DD4020B3E92300C86956 /* SubjectCountViewCell.m */,
 				595EDF4620D24AD3008F1D28 /* DonateTableViewCell.h */,
 				595EDF4720D24AD3008F1D28 /* DonateTableViewCell.m */,
+				0474EA7D208DD70700FA3283 /* CalenderCollectionViewCell.h */,
+				0474EA7E208DD70700FA3283 /* CalenderCollectionViewCell.m */,
 			);
 			path = TableViewCell;
 			sourceTree = "<group>";

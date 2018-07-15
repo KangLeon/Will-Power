@@ -462,7 +462,7 @@
     if (!_sun_animation) {
         // Do any additional setup after loading the view.
         _sun_animation=[LOTAnimationView animationNamed:@"suncloud"];
-        _sun_animation.frame=CGRectMake(SCREEN_WIDTH*0.217, SCREEN_HEIGHT*0.190 , SCREEN_WIDTH*0.193, SCREEN_HEIGHT*0.108);
+        _sun_animation.frame=CGRectMake(SCREEN_WIDTH*0.217, SCREEN_HEIGHT*0.190 , SCREEN_WIDTH*0.193, SCREEN_WIDTH*0.193);
         _sun_animation.loopAnimation=true;
         [_sun_animation playWithCompletion:^(BOOL animationFinished) {
             

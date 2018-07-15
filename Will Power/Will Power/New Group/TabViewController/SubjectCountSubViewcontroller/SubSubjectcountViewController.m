@@ -40,7 +40,7 @@
 
 
 -(void)loadUI{
-    SubjectCountView *view_subject1=[[SubjectCountView alloc] initWithFrame:CGRectMake(10, 26, SCREEN_WIDTH, SCREEN_HEIGHT*0.3)];
+    SubjectCountView *view_subject1=[[SubjectCountView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH*0.024154, SCREEN_HEIGHT*0.03532, SCREEN_WIDTH-SCREEN_WIDTH*0.04830, SCREEN_HEIGHT*0.3)];
     
     //1.项目概览的情况部分
     view_subject1.titleLabel.text=[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:self.index] objectForKey:@"subject_title"];
@@ -74,7 +74,7 @@
     scollView.showsVerticalScrollIndicator=false;
     
     //2.日历view部分
-    self.view_calender=[[CalendenView alloc] initWithFrame:CGRectMake(10, SCREEN_HEIGHT*0.35+26+10, SCREEN_WIDTH-20, SCREEN_HEIGHT*0.6)];
+    self.view_calender=[[CalendenView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH*0.024154, SCREEN_HEIGHT*0.35+SCREEN_HEIGHT*0.048913, SCREEN_WIDTH-SCREEN_WIDTH*0.048309, SCREEN_HEIGHT*0.6)];
     self.view_calender.index_calender=self.index+1;
     
     //在这里设置日历的统计情况。日历统计情况的业务逻辑

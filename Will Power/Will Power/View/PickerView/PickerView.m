@@ -80,7 +80,7 @@
 #pragma mark --起始时间
 -(UIView *)forPicker_view_start{
     if (!_forPicker_view_start) {
-        _forPicker_view_start=[[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT*2.0, SCREEN_WIDTH, SCREEN_HEIGHT*0.45)];
+        _forPicker_view_start=[[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT*2.6, SCREEN_WIDTH, SCREEN_HEIGHT*0.45)];
         _forPicker_view_start.backgroundColor=PICKER_BACKGROUND;
         [_forPicker_view_start addSubview:self.dateStartPicker];
         [_forPicker_view_start addSubview:self.pickerHeader_start];
@@ -256,7 +256,7 @@
 #pragma mark --选择坚持目标
 -(UIView *)forPicker_view_repeat{
     if (!_forPicker_view_repeat) {
-        _forPicker_view_repeat=[[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT*2.0, SCREEN_WIDTH, SCREEN_HEIGHT*0.45)];
+        _forPicker_view_repeat=[[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT*2.6, SCREEN_WIDTH, SCREEN_HEIGHT*0.45)];
         _forPicker_view_repeat.backgroundColor=PICKER_BACKGROUND;
         [_forPicker_view_repeat addSubview:self.dateRepeatPicker];
         [_forPicker_view_repeat addSubview:self.pickerHeader_repeat];
@@ -319,7 +319,7 @@
 
 -(UIView *)forPicker_view{
     if (!_forPicker_view) {
-        _forPicker_view=[[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT*2.0, SCREEN_WIDTH, SCREEN_HEIGHT*0.45)];
+        _forPicker_view=[[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT*2.6, SCREEN_WIDTH, SCREEN_HEIGHT*0.45)];
         _forPicker_view.backgroundColor=PICKER_BACKGROUND;
         [_forPicker_view addSubview:self.timeAlarmPicker];
         [_forPicker_view addSubview:self.pickerHeader];

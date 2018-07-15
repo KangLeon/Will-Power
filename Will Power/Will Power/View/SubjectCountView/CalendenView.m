@@ -71,10 +71,10 @@ static NSString *cell_id=@"reuse_collection";
             [UIView animateWithDuration:0.5 animations:^{
                 self.month_button.backgroundColor=[UIColor whiteColor];
                 self.year_button.backgroundColor=CALENDER_GRAY;
-                self.month_button.frame=CGRectMake(0, 0, (SCREEN_WIDTH-20-5)/2+5, 50);
+                self.month_button.frame=CGRectMake(0, 0, SCREEN_WIDTH*0.4818840579, SCREEN_HEIGHT*0.0679);
                 self.month_label.font=[UIFont systemFontOfSize:18.0 weight:UIFontWeightMedium];
                 self.month_label.textColor=[UIColor darkGrayColor];
-                self.year_button.frame=CGRectMake((SCREEN_WIDTH-20-5)/2+5+5, 3, (SCREEN_WIDTH-20-5)/2-5, 50);
+                self.year_button.frame=CGRectMake(SCREEN_WIDTH*0.4818840579+5, 3, SCREEN_WIDTH*0.45772, SCREEN_HEIGHT*0.0679);
                 self.year_label.font=[UIFont systemFontOfSize:16.0 weight:UIFontWeightMedium];
                 self.year_label.textColor=[UIColor grayColor];
             }];
@@ -87,10 +87,10 @@ static NSString *cell_id=@"reuse_collection";
             [UIView animateWithDuration:0.5 animations:^{
                 self.month_button.backgroundColor=CALENDER_GRAY;
                 self.year_button.backgroundColor=[UIColor whiteColor];
-                self.month_button.frame=CGRectMake(0, 3, (SCREEN_WIDTH-20-5)/2-5, 50);
+                self.month_button.frame=CGRectMake(0, 3, SCREEN_WIDTH*0.45772, SCREEN_HEIGHT*0.0679);
                 self.month_label.font=[UIFont systemFontOfSize:16.0 weight:UIFontWeightMedium];
                 self.month_label.textColor=[UIColor grayColor];
-                self.year_button.frame=CGRectMake((SCREEN_WIDTH-20-5)/2+5-5, 0, (SCREEN_WIDTH-20-5)/2+5, 50);
+                self.year_button.frame=CGRectMake(SCREEN_WIDTH*0.4818840579-5, 0, SCREEN_WIDTH*0.4818840579, SCREEN_HEIGHT*0.0679);
                 self.year_label.font=[UIFont systemFontOfSize:18.0 weight:UIFontWeightMedium];
                 self.year_label.textColor=[UIColor darkGrayColor];
             }];
@@ -117,11 +117,11 @@ static NSString *cell_id=@"reuse_collection";
 
 -(TapMusicButton *)month_button{
     if (!_month_button) {
-        _month_button=[[TapMusicButton alloc] initWithFrame:CGRectMake(0, 0, (SCREEN_WIDTH-20-5)/2+5, 50)];
+        _month_button=[[TapMusicButton alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH*0.4818840579, 50)];
         _month_button.backgroundColor=[UIColor whiteColor];
         _month_button.layer.cornerRadius=12;
         
-        self.month_label=[[UILabel alloc] initWithFrame:CGRectMake(((SCREEN_WIDTH-20-5)/2+5-80)/2, 10, 80, 20)];
+        self.month_label=[[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH*0.4818840579-80)/2, 10, 80, 20)];
         self.month_label.text=@"每月统计";
         self.month_label.textColor=[UIColor darkGrayColor];
         self.month_label.font=[UIFont systemFontOfSize:17.0 weight:UIFontWeightMedium];
@@ -132,11 +132,11 @@ static NSString *cell_id=@"reuse_collection";
 }
 -(TapMusicButton *)year_button{
     if (!_year_button) {
-        _year_button=[[TapMusicButton alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-20-5)/2+5+5, 3, (SCREEN_WIDTH-20-5)/2-5, 50)];
+        _year_button=[[TapMusicButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH*0.4818840579+5, 3, SCREEN_WIDTH*0.45772, 50)];
         _year_button.backgroundColor=CALENDER_GRAY;
         _year_button.layer.cornerRadius=12;
         
-        self.year_label=[[UILabel alloc] initWithFrame:CGRectMake(((SCREEN_WIDTH-20-5)/2-5-80)/2, 10, 80, 20)];
+        self.year_label=[[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH*0.45772-80)/2, 10, 80, 20)];
         self.year_label.text=@"年度统计";
         self.year_label.textColor=[UIColor grayColor];
         self.year_label.font=[UIFont systemFontOfSize:17.0 weight:UIFontWeightMedium];
@@ -151,7 +151,7 @@ static NSString *cell_id=@"reuse_collection";
 
 -(UIView *)back_view{
     if (!_back_view) {
-        _back_view=[[UIView alloc] initWithFrame:CGRectMake(0, 35, SCREEN_WIDTH-20, 55+(SIZE+5)*5+4*5+15)];
+        _back_view=[[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT*0.047554, SCREEN_WIDTH-SCREEN_WIDTH*0.04830, SCREEN_HEIGHT*0.07472+(SIZE+SCREEN_HEIGHT*0.00679)*5+SCREEN_HEIGHT*0.00543*5+SCREEN_HEIGHT*0.02038)];
         _back_view.backgroundColor=[UIColor whiteColor];
         _back_view.layer.cornerRadius=12;
         
@@ -292,9 +292,9 @@ static NSString *cell_id=@"reuse_collection";
         _back_view_year=[[UIView alloc] init];
         //如果比四个月大的话，就扩大frame,因为放不下超过4个月的数据
         if ([[CalenderData sharedCalenderData].month integerValue]>4) {
-            _back_view_year.frame=CGRectMake(0, 35, SCREEN_WIDTH-20, 150+25*([[CalenderData sharedCalenderData].month integerValue]-4));
+            _back_view_year.frame=CGRectMake(0, SCREEN_HEIGHT*0.04755, SCREEN_WIDTH-SCREEN_WIDTH*0.04830, SCREEN_HEIGHT*0.203804+SCREEN_HEIGHT*0.0339673*([[CalenderData sharedCalenderData].month integerValue]-4));
         }else{
-           _back_view_year.frame=CGRectMake(0, 35, SCREEN_WIDTH-20, 150);
+           _back_view_year.frame=CGRectMake(0, SCREEN_HEIGHT*0.04755, SCREEN_WIDTH-SCREEN_WIDTH*0.04830, SCREEN_HEIGHT*0.203804);
         }
 
         //添加视图
@@ -318,9 +318,9 @@ static NSString *cell_id=@"reuse_collection";
                 
                 //如果是大于4个月的话，frame就耀根据月份数动态扩大
                 if ([month integerValue]>4) {
-                    self.back_view_year.frame=CGRectMake(0, 35, SCREEN_WIDTH-20, 150+25*([month integerValue]-4));
+                    self.back_view_year.frame=CGRectMake(0, SCREEN_HEIGHT*0.04755, SCREEN_WIDTH-SCREEN_WIDTH*0.04830, SCREEN_HEIGHT*0.203804+SCREEN_HEIGHT*0.0339673*([[CalenderData sharedCalenderData].month integerValue]-4));
                 }else{
-                    self.back_view_year.frame=CGRectMake(0, 35, SCREEN_WIDTH-20, 150);
+                    self.back_view_year.frame=CGRectMake(0, SCREEN_HEIGHT*0.04755, SCREEN_WIDTH-SCREEN_WIDTH*0.04830, SCREEN_HEIGHT*0.203804);
                 }
                 //移除旧的所有label和view，
                 //遍历count_view上的所有子view都移除掉
@@ -329,7 +329,7 @@ static NSString *cell_id=@"reuse_collection";
                 }
                 //添加新的，这样的话有个问题，会不会引起太浪费资源的问题
                 for (int i=0; i<([month integerValue]); i++) {
-                    UILabel *label=[[UILabel alloc] initWithFrame:CGRectMake(10, 15+(i*25), 60, 15)];
+                    UILabel *label=[[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH*0.00241545, SCREEN_HEIGHT*0.02038+(i*SCREEN_HEIGHT*0.03396), SCREEN_WIDTH*0.1449275, SCREEN_HEIGHT*0.02038)];
                     label.font=[UIFont systemFontOfSize:12.0 weight:UIFontWeightMedium];
                     label.textColor=[UIColor grayColor];
                     label.textAlignment=NSTextAlignmentCenter;
@@ -360,7 +360,7 @@ static NSString *cell_id=@"reuse_collection";
                     }
                     
                     for (NSInteger j=0; j<month_count; j++) {
-                        UIView *view=[[UIView alloc] initWithFrame:CGRectMake(65+(10*j), 17+(i*25), 9, 9)];
+                        UIView *view=[[UIView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH*0.15700483+(SCREEN_WIDTH*0.024154*j), SCREEN_HEIGHT*0.023097+(i*SCREEN_HEIGHT*0.033967), SCREEN_WIDTH*0.021739, SCREEN_WIDTH*0.021739)];
                         view.backgroundColor=CALENDER_GRAY;
                         [self.count_view addSubview:view];
                         
@@ -384,8 +384,8 @@ static NSString *cell_id=@"reuse_collection";
                 //(向左不可能比当前年大)
                 //年分减一
                 
-                self.back_view_year.frame=CGRectMake(0, 35, SCREEN_WIDTH-20, 150+25*8);
-                self.count_view.frame=CGRectMake(0, 35, SCREEN_WIDTH-20, 120+25*8);
+                self.back_view_year.frame=CGRectMake(0, SCREEN_HEIGHT*0.0475, SCREEN_WIDTH-SCREEN_WIDTH*0.04830, SCREEN_HEIGHT*0.20380+SCREEN_HEIGHT*0.033967*8);
+                self.count_view.frame=CGRectMake(0, SCREEN_HEIGHT*0.0475, SCREEN_WIDTH-SCREEN_WIDTH*0.04830, SCREEN_HEIGHT*0.16304+SCREEN_HEIGHT*0.033967*8);
                 //移除旧的，
                 //遍历count_view上的所有子view都移除掉
                 for (UIView *view in self.count_view.subviews) {
@@ -393,7 +393,7 @@ static NSString *cell_id=@"reuse_collection";
                 }
                 //添加新的，这样的话有个问题，会不会引起太浪费资源的问题
                 for (int i=0; i<(12); i++) {
-                    UILabel *label=[[UILabel alloc] initWithFrame:CGRectMake(10, 15+(i*25), 60, 15)];
+                    UILabel *label=[[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH*0.00241545, SCREEN_HEIGHT*0.02038+(i*SCREEN_HEIGHT*0.03396), SCREEN_WIDTH*0.1449275, SCREEN_HEIGHT*0.02038)];
                     label.font=[UIFont systemFontOfSize:12.0 weight:UIFontWeightMedium];
                     label.textColor=[UIColor grayColor];
                     label.textAlignment=NSTextAlignmentCenter;
@@ -424,7 +424,7 @@ static NSString *cell_id=@"reuse_collection";
                     }
                     
                     for (NSInteger j=0; j<month_count; j++) {
-                        UIView *view=[[UIView alloc] initWithFrame:CGRectMake(65+(10*j), 17+(i*25), 9, 9)];
+                        UIView *view=[[UIView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH*0.15700483+(SCREEN_WIDTH*0.024154*j), SCREEN_HEIGHT*0.023097+(i*SCREEN_HEIGHT*0.033967), SCREEN_WIDTH*0.021739, SCREEN_WIDTH*0.021739)];;
                         view.backgroundColor=CALENDER_GRAY;
                         [self.count_view addSubview:view];
                         
@@ -464,8 +464,8 @@ static NSString *cell_id=@"reuse_collection";
                         [view removeFromSuperview];
                     }
                     //将view的frame缩小
-                    self.back_view_year.frame=CGRectMake(0, 35, SCREEN_WIDTH-20, 150);
-                    self.count_view.frame=CGRectMake(0, 35, SCREEN_WIDTH-20, 120);
+                    self.back_view_year.frame=CGRectMake(0, SCREEN_HEIGHT*0.0475, SCREEN_WIDTH-SCREEN_WIDTH*0.04830, SCREEN_HEIGHT*0.20380);
+                    self.count_view.frame=CGRectMake(0, SCREEN_HEIGHT*0.0475, SCREEN_WIDTH-SCREEN_WIDTH*0.04830, SCREEN_HEIGHT*0.16304);
                
             }else if([self.current_year.text integerValue]==[[CalenderData sharedCalenderData].current_year integerValue]){
                 //是否和当前年是一样的，是的话，完成frame的缩小
@@ -476,16 +476,16 @@ static NSString *cell_id=@"reuse_collection";
                 
                     //扩大back_view_year的frame
                     if ([[CalenderData sharedCalenderData].month integerValue]>4) {
-                        self.back_view_year.frame=CGRectMake(0, 35, SCREEN_WIDTH-20, 150+25*([[CalenderData sharedCalenderData].month integerValue]-4));
+                        self.back_view_year.frame=CGRectMake(0, SCREEN_HEIGHT*0.047, SCREEN_WIDTH-SCREEN_WIDTH*0.04830, SCREEN_HEIGHT*0.20380+SCREEN_HEIGHT*0.033967*([[CalenderData sharedCalenderData].month integerValue]-4));
                     }else{
-                        self.back_view_year.frame=CGRectMake(0, 35, SCREEN_WIDTH-20, 150);
+                        self.back_view_year.frame=CGRectMake(0, SCREEN_HEIGHT*0.047, SCREEN_WIDTH-SCREEN_WIDTH*0.04830, SCREEN_HEIGHT*0.20380);
                     }
-                    
+
                     //如果比四个月大的话，就扩大count_view的frame
                     if ([[CalenderData sharedCalenderData].month integerValue]>4) {
-                        self.count_view.frame=CGRectMake(0, 35, SCREEN_WIDTH-20, 120+25*([[CalenderData sharedCalenderData].month integerValue]-4));
+                        self.count_view.frame=CGRectMake(0, SCREEN_HEIGHT*0.0475, SCREEN_WIDTH-SCREEN_WIDTH*0.04830, SCREEN_HEIGHT*0.16304+SCREEN_HEIGHT*0.0396739*([[CalenderData sharedCalenderData].month integerValue]-4));
                     }else{
-                        self.count_view.frame=CGRectMake(0, 35, SCREEN_WIDTH-20, 120);
+                        self.count_view.frame=CGRectMake(0, SCREEN_HEIGHT*0.0475, SCREEN_WIDTH-SCREEN_WIDTH*0.04830, SCREEN_HEIGHT*0.16304);
                     }
                     //移除旧的，
                     for (UIView *view in self.count_view.subviews) {
@@ -493,7 +493,7 @@ static NSString *cell_id=@"reuse_collection";
                     }
                     //添加新的，这样的话有个问题，会不会引起太浪费资源的问题
                     for (int i=0; i<([month integerValue]); i++) {
-                        UILabel *label=[[UILabel alloc] initWithFrame:CGRectMake(10, 15+(i*25), 60, 15)];
+                        UILabel *label=[[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH*0.00241545, SCREEN_HEIGHT*0.02038+(i*SCREEN_HEIGHT*0.03396), SCREEN_WIDTH*0.1449275, SCREEN_HEIGHT*0.02038)];
                         label.font=[UIFont systemFontOfSize:12.0 weight:UIFontWeightMedium];
                         label.textColor=[UIColor grayColor];
                         label.textAlignment=NSTextAlignmentCenter;
@@ -524,7 +524,7 @@ static NSString *cell_id=@"reuse_collection";
                         }
                         
                         for (int j=0; j<month_count; j++) {
-                            UIView *view=[[UIView alloc] initWithFrame:CGRectMake(65+(10*j), 17+(i*25), 9, 9)];
+                            UIView *view=[[UIView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH*0.15700483+(SCREEN_WIDTH*0.024154*j), SCREEN_HEIGHT*0.023097+(i*SCREEN_HEIGHT*0.033967), SCREEN_WIDTH*0.021739, SCREEN_WIDTH*0.021739)];;
                             view.backgroundColor=CALENDER_GRAY;
                             [self.count_view addSubview:view];
                             
@@ -593,11 +593,10 @@ static NSString *cell_id=@"reuse_collection";
         
         //如果比四个月大的话，就扩大frame
         if ([[CalenderData sharedCalenderData].month integerValue]>4) {
-            _count_view.frame=CGRectMake(0, 35, SCREEN_WIDTH-20, 120+25*([[CalenderData sharedCalenderData].month integerValue]-4));
+            _count_view.frame=CGRectMake(0, SCREEN_HEIGHT*0.0475, SCREEN_WIDTH-SCREEN_WIDTH*0.04830, SCREEN_HEIGHT*0.16304+SCREEN_HEIGHT*0.033967*([[CalenderData sharedCalenderData].month integerValue]-4));
         }else{
-            _count_view.frame=CGRectMake(0, 35, SCREEN_WIDTH-20, 120);
+            _count_view.frame=CGRectMake(0, SCREEN_HEIGHT*0.0475, SCREEN_WIDTH-SCREEN_WIDTH*0.04830, SCREEN_HEIGHT*0.16304);
         }
-        
         _count_view.backgroundColor=[UIColor whiteColor];
         _count_view.layer.cornerRadius=12.0;
         
@@ -606,7 +605,7 @@ static NSString *cell_id=@"reuse_collection";
         NSString *month=[CalenderData sharedCalenderData].month;//比较的时候还是拿这个比较的
         
         for (int i=0; i<([month integerValue]); i++) {
-            UILabel *label=[[UILabel alloc] initWithFrame:CGRectMake(10, 15+(i*25), 60, 15)];
+            UILabel *label=[[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH*0.00241545, SCREEN_HEIGHT*0.02038+(i*SCREEN_HEIGHT*0.03396), SCREEN_WIDTH*0.1449275, SCREEN_HEIGHT*0.02038)];
             label.font=[UIFont systemFontOfSize:12.0 weight:UIFontWeightMedium];
             label.textColor=[UIColor grayColor];
             label.textAlignment=NSTextAlignmentCenter;
@@ -637,7 +636,7 @@ static NSString *cell_id=@"reuse_collection";
             }
             
             for (int j=0; j<month_count; j++) {
-                UIView *view=[[UIView alloc] initWithFrame:CGRectMake(65+(10*j), 17+(i*25), 9, 9)];
+                UIView *view=[[UIView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH*0.15700483+(SCREEN_WIDTH*0.024154*j), SCREEN_HEIGHT*0.023097+(i*SCREEN_HEIGHT*0.033967), SCREEN_WIDTH*0.021739, SCREEN_WIDTH*0.021739)];;
                 view.backgroundColor=CALENDER_GRAY;
                 [_count_view addSubview:view];
                 
@@ -709,6 +708,7 @@ static NSString *cell_id=@"reuse_collection";
                 cell.calenderTitle.text=@"";
             }else{
               cell.calenderTitle.text=[NSString stringWithFormat:@"%ld",indexPath.row];
+              NSString *stringllsdjf=[NSString stringWithFormat:@"%ld",indexPath.row];
             }
             //11月和12月字体较大时的处理，将月初日期字体缩小，并且改变内容
             if (indexPath.row==1) {

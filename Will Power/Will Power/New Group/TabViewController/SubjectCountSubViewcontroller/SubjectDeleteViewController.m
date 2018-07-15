@@ -23,6 +23,8 @@
 #import "PickerView.h"
 #import "SubjectCountViewController.h"
 
+#define COTENT_SIZE (370+self.second_modify_tableView.frame.size.height+10+40+10+240+10+40+10+60+26+59+20+70)
+
 static NSString *cell_id_firstStep=@"first_modify_tableView_cell_id";
 static NSString *cell_id_secondStep=@"second_modify_tableView_cell_id";
 static NSString *cell_id_thirdStep=@"third_modify_tableView_cell_id";
@@ -148,7 +150,7 @@ static NSString *cell_id_eighthStep=@"eighth_modify_tableView_cell_id";
 #pragma mark 第一个修改部分的
 -(UITableView *)first_modify_tableView{
     if (!_first_modify_tableView) {
-        _first_modify_tableView=[[UITableView alloc] initWithFrame:CGRectMake(10, 70, (SCREEN_WIDTH-20), 240)];
+        _first_modify_tableView=[[UITableView alloc] initWithFrame:CGRectMake(10, 70, (SCREEN_WIDTH-20), 236)];
         _first_modify_tableView.dataSource=self;
         _first_modify_tableView.delegate=self;
         [_first_modify_tableView registerClass:[TextFieldTableViewCell class] forCellReuseIdentifier:cell_id_firstStep
@@ -203,7 +205,7 @@ static NSString *cell_id_eighthStep=@"eighth_modify_tableView_cell_id";
 #pragma mark 第二个修改部分的
 -(UITableView *)second_modify_tableView{
     if (!_second_modify_tableView) {
-        _second_modify_tableView=[[UITableView alloc] initWithFrame:CGRectMake(10, 370, (SCREEN_WIDTH-20), 240+[[NotifiModel notifiModel] countForDataIn:(self.delete_index+1)]*60)];
+        _second_modify_tableView=[[UITableView alloc] initWithFrame:CGRectMake(10, 370, (SCREEN_WIDTH-20), 236+[[NotifiModel notifiModel] countForDataIn:(self.delete_index+1)]*59)];
         _second_modify_tableView.dataSource=self;
         _second_modify_tableView.delegate=self;
         [_second_modify_tableView registerClass:[PickerTableViewCell class] forCellReuseIdentifier:cell_id_secondStep
@@ -253,12 +255,12 @@ static NSString *cell_id_eighthStep=@"eighth_modify_tableView_cell_id";
         _pickerView_three=[[PickerView alloc] initWithFrame:self.view.frame];
         _pickerView_three.backgroundColor=[UIColor clearColor];
         _pickerView_three.delegate=self;
-        _pickerView_three.contentSize=CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT*1.7+59*self.alarm_temporary_array.count);
+        _pickerView_three.contentSize=CGSizeMake(SCREEN_WIDTH, 370+self.second_modify_tableView.frame.size.height+10+40+10+240+10+40+10+60+26+59+20+70);
         _pickerView_three.showsVerticalScrollIndicator=NO;//不限时垂直的滚动条
         //1.设置坚持目标的
         [[_pickerView_three.cancelButton_repeat rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
             [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:1 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-                self->_pickerView_three.forPicker_view_repeat.frame=CGRectMake(0, SCREEN_HEIGHT*2.0, SCREEN_WIDTH, SCREEN_HEIGHT*0.45);
+                self->_pickerView_three.forPicker_view_repeat.frame=CGRectMake(0, COTENT_SIZE*1.3, SCREEN_WIDTH, SCREEN_HEIGHT*0.45);
                 self.pickerView_three.scrollEnabled=true;
             } completion:nil];
         }];
@@ -267,7 +269,7 @@ static NSString *cell_id_eighthStep=@"eighth_modify_tableView_cell_id";
         //完成按钮的点击，应该保存数据
         [[_pickerView_three.finishPickerButton_repeat rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
             [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:1 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-                self->_pickerView_three.forPicker_view_repeat.frame=CGRectMake(0, SCREEN_HEIGHT*2.0, SCREEN_WIDTH, SCREEN_HEIGHT*0.45);
+                self->_pickerView_three.forPicker_view_repeat.frame=CGRectMake(0, COTENT_SIZE*1.3, SCREEN_WIDTH, SCREEN_HEIGHT*0.45);
                 //将cell的值改变
                 self.for_repeat_cell_text=self->_pickerView_three.repeat_str;//将值显示到cell上
                 [self.second_modify_tableView reloadData];
@@ -278,7 +280,7 @@ static NSString *cell_id_eighthStep=@"eighth_modify_tableView_cell_id";
         //取消❌按钮的点击
         [[_pickerView_three.cancelButton_start rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
             [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:1 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-                self->_pickerView_three.forPicker_view_start.frame=CGRectMake(0, SCREEN_HEIGHT*2.0, SCREEN_WIDTH, SCREEN_HEIGHT*0.45);
+                self->_pickerView_three.forPicker_view_start.frame=CGRectMake(0, COTENT_SIZE*1.3, SCREEN_WIDTH, SCREEN_HEIGHT*0.45);
                 self.pickerView_three.scrollEnabled=true;
             } completion:nil];
         }];
@@ -287,7 +289,7 @@ static NSString *cell_id_eighthStep=@"eighth_modify_tableView_cell_id";
         //完成按钮的点击，应该保存数据
         [[_pickerView_three.finishPickerButton_start rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
             [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:1 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-                self->_pickerView_three.forPicker_view_start.frame=CGRectMake(0, SCREEN_HEIGHT*2.0, SCREEN_WIDTH, SCREEN_HEIGHT*0.45);
+                self->_pickerView_three.forPicker_view_start.frame=CGRectMake(0, COTENT_SIZE*1.3, SCREEN_WIDTH, SCREEN_HEIGHT*0.45);
                 //将cell的值改变
                 self.for_start_cell_text=self->_pickerView_three.start_str;//将值显示到cell上
                 [self.second_modify_tableView reloadData];
@@ -298,7 +300,7 @@ static NSString *cell_id_eighthStep=@"eighth_modify_tableView_cell_id";
         //取消❌按钮的点击
         [[_pickerView_three.cancelButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
             [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:1 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-                self->_pickerView_three.forPicker_view.frame=CGRectMake(0, SCREEN_HEIGHT*2.0, SCREEN_WIDTH, SCREEN_HEIGHT*0.45);
+                self->_pickerView_three.forPicker_view.frame=CGRectMake(0, COTENT_SIZE*1.3, SCREEN_WIDTH, SCREEN_HEIGHT*0.45);
                 self.pickerView_three.scrollEnabled=true;
             } completion:nil];
         }];
@@ -307,7 +309,7 @@ static NSString *cell_id_eighthStep=@"eighth_modify_tableView_cell_id";
         //完成按钮的点击，应该保存数据
         [[_pickerView_three.finishPickerButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
             [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:1 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-                self->_pickerView_three.forPicker_view.frame=CGRectMake(0, SCREEN_HEIGHT*2.0, SCREEN_WIDTH, SCREEN_HEIGHT*0.45);
+                self->_pickerView_three.forPicker_view.frame=CGRectMake(0, COTENT_SIZE*1.3, SCREEN_WIDTH, SCREEN_HEIGHT*0.45);
                 [self.alarm_temporary_array addObject:self->_pickerView_three.alarm_str];//将值添加到数组中
                 //为了存值到数据库中的操作
                 self.alarm_single_dic=[[NSDictionary alloc] init];
@@ -418,7 +420,7 @@ static NSString *cell_id_eighthStep=@"eighth_modify_tableView_cell_id";
 #pragma mark 第三个修改部分的
 -(UITableView *)third_modify_tableView{
     if (!_third_modify_tableView) {
-        _third_modify_tableView=[[UITableView alloc] initWithFrame:CGRectMake(10, 370+self.second_modify_tableView.frame.size.height+10+40+10, (SCREEN_WIDTH-20), 240)];
+        _third_modify_tableView=[[UITableView alloc] initWithFrame:CGRectMake(10, 370+self.second_modify_tableView.frame.size.height+10+40+10, (SCREEN_WIDTH-20), 236)];
         _third_modify_tableView.dataSource=self;
         _third_modify_tableView.delegate=self;
         [_third_modify_tableView registerClass:[TextFieldTableViewCell class] forCellReuseIdentifier:cell_id_fifthStep
@@ -442,7 +444,7 @@ static NSString *cell_id_eighthStep=@"eighth_modify_tableView_cell_id";
 #pragma mark 第四个修改部分的
 -(UITableView *)fourth_modify_tableView{
     if (!_fourth_modify_tableView) {
-        _fourth_modify_tableView=[[UITableView alloc] initWithFrame:CGRectMake(10, 370+self.second_modify_tableView.frame.size.height+10+40+10+240+10+40+10, (SCREEN_WIDTH-20), 60)];
+        _fourth_modify_tableView=[[UITableView alloc] initWithFrame:CGRectMake(10, 370+self.second_modify_tableView.frame.size.height+10+40+10+240+10+40+10, (SCREEN_WIDTH-20), 59)];
         _fourth_modify_tableView.dataSource=self;
         _fourth_modify_tableView.delegate=self;
         [_fourth_modify_tableView registerClass:[TextFieldTableViewCell class] forCellReuseIdentifier:cell_id_sixthStep
@@ -466,7 +468,7 @@ static NSString *cell_id_eighthStep=@"eighth_modify_tableView_cell_id";
 #pragma mark 完成部分
 -(TapMusicButton *)finishButton{
     if (!_finishButton) {
-        _finishButton=[[TapMusicButton alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-374)/2, 370+self.second_modify_tableView.frame.size.height+10+40+10+240+10+40+10+60+26, 374, 58)];
+        _finishButton=[[TapMusicButton alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-SCREEN_WIDTH*0.90338)/2, 370+self.second_modify_tableView.frame.size.height+10+40+10+240+10+40+10+60+26, SCREEN_WIDTH*0.90338, SCREEN_HEIGHT*0.07880434)];
         [_finishButton setImage:[UIImage imageNamed:@"modify_complete_image"] forState:UIControlStateNormal];
         [[_finishButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
            //弹出提醒框是否确认修改，

@@ -27,6 +27,7 @@
         _calenderTitle.textAlignment=NSTextAlignmentCenter;
         _calenderTitle.textColor=[UIColor grayColor];
         _calenderTitle.font=[UIFont systemFontOfSize:18.0 weight:UIFontWeightMedium];
+        _calenderTitle.adjustsFontSizeToFitWidth=YES;
     }
     return _calenderTitle;
 }
