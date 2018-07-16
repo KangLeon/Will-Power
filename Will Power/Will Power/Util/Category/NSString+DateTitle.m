@@ -114,7 +114,7 @@
     }else if ([goalString isEqualToString:@"一个月"]){
         return 30;
     }else if ([goalString isEqualToString:@"2个月"]){
-        return 61;
+        return 60;
     }else if ([goalString isEqualToString:@"3个月"]){
         return 90;
     }else if ([goalString isEqualToString:@"6个月"]){

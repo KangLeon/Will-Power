@@ -24,7 +24,7 @@
 static NSString *cell_textFiled_id=@"cell_textfiled";
 static NSString *cell_label_id=@"cell_label";
 
-@interface AddThirdViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
+@interface AddThirdViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIScrollViewDelegate>
 @property(nonatomic,strong) AlertView *alertView;
 
 @property(nonatomic,strong)UITableView *discovery_tableView;
@@ -74,6 +74,7 @@ static NSString *cell_label_id=@"cell_label";
     self.scrollView=[[UIScrollView alloc] initWithFrame:self.view.frame];
     self.scrollView.contentSize=CGSizeMake(SCREEN_WIDTH, 332+240+80);
     self.scrollView.showsVerticalScrollIndicator=false;
+    self.scrollView.delegate=self;
     //第一个tableView
     UILabel *titleLabel_discovery=[[UILabel alloc] initWithFrame:CGRectMake(30, 10, 80, 30)];
     titleLabel_discovery.text=@"发现";
@@ -235,6 +236,17 @@ static NSString *cell_label_id=@"cell_label";
         cell.imageView.image=[UIImage imageNamed:self.cell_textFiled_array[indexPath.row]];
         cell.cellTextField.placeholder=self.cell_textField_placeHolder[indexPath.row];
         cell.selectionStyle=UITableViewCellSelectionStyleNone;//取消选中状态
+        
+        //如果是第三个输入框的话，键盘的返回按钮样式是完成样式
+        if (indexPath.row==3) {
+            cell.cellTextField.delegate=self;
+            cell.cellTextField.returnKeyType=UIReturnKeyDone;
+            [[cell.cellTextField rac_signalForControlEvents:UIControlEventTouchDown] subscribeNext:^(__kindof UIControl * _Nullable x) {
+                [cell.cellTextField resignFirstResponder];
+                NSLog(@"输入完了");
+            }];
+        }
+        
         //信号初始化
         switch (indexPath.row) {
             case 0:
@@ -290,6 +302,9 @@ static NSString *cell_label_id=@"cell_label";
     return YES;
 }
 
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    [self.scrollView endEditing:YES];
+}
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if ([tableView isEqual:self.discovery_tableView]) {

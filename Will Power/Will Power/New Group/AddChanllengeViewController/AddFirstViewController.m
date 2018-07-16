@@ -22,7 +22,7 @@
 
 static NSString *cell_ID=@"my_cell";
 
-@interface AddFirstViewController ()<FUIAlertViewDelegate,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
+@interface AddFirstViewController ()<FUIAlertViewDelegate,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIScrollViewDelegate>
 @property(nonatomic,strong) UIView *forTableView;//放置TableView的view
 
 
@@ -98,6 +98,7 @@ static NSString *cell_ID=@"my_cell";
         _scorllView=[[UIScrollView alloc] initWithFrame:self.view.frame];
         _scorllView.contentSize=CGSizeMake(SCREEN_WIDTH, 106+59*3+26+310+70);
         _scorllView.showsVerticalScrollIndicator=false;
+        _scorllView.delegate=self;
     }
     return _scorllView;
 }
@@ -325,8 +326,13 @@ static NSString *cell_ID=@"my_cell";
 
 //关闭键盘显示
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    [self.view endEditing:YES];
+    [self.scorllView endEditing:YES];
 }
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    [self.scorllView endEditing:YES];
+}
+
 
 - (BOOL)textFieldShouldReturn:(UITextField *)aTextfield {
     [aTextfield resignFirstResponder];//关闭键盘

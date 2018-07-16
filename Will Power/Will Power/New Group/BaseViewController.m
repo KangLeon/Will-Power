@@ -209,6 +209,7 @@
 -(void)startNotifi{
     NSLog(@"我要确立的通知是下面的内容");
     [[NotifiModel notifiModel] selectEveryThing];
+    
     //循坏所有任务确立所有通知
     //判断是否已经打开通知，如果没有打开通知就不确立通知，单纯的存储提醒时间到数据库，如果打开了就确立通知
     [[UNUserNotificationCenter currentNotificationCenter] getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings * _Nonnull settings) {

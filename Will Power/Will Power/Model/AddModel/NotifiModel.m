@@ -51,6 +51,7 @@
     if ([self.database executeUpdate:stringCreateTable]){
         NSLog(@"创建数据表成功");
     }
+    [self.database close];
 }
 
 #pragma mark 插入数据部分
@@ -63,6 +64,7 @@
                 NSLog(@"插入数据成功");
             }
         }
+        [self.database close];
     }
 }
 //#pragma mark 删除数据部分
@@ -75,6 +77,7 @@
                 NSLog(@"删除数据成功");
             }
         }
+        [self.database close];
     }
 }
 
@@ -123,6 +126,7 @@
             }
             return count;
         }
+        [self.database close];
     }
     return count;
 }
@@ -151,6 +155,7 @@
             }
             return count;
         }
+        [self.database close];
     }
     return count;
 }
@@ -198,6 +203,7 @@
                 NSLog(@"输出验证%ld,%ld,%@,%@,%@",id,subject_id,alarm_day,alarm_hour,alarm_minute);
             }
         }
+        [self.database close];
     }
     return resultArray;//返回数组
 }
@@ -246,6 +252,7 @@
                 NSLog(@"输出验证现在关联id下的任务有%ld,%ld,%@,%@,%@",id,subject_id,alarm_day,alarm_hour,alarm_minute);
             }
         }
+        [self.database close];
     }
     return resultArray;//返回数组
 }

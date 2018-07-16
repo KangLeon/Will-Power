@@ -22,6 +22,7 @@
 #import <FlatUIKit.h>
 #import "PickerView.h"
 #import "SubjectCountViewController.h"
+#import "NSDate+LocalDate.h"
 
 #define COTENT_SIZE (370+self.second_modify_tableView.frame.size.height+10+40+10+240+10+40+10+60+26+59+20+70)
 
@@ -888,6 +889,16 @@ static NSString *cell_id_eighthStep=@"eighth_modify_tableView_cell_id";
                 }
             }
             //重新确立通知
+//            NSDate *start_date_for_subject=[self dateFrom:[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:self.delete_index] objectForKey:@"goal_total"]];//2018-07-05 00:00:00 UTC
+//            NSDate *loacdate4real=[NSDate localdate_4real];
+//            NSDate *laterDate=[start_date_for_subject laterDate:loacdate4real];//获取更晚的日期
+//            NSTimeInterval timeInterval=[start_date_for_subject timeIntervalSinceDate:loacdate4real];
+//            if ([laterDate isEqualToDate:start_date_for_subject]) {
+//                //判断两个日期，如果开始日期更靠后的话,就需要确立一个定时器，在时间间隔到达后再确立通知
+//                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(timeInterval * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//                    [self startNotifi];
+//                });
+//            }
             [self startNotifi];
             //返回上一级
             [self.navigationController popViewControllerAnimated:true];

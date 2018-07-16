@@ -187,8 +187,14 @@ static NSString *cell_id3=@"subject_cell_3";
         }else{
             cell.dayView_goal.day_label.text=@"Days";
         }
-        cell.titleImageView.image=[UIImage imageNamed:[NSString stringWithFormat:@"%@",[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row] objectForKey:@"image"]]];
-        cell.headView.backgroundColor=[[GetColor shareGetColor] getMyColorWith:[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row] objectForKey:@"image"]];
+        
+        if ([[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row] objectForKey:@"image"] isEqualToString:@"46"] | [[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row] objectForKey:@"image"] isEqualToString:@"47"] | [[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row] objectForKey:@"image"] isEqualToString:@"48"] | [[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row] objectForKey:@"image"] isEqualToString:@"49"]) {
+            cell.titleImageView.image=[UIImage imageNamed:[NSString stringWithFormat:@"%@",[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row] objectForKey:@"image"]]];
+            cell.headView.backgroundColor=twenty_three_BACKGROUND_COLOR;
+        }else{
+            cell.headView.backgroundColor=[[GetColor shareGetColor] getMyColorWith:[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row] objectForKey:@"image"]];
+            cell.titleImageView.image=[UIImage imageNamed:[NSString stringWithFormat:@"%@-%@",[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row] objectForKey:@"image"],[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row] objectForKey:@"image"]]];
+        }
         cell.subject_start_time.text=[NSString stringWithFormat:@"Since %@",[[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row] objectForKey:@"start_date"] startDateForm:[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row] objectForKey:@"start_date"]]];
         cell.reward_label.text=[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row] objectForKey:@"reward"];
         
@@ -212,8 +218,13 @@ static NSString *cell_id3=@"subject_cell_3";
         }else{
             cell.dayView_repeat.day_label.text=@"Days";
         }
-        cell.titleImageView.image=[UIImage imageNamed:[NSString stringWithFormat:@"%@",[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+1] objectForKey:@"image"]]];
-        cell.headView.backgroundColor=[[GetColor shareGetColor] getMyColorWith:[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+1] objectForKey:@"image"]];
+        if ([[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+1] objectForKey:@"image"] isEqualToString:@"46"] | [[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+1] objectForKey:@"image"] isEqualToString:@"47"] | [[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+1] objectForKey:@"image"] isEqualToString:@"48"] | [[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+1] objectForKey:@"image"] isEqualToString:@"49"]) {
+            cell.headView.backgroundColor=twenty_three_BACKGROUND_COLOR;
+            cell.titleImageView.image=[UIImage imageNamed:[NSString stringWithFormat:@"%@",[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+1] objectForKey:@"image"]]];
+        }else{
+            cell.headView.backgroundColor=[[GetColor shareGetColor] getMyColorWith:[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+1] objectForKey:@"image"]];
+            cell.titleImageView.image=[UIImage imageNamed:[NSString stringWithFormat:@"%@-%@",[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+1] objectForKey:@"image"],[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+1] objectForKey:@"image"]]];
+        }
         cell.goalDiscription.text=[NSString stringWithFormat:@"距%@天目标还有",[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+1] objectForKey:@"goal_total"]];
         cell.goalDay_label.text=[NSString stringWithFormat:@"%ld",[self countDaysAtIndex:indexPath]]; //距离目标天数还有多少天
         //设置DayView的判断逻辑
@@ -245,8 +256,14 @@ static NSString *cell_id3=@"subject_cell_3";
         }else{
             cell.dayView_repeat.day_label.text=@"Days";
         }
-        cell.titleImageView.image=[UIImage imageNamed:[NSString stringWithFormat:@"%@",[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+2] objectForKey:@"image"]]];
-        cell.headView.backgroundColor=[[GetColor shareGetColor] getMyColorWith:[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+2] objectForKey:@"image"]];
+        
+        if ([[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+2] objectForKey:@"image"] isEqualToString:@"46"] | [[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+2] objectForKey:@"image"] isEqualToString:@"47"] | [[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+2] objectForKey:@"image"] isEqualToString:@"48"] | [[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+2] objectForKey:@"image"] isEqualToString:@"49"]) {
+            cell.headView.backgroundColor=twenty_three_BACKGROUND_COLOR;
+            cell.titleImageView.image=[UIImage imageNamed:[NSString stringWithFormat:@"%@",[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+2] objectForKey:@"image"]]];
+        }else{
+            cell.headView.backgroundColor=[[GetColor shareGetColor] getMyColorWith:[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+2] objectForKey:@"image"]];
+            cell.titleImageView.image=[UIImage imageNamed:[NSString stringWithFormat:@"%@-%@",[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+2] objectForKey:@"image"],[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+2] objectForKey:@"image"]]];
+        }
         cell.goalDiscription.text=[NSString stringWithFormat:@"距%@天目标还有",[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+2] objectForKey:@"goal_total"]];
         cell.goalDay_label.text=[NSString stringWithFormat:@"%ld",[self countDaysAtIndex:indexPath]]; //距离目标天数还有多少天
         //设置DayView的判断逻辑
@@ -307,7 +324,7 @@ static NSString *cell_id3=@"subject_cell_3";
 -(NSInteger)countDaysAtIndex:(NSIndexPath*)indexPath{
     //完成时间格式的转换，计算相隔时间
     //1.拿到当前时间
-    NSDate *currentDate=[NSDate localdate];
+    NSDate *currentDate=[NSDate localdate_4real];
     //2.拿到项目开始时间
     NSString *startDate_String=[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row] objectForKey:@"start_date"];
     //3.将项目开始时间字符串转换成date

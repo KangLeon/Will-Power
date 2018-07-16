@@ -33,6 +33,7 @@
 //创建任务数据表的接口
 -(void)createDataBase{
     NSString *document=[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+    
     NSString *path=[document stringByAppendingString:@"/subject1.db"];
     
     //创建并且打开数据库
@@ -52,6 +53,7 @@
     if ([self.database executeUpdate:stringCreateTable]){
         NSLog(@"创建数据表成功");
     }
+    [self.database close];
 }
 #pragma mark 插入数据部分
 //插入数据的接口
@@ -63,6 +65,7 @@
                 NSLog(@"插入数据成功");
             }
         }
+        [self.database close];
     }
 }
 #pragma mark 删除数据部分
@@ -139,6 +142,30 @@
             //修改SubjectModel的
             if ([self.database executeUpdate:@"update mission set id=? where id=?",@(id),@(id+1)]) {
                 NSLog(@"修改数据成功");//
+//                NSMutableArray *resultArray=[[NSMutableArray alloc] init];
+//
+//                NSString *query=@"select * from mission";
+//                if (self.database!=nil) {
+//                    if ([self.database open]) {
+//
+//                        FMResultSet *result=[self.database executeQuery:query];
+//
+//                        //由于返回的是一个set，所以遍历所有结果
+//                        while ([result next]) {
+//                            //获取id字段内容(根据字段名字来获取)
+//                            NSInteger id=[result intForColumn:@"id"];
+//                            //获取subject_title字段内容(根据字段名字来获取)
+//                            NSDate *subject_execute=[result dateForColumn:@"subject_execute"];
+//
+//                            //装入字典
+//                            NSDictionary *resultDicitonary=@{@"id":@(id),
+//                                                             @"subject_execute":subject_execute
+//                                                             };
+//                            [resultArray addObject:resultDicitonary];//把取出来的字典添加到数组中
+//                            //                NSLog(@"查找关联id下的提醒时间%ld,%@",id,subject_execute);
+//                        }
+//                    }
+//                }
             }
             //修改CheckModel的
             [[CheckedModel shareCheckedModel] createDataBase];
@@ -148,6 +175,7 @@
         }else if (id==3){
             //不需要做修改
         }
+        [self.database close];
     }
 }
 
@@ -164,6 +192,7 @@
                 NSLog(@"修改数据成功");//通过id修改除id外的所有数据
             }
         }
+        [self.database close];
     }
 }
 #pragma mark 查询数据部分
@@ -193,6 +222,7 @@
             }
             return count;
         }
+        [self.database close];
     }
     return count;
 }
@@ -263,6 +293,7 @@
                 NSLog(@"%ld,%@,%@,%@,%@,%ld,%@,%@,%@,%@,%@,%@,%@",id,subject_title,subject_get,subject_love_get,subject_best_me,goal_total,start_date,reject_things,reject_people,reject_time,reject_thought,reward,image);
         }
     }
+        [self.database close];
 }
     return resultArray;//返回数组
 }

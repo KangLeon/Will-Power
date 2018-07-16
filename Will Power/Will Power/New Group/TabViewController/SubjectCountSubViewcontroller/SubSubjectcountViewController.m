@@ -60,8 +60,13 @@
     }else{
         view_subject1.dayView_goal.day_label.text=@"Days";
     }
-    view_subject1.titleImageView.image=[UIImage imageNamed:[NSString stringWithFormat:@"%@",[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:self.index] objectForKey:@"image"]]];
-    view_subject1.headView.backgroundColor=[[GetColor shareGetColor] getMyColorWith:[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:self.index] objectForKey:@"image"]];
+    if ([[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:self.index] objectForKey:@"image"] isEqualToString:@"46"] | [[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:self.index] objectForKey:@"image"] isEqualToString:@"47"] | [[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:self.index] objectForKey:@"image"] isEqualToString:@"48"] | [[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:self.index] objectForKey:@"image"] isEqualToString:@"49"]) {
+        view_subject1.headView.backgroundColor=twenty_three_BACKGROUND_COLOR;
+        view_subject1.titleImageView.image=[UIImage imageNamed:[NSString stringWithFormat:@"%@",[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:self.index] objectForKey:@"image"]]];
+    }else{
+        view_subject1.headView.backgroundColor=[[GetColor shareGetColor] getMyColorWith:[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:self.index] objectForKey:@"image"]];
+        view_subject1.titleImageView.image=[UIImage imageNamed:[NSString stringWithFormat:@"%@-%@",[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:self.index] objectForKey:@"image"],[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:self.index] objectForKey:@"image"]]];
+    }
     view_subject1.subject_start_time.text=[NSString stringWithFormat:@"Since %@",[[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:self.index] objectForKey:@"start_date"] startDateForm:[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:self.index] objectForKey:@"start_date"]]];
     view_subject1.reward_label.text=[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:self.index] objectForKey:@"reward"];
     

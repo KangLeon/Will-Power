@@ -25,13 +25,15 @@
         self.subject_imageView=[[UIImageView alloc] initWithFrame:CGRectMake(10, (55-30)/2, 30, 30)];
         self.subject_imageView.image=[UIImage imageNamed:@"do_now_image"];
         
-        self.subject_label=[[UILabel alloc] initWithFrame:CGRectMake(50, (55-30)/2, 150, 30)];
+        self.subject_label=[[UILabel alloc] initWithFrame:CGRectMake(50, (55-30)/2, SCREEN_WIDTH*0.338164, 30)];
         self.subject_label.font=[UIFont systemFontOfSize:18.0 weight:UIFontWeightBold];
         self.subject_label.textAlignment=NSTextAlignmentLeft;
+        self.subject_label.adjustsFontSizeToFitWidth=YES;
         
-        self.subject_date_label=[[UILabel alloc] initWithFrame:CGRectMake(self.subject_label.frame.size.width+20, (55-28)/2, 150, 28)];
+        self.subject_date_label=[[UILabel alloc] initWithFrame:CGRectMake(self.subject_label.frame.size.width, (55-28)/2, 150, 28)];
         self.subject_date_label.font=[UIFont systemFontOfSize:16.0 weight:UIFontWeightThin];
         self.subject_date_label.textAlignment=NSTextAlignmentRight;
+        self.subject_date_label.adjustsFontSizeToFitWidth=YES;
         
         self.status_check=NO;
         

@@ -203,6 +203,11 @@ static NSString *cell_title_id=@"cell_title";
 //RAC信号的理解还不是很深入，所以暂时还是使用代理的方式来反向传值吧
 -(void)refresh{
     if (kDevice_Is_iPhoneX) {
+        //从数据库中查出值,并填充到数组中
+        for (NSInteger i=0; i<[[RemarkModel shareAddMode] countForData]; i++) {
+            [self.remark_title_array addObject:[[[[RemarkModel shareAddMode] selectEveryThing] objectAtIndex:i] objectForKey:@"remark_title"]];//获得当前备注的标题
+            [self.remark_date_array addObject:[[[[RemarkModel shareAddMode] selectEveryThing] objectAtIndex:i] objectForKey:@"remark_date"]];//获得当前备注的标题
+        }
         if (self.remark_title_array.count==0) {
             [self.view addSubview:self.empty];
             [self.remarkTitle_tableView removeFromSuperview];
@@ -211,6 +216,11 @@ static NSString *cell_title_id=@"cell_title";
             [self.view addSubview:self.remarkTitle_tableView];
         }
     }else{
+        //从数据库中查出值,并填充到数组中
+        for (NSInteger i=0; i<[[RemarkModel shareAddMode] countForData]; i++) {
+            [self.remark_title_array addObject:[[[[RemarkModel shareAddMode] selectEveryThing] objectAtIndex:i] objectForKey:@"remark_title"]];//获得当前备注的标题
+            [self.remark_date_array addObject:[[[[RemarkModel shareAddMode] selectEveryThing] objectAtIndex:i] objectForKey:@"remark_date"]];//获得当前备注的标题
+        }
         if (self.remark_title_array.count==0) {
             EmptyView *empty=[[EmptyView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-288)/2, 150, 288, 341)];
             empty.imageView.image=[UIImage imageNamed:@"empty_remark_image"];
@@ -220,11 +230,6 @@ static NSString *cell_title_id=@"cell_title";
             [self.view addSubview:self.remarkTitle_tableView];
         }
     }
-    
-    
-    //从数据库中查出最后一条值，添加到数组中
-    [self.remark_title_array addObject:[[[[RemarkModel shareAddMode] selectEveryThing] objectAtIndex:[[RemarkModel shareAddMode] countForData]-1] objectForKey:@"remark_title"]];//获得当前备注的标题
-    [self.remark_date_array addObject:[[[[RemarkModel shareAddMode] selectEveryThing] objectAtIndex:[[RemarkModel shareAddMode] countForData]-1] objectForKey:@"remark_date"]];//获得当前日期的标题
     
     self.remarkTitle_tableView.frame=CGRectMake(10, 90, SCREEN_WIDTH-20, 55*self.remark_title_array.count);
     

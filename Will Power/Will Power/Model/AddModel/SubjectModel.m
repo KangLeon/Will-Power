@@ -49,6 +49,7 @@
     if ([self.database executeUpdate:stringCreateTable]){
         NSLog(@"创建数据表成功");
     }
+    [self.database close];
 }
 #pragma mark 插入数据部分
 //插入数据的接口
@@ -60,6 +61,7 @@
                 NSLog(@"插入数据成功");
             }
         }
+        [self.database close];
     }
 }
 #pragma mark 修改删除，暂时没有需求，所以暂时不做，
@@ -91,6 +93,7 @@
             }
             return count;
         }
+        [self.database close];
     }
     return count;
 }
@@ -117,6 +120,7 @@
             }
             return count;
         }
+        [self.database close];
     }
     return count;
 }
@@ -154,6 +158,7 @@
 //                NSLog(@"查找所有提醒时间%ld,%@",id,subject_execute);
             }
         }
+        [self.database close];
     }
     return resultArray;//返回数组
 }
@@ -192,6 +197,7 @@
 //                NSLog(@"查找关联id下的提醒时间%ld,%@",id,subject_execute);
             }
         }
+        [self.database close];
     }
     return resultArray;//返回数组
 }

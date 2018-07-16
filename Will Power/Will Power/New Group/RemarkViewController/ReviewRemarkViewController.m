@@ -95,7 +95,7 @@
 }
 -(UIImageView*)heart_image{
     if (!_heart_image) {
-        _heart_image=[[UIImageView alloc] initWithFrame:CGRectMake(240, 17.5, 25, 25)];
+        _heart_image=[[UIImageView alloc] initWithFrame:CGRectMake(220, 17.5, 25, 25)];
         NSString *heartString=[NSString stringWithFormat:@"%@",[[[[RemarkModel shareAddMode] selectEveryThing] objectAtIndex:self.select_index] objectForKey:@"remark_heart"]];
         if ([heartString isEqualToString:@"一般"]) {
             _heart_image.image=[UIImage imageNamed:@"heart_normal_image"];

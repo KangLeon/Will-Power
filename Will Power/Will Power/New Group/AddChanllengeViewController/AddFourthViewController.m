@@ -133,9 +133,6 @@ static NSString *cell_id=@"text_cell";
         //验证用户是否输入完毕
         if (self.isFinish) {
             
-            //在子线程中完成存储任务后回到主线程更新视图
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                
                 //1.设置model
                 [AddModel shareAddMode].reward=self.reward_text;
                 //现在model的所有内容都设置完了，可以收集所有model数据并存储数据了
@@ -153,34 +150,30 @@ static NSString *cell_id=@"text_cell";
                     [SubjectModel shareSubjectModel].subject_execute=[start_date_for_subject dateByAddingTimeInterval:i*24*60*60];//需要执行的任务时间
                     [[SubjectModel shareSubjectModel] insertData];
                 }
-                //            [[SubjectModel shareSubjectModel] selectEveryThing];//输出验证一下
+                [[SubjectModel shareSubjectModel] selectEveryThing:[AddModel shareAddMode].subject_id];//输出验证一下
                 
-                NSLog(@"现在有%ld条数据",[[AddModel shareAddMode] countForData]);//查询现在有多少条出局用户验证
-                NSLog(@"存储在数据库的字典是%@",[[AddModel shareAddMode] selectEveryThing]);//输出字典
+//                NSLog(@"现在有%ld条数据",[[AddModel shareAddMode] countForData]);//查询现在有多少条出局用户验证
+//                NSLog(@"存储在数据库的字典是%@",[[AddModel shareAddMode] selectEveryThing]);//输出字典
                 
-                dispatch_async(dispatch_get_main_queue(), ^{
                 [self.navigationController setNavigationBarHidden:true animated:true];
                 self.navigationController.navigationBar.barTintColor=BACKGROUND_COLOR;
                 //3.弹出顺利立项弹出框
                 self.cuteAlert=[[CuteAlert alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
                 [self.view addSubview:self.cuteAlert];
-                    
-                    //4.成功确立计划的声音提示
+                
+                //4.成功确立计划的声音提示
                 SuccessMusic *successMusic=[[SuccessMusic alloc] init];
                 [successMusic playSoundEffect_success];
-                    //6.轻点返回首页
+                //6.轻点返回首页
                 UITapGestureRecognizer *tapGes=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAct)];
                 tapGes.numberOfTapsRequired=1;
                 tapGes.numberOfTapsRequired=1;
                 [self.cuteAlert addGestureRecognizer:tapGes];
-                    
-                    
+                
+                
                 //4.在这里发送通知告诉首页更新数据，因为还没有完全学会rac的通知，所以这里还是使用oc里面的通知
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"refresh_subject_data" object:nil];
-                });
-            });
             
-    
         }else{
             //这里不新建一个的话，退出去再点就不起作用了，
             self.alertView=[[AlertView alloc] init];

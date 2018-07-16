@@ -49,6 +49,7 @@
     if ([self.database executeUpdate:stringCreateTable]){
         NSLog(@"创建数据表成功");
     }
+    [self.database close];
 }
 #pragma mark 插入数据部分
 //插入数据的接口
@@ -60,6 +61,7 @@
                 NSLog(@"插入数据成功");
             }
         }
+        [self.database close];
     }
 }
 #pragma mark 修改，暂时没有需求，所以暂时不做，
@@ -73,6 +75,7 @@
                 NSLog(@"删除数据成功");
             }
         }
+        [self.database close];
     }
 }
 //删除数据
@@ -84,6 +87,7 @@
                 NSLog(@"删除数据成功");
             }
         }
+        [self.database close];
     }
 }
 #pragma mark 查询数据部分
@@ -113,6 +117,7 @@
             }
             return count;
         }
+        [self.database close];
     }
     return count;
 }
@@ -140,6 +145,7 @@
             }
             return count;
         }
+        [self.database close];
     }
     return count;
 }
@@ -180,6 +186,7 @@
                 NSLog(@"%ld,%ld,%@",count,id,checked);
             }
         }
+        [self.database close];
     }
     return resultArray;//返回数组
 }
@@ -221,6 +228,7 @@
                 NSLog(@"%ld,%ld,%@",count,id,checked);
             }
         }
+        [self.database close];
     }
     return resultArray;//返回数组
 }

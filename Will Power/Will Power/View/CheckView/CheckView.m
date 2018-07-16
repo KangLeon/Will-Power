@@ -29,7 +29,7 @@
 }
 - (UIButton *)check_button{
     if (!_check_button) {
-        _check_button=[[UIButton alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH-40, 65)];
+        _check_button=[[UIButton alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH-SCREEN_WIDTH*0.09661, SCREEN_HEIGHT*0.088315)];
         _check_button.backgroundColor=[UIColor whiteColor];
         _check_button.layer.cornerRadius=12;
     }
@@ -39,7 +39,7 @@
 //完成任务的项的图片
 - (UIImageView *)check_imageView{
     if (!_check_imageView) {
-        _check_imageView=[[UIImageView alloc] initWithFrame:CGRectMake(20, (65-40)/2, 40, 40)];
+        _check_imageView=[[UIImageView alloc] initWithFrame:CGRectMake((SCREEN_HEIGHT*0.088315-SCREEN_WIDTH*0.140096)/2, (SCREEN_HEIGHT*0.088315-SCREEN_WIDTH*0.140096)/2, SCREEN_WIDTH*0.140096, SCREEN_WIDTH*0.140096)];
     }
     return _check_imageView;
 }
