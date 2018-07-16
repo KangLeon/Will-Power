@@ -57,6 +57,7 @@
         _date_label.textColor=[UIColor grayColor];
         _date_label.textAlignment=NSTextAlignmentCenter;
         _date_label.font=[UIFont systemFontOfSize:16.0 weight:UIFontWeightThin];
+        _date_label.adjustsFontSizeToFitWidth=YES;
     }
     return _date_label;
 }

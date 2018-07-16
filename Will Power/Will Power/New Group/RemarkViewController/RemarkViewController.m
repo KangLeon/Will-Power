@@ -222,11 +222,10 @@ static NSString *cell_title_id=@"cell_title";
             [self.remark_date_array addObject:[[[[RemarkModel shareAddMode] selectEveryThing] objectAtIndex:i] objectForKey:@"remark_date"]];//获得当前备注的标题
         }
         if (self.remark_title_array.count==0) {
-            EmptyView *empty=[[EmptyView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-288)/2, 150, 288, 341)];
-            empty.imageView.image=[UIImage imageNamed:@"empty_remark_image"];
-            
-            [self.view addSubview:empty];
+            [self.view addSubview:self.empty];
+            [self.remarkTitle_tableView removeFromSuperview];
         }else{
+            [self.empty removeFromSuperview];
             [self.view addSubview:self.remarkTitle_tableView];
         }
     }
