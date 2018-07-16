@@ -16,6 +16,8 @@
 //我想要的数据
 @property(nonatomic,strong)NSDate *subject_execute;//一个任务只需要关联一个NSDate，
 
+@property(nonatomic,strong)NSMutableArray *add_array;
+
 
 //方法
 +(instancetype)shareSubjectModel;

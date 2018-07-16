@@ -30,7 +30,11 @@
 //创建任务数据表的接口
 -(void)createDataBase{
     NSString *document=[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-    NSString *path=[document stringByAppendingString:@"/subject1.db"];
+    [[NSFileManager defaultManager] createDirectoryAtPath:[document stringByAppendingPathComponent:@"database"]
+                              withIntermediateDirectories:NO
+                                               attributes:nil
+                                                    error:nil];
+    NSString *path=[document stringByAppendingString:@"/database/t_contact.sqlite"];
     
     //创建并且打开数据库
     //如果路径下面没有数据库，就创建指定的数据库，如果路径下已经存在数据库，加载数据库到内存
@@ -44,7 +48,7 @@
         NSLog(@"打开数据库成功");
     }
     //创建数据表的sql语句
-    NSString *stringCreateTable=@"create table if not exists mission(id integer preimary key,subject_execute varchar(20))";
+    NSString *stringCreateTable=@"create table if not exists mission(id integer primary key,subject_execute varchar(20))";
     //检查数据表是否创建成功
     if ([self.database executeUpdate:stringCreateTable]){
         NSLog(@"创建数据表成功");
@@ -57,9 +61,13 @@
     [self createDataBase];
     if (self.database!=nil) {
         if([self.database open]){
-            if ([self.database executeUpdate:@"insert into mission values (?,?)",@(self.subject_id),self.subject_execute]) {
-                NSLog(@"插入数据成功");
+            [self.database beginTransaction];//可以在毫秒级时间内完成数据插入
+            for (NSDictionary *dic in self.add_array) {
+                if ([self.database executeUpdate:@"insert into mission values (?,?)",[dic objectForKey:@"subject_id"],[dic objectForKey:@"subject_execute"]]) {
+                    NSLog(@"插入数据成功");
+                }
             }
+            [self.database commit];
         }
         [self.database close];
     }
@@ -72,12 +80,6 @@
 //1.数据库中现在有多少条数据
 -(NSInteger)countForData{
     //查询数据必须确保数据库已经打开并加载到内存中，至于有没有数据这个不管我查询的事
-    NSString *document=[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-    NSString *path=[document stringByAppendingString:@"/subject1.db"];
-    
-    //创建并且打开数据库
-    //如果路径下面没有数据库，就创建指定的数据库，如果路径下已经存在数据库，加载数据库到内存
-    self.database=[FMDatabase databaseWithPath:path];
     [self createDataBase];
     
     NSString *query=@"select * from mission";
@@ -99,12 +101,6 @@
 }
 -(NSInteger)countForDataAtId:(NSInteger)select_id{
     //查询数据必须确保数据库已经打开并加载到内存中，至于有没有数据这个不管我查询的事
-    NSString *document=[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-    NSString *path=[document stringByAppendingString:@"/subject1.db"];
-    
-    //创建并且打开数据库
-    //如果路径下面没有数据库，就创建指定的数据库，如果路径下已经存在数据库，加载数据库到内存
-    self.database=[FMDatabase databaseWithPath:path];
     [self createDataBase];
     
     NSString *query=@"select * from mission where id=?";
@@ -127,12 +123,7 @@
 //2.如果有数据的话，遍历查询出所有数据然后放到字典里面
 -(NSMutableArray*)selectEveryThing{
     //查询数据必须确保数据库已经打开并加载到内存中，至于有没有数据这个不管我查询的事
-    NSString *document=[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-    NSString *path=[document stringByAppendingString:@"/subject1.db"];
-    
-    //创建并且打开数据库
-    //如果路径下面没有数据库，就创建指定的数据库，如果路径下已经存在数据库，加载数据库到内存
-    self.database=[FMDatabase databaseWithPath:path];
+
     [self createDataBase];
     
     NSMutableArray *resultArray=[[NSMutableArray alloc] init];
@@ -166,12 +157,6 @@
 //3.如果有数据的话，遍历查询出所有数据然后放到字典里面
 -(NSMutableArray*)selectEveryThing:(NSInteger)for_select_id{
     //查询数据必须确保数据库已经打开并加载到内存中，至于有没有数据这个不管我查询的事
-    NSString *document=[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-    NSString *path=[document stringByAppendingString:@"/subject1.db"];
-    
-    //创建并且打开数据库
-    //如果路径下面没有数据库，就创建指定的数据库，如果路径下已经存在数据库，加载数据库到内存
-    self.database=[FMDatabase databaseWithPath:path];
     [self createDataBase];
     
     NSMutableArray *resultArray=[[NSMutableArray alloc] init];

@@ -180,7 +180,7 @@ static NSString *cell_id3=@"subject_cell_3";
         }
         cell.goalDiscription.text=[NSString stringWithFormat:@"距%@天目标还有",[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row] objectForKey:@"goal_total"]];
         
-        cell.goalDay_label.text=[NSString stringWithFormat:@"%ld",[self countDaysAtIndex:indexPath]]; //距离目标天数还有多少天，这里需要再次修改lable的frame值
+        cell.goalDay_label.text=[NSString stringWithFormat:@"%ld",[self countDaysAtIndex:indexPath.row]]; //距离目标天数还有多少天，这里需要再次修改lable的frame值
         //设置DayView的判断逻辑
         if ([cell.goalDay_label.text isEqualToString:@"0"]) {
             cell.dayView_goal.day_label.text=@"Day";
@@ -226,7 +226,7 @@ static NSString *cell_id3=@"subject_cell_3";
             cell.titleImageView.image=[UIImage imageNamed:[NSString stringWithFormat:@"%@-%@",[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+1] objectForKey:@"image"],[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+1] objectForKey:@"image"]]];
         }
         cell.goalDiscription.text=[NSString stringWithFormat:@"距%@天目标还有",[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+1] objectForKey:@"goal_total"]];
-        cell.goalDay_label.text=[NSString stringWithFormat:@"%ld",[self countDaysAtIndex:indexPath]]; //距离目标天数还有多少天
+        cell.goalDay_label.text=[NSString stringWithFormat:@"%ld",[self countDaysAtIndex:indexPath.row+1]]; //距离目标天数还有多少天
         //设置DayView的判断逻辑
         if ([cell.goalDay_label.text isEqualToString:@"0"]) {
             cell.dayView_goal.day_label.text=@"Day";
@@ -265,7 +265,7 @@ static NSString *cell_id3=@"subject_cell_3";
             cell.titleImageView.image=[UIImage imageNamed:[NSString stringWithFormat:@"%@-%@",[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+2] objectForKey:@"image"],[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+2] objectForKey:@"image"]]];
         }
         cell.goalDiscription.text=[NSString stringWithFormat:@"距%@天目标还有",[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+2] objectForKey:@"goal_total"]];
-        cell.goalDay_label.text=[NSString stringWithFormat:@"%ld",[self countDaysAtIndex:indexPath]]; //距离目标天数还有多少天
+        cell.goalDay_label.text=[NSString stringWithFormat:@"%ld",[self countDaysAtIndex:indexPath.row+2]]; //距离目标天数还有多少天
         //设置DayView的判断逻辑
         if ([cell.goalDay_label.text isEqualToString:@"0"]) {
             cell.dayView_goal.day_label.text=@"Day";
@@ -321,12 +321,12 @@ static NSString *cell_id3=@"subject_cell_3";
 #pragma mark target-Action的方法
 
 //用来计算距离目标天数还有多少天的方法
--(NSInteger)countDaysAtIndex:(NSIndexPath*)indexPath{
+-(NSInteger)countDaysAtIndex:(NSInteger)row{
     //完成时间格式的转换，计算相隔时间
     //1.拿到当前时间
     NSDate *currentDate=[NSDate localdate_4real];
     //2.拿到项目开始时间
-    NSString *startDate_String=[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row] objectForKey:@"start_date"];
+    NSString *startDate_String=[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:row] objectForKey:@"start_date"];
     //3.将项目开始时间字符串转换成date
     NSDate *startDate=[self dateFrom:startDate_String];
     //4.计算当前时间与项目开始时间之间的间隔
@@ -335,7 +335,7 @@ static NSString *cell_id3=@"subject_cell_3";
     //计算天数
     NSInteger days = ((NSInteger)timeInterval)/(3600*24);
     //6.获得数据库中总目标天数
-    NSInteger total_days=[[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row] objectForKey:@"goal_total"] integerValue];
+    NSInteger total_days=[[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:row] objectForKey:@"goal_total"] integerValue];
     
     return total_days-days;
 }

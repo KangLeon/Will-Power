@@ -33,8 +33,11 @@
 //创建任务数据表的接口
 -(void)createDataBase{
     NSString *document=[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-    
-    NSString *path=[document stringByAppendingString:@"/subject1.db"];
+    [[NSFileManager defaultManager] createDirectoryAtPath:[document stringByAppendingPathComponent:@"database"]
+                              withIntermediateDirectories:NO
+                                               attributes:nil
+                                                    error:nil];
+    NSString *path=[document stringByAppendingString:@"/database/t_contact.sqlite"];
     
     //创建并且打开数据库
     //如果路径下面没有数据库，就创建指定的数据库，如果路径下已经存在数据库，加载数据库到内存
@@ -42,13 +45,13 @@
     
     //检查数据库是否创建成功
     if (self.database!=nil) {
-        NSLog(@"数据库创建成功");
+        NSLog(@"AddModel数据库创建成功");
     }
     if ([self.database open]) {
         NSLog(@"打开数据库成功");
     }
     //创建数据表的sql语句
-    NSString *stringCreateTable=@"create table if not exists subject(id integer preimary key,subject_title varchar(20),subject_get varchar(20),subject_love_get varchar(20),subject_best_me varchar(20),goal_total integer,start_date varchar(20),reject_things varchar(20),reject_people varchar(20),reject_time varchar(20),reject_thought varchar(20),reward varchar(20),image)";
+    NSString *stringCreateTable=@"create table if not exists subject(id integer primary key,subject_title varchar(20),subject_get varchar(20),subject_love_get varchar(20),subject_best_me varchar(20),goal_total integer,start_date varchar(20),reject_things varchar(20),reject_people varchar(20),reject_time varchar(20),reject_thought varchar(20),reward varchar(20),image varchar(20));";
     //检查数据表是否创建成功
     if ([self.database executeUpdate:stringCreateTable]){
         NSLog(@"创建数据表成功");
@@ -201,12 +204,6 @@
 //1.数据库中现在有多少条数据
 -(NSInteger)countForData{
     //查询数据必须确保数据库已经打开并加载到内存中，至于有没有数据这个不管我查询的事
-    NSString *document=[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-    NSString *path=[document stringByAppendingString:@"/subject1.db"];
-    
-    //创建并且打开数据库
-    //如果路径下面没有数据库，就创建指定的数据库，如果路径下已经存在数据库，加载数据库到内存
-    self.database=[FMDatabase databaseWithPath:path];
     [self createDataBase];//不知道为什么会出现no such tabel的错误
     
     NSString *query=@"select * from subject";
@@ -229,12 +226,6 @@
 //2.如果有数据的话，遍历查询出所有数据然后放到字典里面
 -(NSMutableArray*)selectEveryThing{
     //查询数据必须确保数据库已经打开并加载到内存中，至于有没有数据这个不管我查询的事
-    NSString *document=[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-    NSString *path=[document stringByAppendingString:@"/subject1.db"];
-    
-    //创建并且打开数据库
-    //如果路径下面没有数据库，就创建指定的数据库，如果路径下已经存在数据库，加载数据库到内存
-    self.database=[FMDatabase databaseWithPath:path];
     [self createDataBase];
     
     NSMutableArray *resultArray=[[NSMutableArray alloc] init];

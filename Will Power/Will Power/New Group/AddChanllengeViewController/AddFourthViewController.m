@@ -143,15 +143,20 @@ static NSString *cell_id=@"text_cell";
                 //循环存到数据库中
                 
                 NSDate *start_date_for_subject=[self dateFrom:[AddModel shareAddMode].start_date];//2018-07-05 00:00:00 UTC
-                
+                [SubjectModel shareSubjectModel].add_array=[[NSMutableArray alloc] init];
                 //每循坏一次，存储一次条任务时间到数据库
                 for (NSInteger i=0; i<[AddModel shareAddMode].goal_total; i++) {
                     [SubjectModel shareSubjectModel].subject_id=[AddModel shareAddMode].subject_id;//当前任务关联的id
                     [SubjectModel shareSubjectModel].subject_execute=[start_date_for_subject dateByAddingTimeInterval:i*24*60*60];//需要执行的任务时间
-                    [[SubjectModel shareSubjectModel] insertData];
+                    NSDictionary *dic=@{@"subject_id":@([SubjectModel shareSubjectModel].subject_id),
+                                        @"subject_execute":[SubjectModel shareSubjectModel].subject_execute
+                                        };
+                    [[SubjectModel shareSubjectModel].add_array addObject:dic];
                 }
-                [[SubjectModel shareSubjectModel] selectEveryThing:[AddModel shareAddMode].subject_id];//输出验证一下
-                
+                [[SubjectModel shareSubjectModel] insertData];
+            
+//                [[SubjectModel shareSubjectModel] selectEveryThing:[AddModel shareAddMode].subject_id];//输出验证一下
+            
 //                NSLog(@"现在有%ld条数据",[[AddModel shareAddMode] countForData]);//查询现在有多少条出局用户验证
 //                NSLog(@"存储在数据库的字典是%@",[[AddModel shareAddMode] selectEveryThing]);//输出字典
                 
