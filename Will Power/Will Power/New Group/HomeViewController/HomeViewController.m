@@ -464,7 +464,7 @@
 
 -(EmptyView*)empty{
     if (!_empty) {
-        _empty=[[EmptyView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-288)/2, 150, 288, 341)];
+        _empty=[[EmptyView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-288)/2, 100, 288, 341)];
         _empty.imageView.image=[UIImage imageNamed:@"empty_subject_image"];
     }
     return _empty;

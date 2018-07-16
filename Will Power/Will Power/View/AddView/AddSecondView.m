@@ -725,16 +725,13 @@
         NSString *dateString=[NSString stringWithFormat:@"%@%@%@",self.year_str,self.month_str,self.day_str];
         NSDate *selectDate=[dateString dateFrom:dateString];//拿到当前日期的00:00,
         NSDate *current=[NSDate localdate_4real];//拿到当前日期下的北京时间
-        
-        //判断选择日期与当前日期
-        if([selectDate compare:current]==NSOrderedDescending){
-           self.start_str=dateString;
-        }else{
+        NSDate *laterDate=[selectDate laterDate:current];
+        //判断选择日期与当前日期,如果是选择在了之前的时间的话，弹出警告逻辑
+        if ([laterDate isEqualToDate:current]) {
             self.start_str=@"不正确的日期";
+        }else{
+             self.start_str=dateString;
         }
-        
-        
-        
     }
     
     //3.如果是设置提醒时间的选择器的话
