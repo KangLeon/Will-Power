@@ -48,7 +48,7 @@
         NSLog(@"打开数据库成功");
     }
     //创建数据表的sql语句
-    NSString *stringCreateTable=@"create table if not exists mission(id integer primary key,subject_execute varchar(20))";
+    NSString *stringCreateTable=@"create table if not exists mission(plus_id integer primary key,id interger,subject_execute varchar(20))";
     //检查数据表是否创建成功
     if ([self.database executeUpdate:stringCreateTable]){
         NSLog(@"创建数据表成功");
@@ -63,7 +63,7 @@
         if([self.database open]){
             [self.database beginTransaction];//可以在毫秒级时间内完成数据插入
             for (NSDictionary *dic in self.add_array) {
-                if ([self.database executeUpdate:@"insert into mission values (?,?)",[dic objectForKey:@"subject_id"],[dic objectForKey:@"subject_execute"]]) {
+                if ([self.database executeUpdate:@"insert into mission values (?,?,?)",[dic objectForKey:@"plus_id"],[dic objectForKey:@"subject_id"],[dic objectForKey:@"subject_execute"]]) {
                     NSLog(@"插入数据成功");
                 }
             }
@@ -137,13 +137,16 @@
             //由于返回的是一个set，所以遍历所有结果
             while ([result next]) {
                 //获取id字段内容(根据字段名字来获取)
+                NSInteger plus_id=[result intForColumn:@"plus_id"];
+                //获取id字段内容(根据字段名字来获取)
                 NSInteger id=[result intForColumn:@"id"];
                 //获取subject_title字段内容(根据字段名字来获取)
                 NSDate *subject_execute=[result dateForColumn:@"subject_execute"];
                 
                 //装入字典
                 NSDictionary *resultDicitonary=@{@"id":@(id),
-                                                 @"subject_execute":subject_execute
+                                                 @"subject_execute":subject_execute,
+                                                 @"plus_id":@(plus_id)
                                                  };
                 [resultArray addObject:resultDicitonary];//把取出来的字典添加到数组中
 //                NSLog(@"查找所有提醒时间%ld,%@",id,subject_execute);
@@ -170,13 +173,16 @@
             //由于返回的是一个set，所以遍历所有结果
             while ([result next]) {
                 //获取id字段内容(根据字段名字来获取)
+                NSInteger plus_id=[result intForColumn:@"plus_id"];
+                //获取id字段内容(根据字段名字来获取)
                 NSInteger id=[result intForColumn:@"id"];
                 //获取subject_title字段内容(根据字段名字来获取)
                 NSDate *subject_execute=[result dateForColumn:@"subject_execute"];
                 
                 //装入字典
                 NSDictionary *resultDicitonary=@{@"id":@(id),
-                                                 @"subject_execute":subject_execute
+                                                 @"subject_execute":subject_execute,
+                                                 @"plus_id":@(plus_id)
                                                  };
                 [resultArray addObject:resultDicitonary];//把取出来的字典添加到数组中
 //                NSLog(@"查找关联id下的提醒时间%ld,%@",id,subject_execute);

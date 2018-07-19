@@ -141,6 +141,7 @@
         self.array_mission2=[[SubjectModel shareSubjectModel] selectEveryThing:2];
         self.array_mission3=[[SubjectModel shareSubjectModel] selectEveryThing:3];
     }
+    NSLog(@"%@",self.array_mission1);
     
     //初始化一次项目索引
     static dispatch_once_t onceToken;

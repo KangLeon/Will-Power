@@ -13,7 +13,9 @@
 #import "NotifiModel.h"
 #import <UserNotifications/UserNotifications.h>
 #import "GetSaying.h"
-
+#import <SCLAlertView.h>
+#import "SizeDefine.h"
+#import "NSDate+LocalDate.h"
 @interface BaseViewController ()
 
 @end
@@ -219,65 +221,554 @@
             //通过每一个任务的subject_id查询关联的通知数据
             //确立通知
             for (NSDictionary *dic in [[AddModel shareAddMode] selectEveryThing]) {
-                //已经拿到了通知授权
-                NSLog(@"%ld",[[NotifiModel notifiModel] countForDataIn:[[dic objectForKey:@"id"] integerValue]]);
-                for (NSInteger i=0; i<([[NotifiModel notifiModel] countForDataIn:[[dic objectForKey:@"id"] integerValue]]); i++) {
-                    NSString *alarm_day=[[[[NotifiModel notifiModel] selectItemsIn:[[dic objectForKey:@"id"] integerValue]] objectAtIndex:i] objectForKey:@"alarm_day"];
-                    NSString *alarm_hour=[[[[NotifiModel notifiModel] selectItemsIn:[[dic objectForKey:@"id"] integerValue]] objectAtIndex:i] objectForKey:@"alarm_hour"];
-                    NSString *alarm_minute=[[[[NotifiModel notifiModel] selectItemsIn:[[dic objectForKey:@"id"] integerValue]] objectAtIndex:i] objectForKey:@"alarm_minute"];
-                    NSString *imageIndex=[dic objectForKey:@"image"];
-                    
-                    //周日是从1开始的
-                    if ([alarm_day isEqualToString:@"每天"]) {
-                        //现在使用的是最笨的办法循坏来确立通知时间----->如果有更好的办法则升级
-                        for (NSInteger i=1; i<8; i++) {
-                            UNNotificationAction *action= [UNNotificationAction actionWithIdentifier:@"action" title:@"进入Will Power" options:UNNotificationActionOptionForeground];
+                
+                NSDate *date_start=[self dateFrom:[dic objectForKey:@"start_date"]];
+                NSDate *current=[NSDate localdate_4real];
+                NSDate *laterDate=[date_start laterDate:current];
+                if ([laterDate isEqualToDate:date_start]) {
+                    //弄一个定时器将来再确立通知
+                    NSTimeInterval timeInterval=[date_start timeIntervalSinceDate:current];
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(timeInterval * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        //根据是否正在执行按钮来确定是否应该添加该任务的通知,如果该任务未在进行中的话，就不确立该任务的通知了，
+                        if ([[NSUserDefaults standardUserDefaults] boolForKey:[NSString stringWithFormat:@"%@%@",[dic objectForKey:@"subject_title"],[dic objectForKey:@"reward"]]]) {
+                            //正常的执行确立通知
                             
-                            UNNotificationCategory *category=[UNNotificationCategory categoryWithIdentifier:@"category" actions:@[action] intentIdentifiers:@[] options:UNNotificationCategoryOptionCustomDismissAction];
-                            
-                            [[UNUserNotificationCenter currentNotificationCenter] setNotificationCategories:[NSSet setWithObjects:category,nil]];
-                            
-                            UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
-                            content.title = [dic objectForKey:@"subject_title"];//标题应该是获取到对应项目的标题
-                            //获取对应到的每日一句，1.每日一句API？2.或者是本地的数组，然后每个项目跟随一句
-                            content.body=[[GetSaying shareGetSaying] getRandomSaying];
-                            content.badge = @1;
-                            NSError *error = nil;
-                            NSString *path = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"%@-%@",imageIndex,imageIndex] ofType:@"png"];//图片必须放在文件目录下，不能放入Assets.xcassets
-                            
-                            // 2.设置通知附件内容
-                            UNNotificationAttachment *att = [UNNotificationAttachment attachmentWithIdentifier:@"att1" URL:[NSURL fileURLWithPath:path] options:nil error:&error];
-                            if (error) {
-                                NSLog(@"attachment error %@", error);
+                            //确立通知
+                            //已经拿到了通知授权
+                            NSLog(@"%ld",[[NotifiModel notifiModel] countForDataIn:[[dic objectForKey:@"id"] integerValue]]);
+                            for (NSInteger i=0; i<([[NotifiModel notifiModel] countForDataIn:[[dic objectForKey:@"id"] integerValue]]); i++) {
+                                NSString *alarm_day=[[[[NotifiModel notifiModel] selectItemsIn:[[dic objectForKey:@"id"] integerValue]] objectAtIndex:i] objectForKey:@"alarm_day"];
+                                NSString *alarm_hour=[[[[NotifiModel notifiModel] selectItemsIn:[[dic objectForKey:@"id"] integerValue]] objectAtIndex:i] objectForKey:@"alarm_hour"];
+                                NSString *alarm_minute=[[[[NotifiModel notifiModel] selectItemsIn:[[dic objectForKey:@"id"] integerValue]] objectAtIndex:i] objectForKey:@"alarm_minute"];
+                                NSString *imageIndex=[dic objectForKey:@"image"];
+                                
+                                //周日是从1开始的
+                                if ([alarm_day isEqualToString:@"每天"]) {
+                                    //现在使用的是最笨的办法循坏来确立通知时间----->如果有更好的办法则升级
+                                    for (NSInteger i=1; i<8; i++) {
+                                        UNNotificationAction *action= [UNNotificationAction actionWithIdentifier:@"action" title:@"进入Will Power" options:UNNotificationActionOptionForeground];
+                                        
+                                        UNNotificationCategory *category=[UNNotificationCategory categoryWithIdentifier:@"category" actions:@[action] intentIdentifiers:@[] options:UNNotificationCategoryOptionCustomDismissAction];
+                                        
+                                        [[UNUserNotificationCenter currentNotificationCenter] setNotificationCategories:[NSSet setWithObjects:category,nil]];
+                                        
+                                        UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
+                                        content.title = [dic objectForKey:@"subject_title"];//标题应该是获取到对应项目的标题
+                                        //获取对应到的每日一句，1.每日一句API？2.或者是本地的数组，然后每个项目跟随一句
+                                        content.body=[[GetSaying shareGetSaying] getRandomSaying];
+                                        content.badge = @1;
+                                        NSError *error = nil;
+                                        NSString *path = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"%@-%@",imageIndex,imageIndex] ofType:@"png"];//图片必须放在文件目录下，不能放入Assets.xcassets
+                                        
+                                        // 2.设置通知附件内容
+                                        UNNotificationAttachment *att = [UNNotificationAttachment attachmentWithIdentifier:@"att1" URL:[NSURL fileURLWithPath:path] options:nil error:&error];
+                                        if (error) {
+                                            NSLog(@"attachment error %@", error);
+                                        }
+                                        content.attachments = @[att];
+                                        //                content.launchImageName = @"跑步机";//这里无条件显示了上面载入的图片，该行没有起作用，或者说该行的作用是什么
+                                        content.categoryIdentifier =@"category";
+                                        
+                                        // 2.设置声音
+                                        UNNotificationSound *sound = [UNNotificationSound soundNamed:@"Intro.m4a"];
+                                        content.sound = sound;
+                                        
+                                        //从选取器中获取的内容，来设置trigger
+                                        //每天都提醒
+                                        
+                                        NSDateComponents *component = [[NSDateComponents alloc] init];
+                                        component.weekday = i;
+                                        component.hour = [alarm_hour integerValue];
+                                        component.minute=[alarm_minute integerValue];
+                                        UNCalendarNotificationTrigger *trigger = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:component repeats:YES];
+                                        
+                                        // 4.设置UNNotificationRequest
+                                        NSString *requestIdentifer =[NSString stringWithFormat:@"%ldnotifiAND%ld",i,[[dic objectForKey:@"id"] integerValue]];
+                                        UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:requestIdentifer content:content trigger:trigger];
+                                        
+                                        //5.把通知加到UNUserNotificationCenter, 到指定触发点会被触发
+                                        [[UNUserNotificationCenter currentNotificationCenter] addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
+                                        }];
+                                    }
+                                }else if ([alarm_day isEqualToString:@"工作日"]){
+                                    //工作日 2，3，4，5，6
+                                    for (NSInteger i=2; i<7; i++) {
+                                        UNNotificationAction *action= [UNNotificationAction actionWithIdentifier:@"action" title:@"进入Will Power" options:UNNotificationActionOptionForeground];
+                                        
+                                        UNNotificationCategory *category=[UNNotificationCategory categoryWithIdentifier:@"category" actions:@[action] intentIdentifiers:@[] options:UNNotificationCategoryOptionCustomDismissAction];
+                                        
+                                        [[UNUserNotificationCenter currentNotificationCenter] setNotificationCategories:[NSSet setWithObjects:category,nil]];
+                                        
+                                        UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
+                                        content.title = [dic objectForKey:@"subject_title"];//标题应该是获取到对应项目的标题
+                                        //获取对应到的每日一句，1.每日一句API？2.或者是本地的数组，然后每个项目跟随一句
+                                        content.body=[[GetSaying shareGetSaying] getRandomSaying];
+                                        content.badge = @1;
+                                        NSError *error = nil;
+                                        NSString *path = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"%@-%@",imageIndex,imageIndex] ofType:@"png"];
+                                        
+                                        // 2.设置通知附件内容
+                                        UNNotificationAttachment *att = [UNNotificationAttachment attachmentWithIdentifier:@"att1" URL:[NSURL fileURLWithPath:path] options:nil error:&error];
+                                        if (error) {
+                                            NSLog(@"attachment error %@", error);
+                                        }
+                                        content.attachments = @[att];
+                                        //                content.launchImageName = @"跑步机";//这里无条件显示了上面载入的图片，该行没有起作用，或者说该行的作用是什么
+                                        content.categoryIdentifier =@"category";
+                                        
+                                        // 2.设置声音
+                                        UNNotificationSound *sound = [UNNotificationSound soundNamed:@"Intro.m4a"];
+                                        content.sound = sound;
+                                        
+                                        //从选取器中获取的内容，来设置trigger
+                                        //工作日
+                                        
+                                        NSDateComponents *component = [[NSDateComponents alloc] init];
+                                        component.weekday = i;
+                                        component.hour = [alarm_hour integerValue];
+                                        component.minute=[alarm_minute integerValue];
+                                        UNCalendarNotificationTrigger *trigger = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:component repeats:YES];
+                                        
+                                        // 4.设置UNNotificationRequest
+                                        NSString *requestIdentifer = [NSString stringWithFormat:@"%ldnotifiAND%ld",i,[[dic objectForKey:@"id"] integerValue]];
+                                        UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:requestIdentifer content:content trigger:trigger];
+                                        
+                                        //5.把通知加到UNUserNotificationCenter, 到指定触发点会被触发
+                                        [[UNUserNotificationCenter currentNotificationCenter] addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
+                                        }];
+                                    }
+                                    
+                                }else if ([alarm_day isEqualToString:@"每周一"]){
+                                    //2
+                                    UNNotificationAction *action= [UNNotificationAction actionWithIdentifier:@"action" title:@"进入Will Power" options:UNNotificationActionOptionForeground];
+                                    
+                                    UNNotificationCategory *category=[UNNotificationCategory categoryWithIdentifier:@"category" actions:@[action] intentIdentifiers:@[] options:UNNotificationCategoryOptionCustomDismissAction];
+                                    
+                                    [[UNUserNotificationCenter currentNotificationCenter] setNotificationCategories:[NSSet setWithObjects:category,nil]];
+                                    
+                                    UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
+                                    content.title = [dic objectForKey:@"subject_title"];//标题应该是获取到对应项目的标题
+                                    //获取对应到的每日一句，1.每日一句API？2.或者是本地的数组，然后每个项目跟随一句
+                                    content.body=[[GetSaying shareGetSaying] getRandomSaying];
+                                    content.badge = @1;
+                                    NSError *error = nil;
+                                    NSString *path = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"%@-%@",imageIndex,imageIndex] ofType:@"png"];
+                                    
+                                    // 2.设置通知附件内容
+                                    UNNotificationAttachment *att = [UNNotificationAttachment attachmentWithIdentifier:@"att1" URL:[NSURL fileURLWithPath:path] options:nil error:&error];
+                                    if (error) {
+                                        NSLog(@"attachment error %@", error);
+                                    }
+                                    content.attachments = @[att];
+                                    //                content.launchImageName = @"跑步机";//这里无条件显示了上面载入的图片，该行没有起作用，或者说该行的作用是什么
+                                    content.categoryIdentifier =@"category";
+                                    
+                                    // 2.设置声音
+                                    UNNotificationSound *sound = [UNNotificationSound soundNamed:@"Intro.m4a"];
+                                    content.sound = sound;
+                                    
+                                    //从选取器中获取的内容，来设置trigger
+                                    //每周一
+                                    
+                                    NSDateComponents *component = [[NSDateComponents alloc] init];
+                                    component.weekday = 2;
+                                    component.hour = [alarm_hour integerValue];
+                                    component.minute=[alarm_minute integerValue];
+                                    UNCalendarNotificationTrigger *trigger = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:component repeats:YES];
+                                    
+                                    // 4.设置UNNotificationRequest
+                                    NSString *requestIdentifer = [NSString stringWithFormat:@"2notifiAND%ld",[[dic objectForKey:@"id"] integerValue]];
+                                    UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:requestIdentifer content:content trigger:trigger];
+                                    
+                                    //5.把通知加到UNUserNotificationCenter, 到指定触发点会被触发
+                                    [[UNUserNotificationCenter currentNotificationCenter] addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
+                                    }];
+                                }else if ([alarm_day isEqualToString:@"每周二"]){
+                                    //3
+                                    UNNotificationAction *action= [UNNotificationAction actionWithIdentifier:@"action" title:@"进入Will Power" options:UNNotificationActionOptionForeground];
+                                    
+                                    UNNotificationCategory *category=[UNNotificationCategory categoryWithIdentifier:@"category" actions:@[action] intentIdentifiers:@[] options:UNNotificationCategoryOptionCustomDismissAction];
+                                    
+                                    [[UNUserNotificationCenter currentNotificationCenter] setNotificationCategories:[NSSet setWithObjects:category,nil]];
+                                    
+                                    UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
+                                    content.title = [dic objectForKey:@"subject_title"];//标题应该是获取到对应项目的标题
+                                    //获取对应到的每日一句，1.每日一句API？2.或者是本地的数组，然后每个项目跟随一句
+                                    content.body=[[GetSaying shareGetSaying] getRandomSaying];
+                                    content.badge = @1;
+                                    NSError *error = nil;
+                                    NSString *path = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"%@-%@",imageIndex,imageIndex] ofType:@"png"];
+                                    
+                                    // 2.设置通知附件内容
+                                    UNNotificationAttachment *att = [UNNotificationAttachment attachmentWithIdentifier:@"att1" URL:[NSURL fileURLWithPath:path] options:nil error:&error];
+                                    if (error) {
+                                        NSLog(@"attachment error %@", error);
+                                    }
+                                    content.attachments = @[att];
+                                    //                content.launchImageName = @"跑步机";//这里无条件显示了上面载入的图片，该行没有起作用，或者说该行的作用是什么
+                                    content.categoryIdentifier =@"category";
+                                    
+                                    // 2.设置声音
+                                    UNNotificationSound *sound = [UNNotificationSound soundNamed:@"Intro.m4a"];
+                                    content.sound = sound;
+                                    
+                                    //从选取器中获取的内容，来设置trigger
+                                    //每周二
+                                    
+                                    NSDateComponents *component = [[NSDateComponents alloc] init];
+                                    component.weekday = 3;
+                                    component.hour = [alarm_hour integerValue];
+                                    component.minute=[alarm_minute integerValue];
+                                    UNCalendarNotificationTrigger *trigger = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:component repeats:YES];
+                                    
+                                    // 4.设置UNNotificationRequest
+                                    NSString *requestIdentifer = [NSString stringWithFormat:@"3notifiAND%ld",[[dic objectForKey:@"id"] integerValue]];
+                                    UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:requestIdentifer content:content trigger:trigger];
+                                    
+                                    //5.把通知加到UNUserNotificationCenter, 到指定触发点会被触发
+                                    [[UNUserNotificationCenter currentNotificationCenter] addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
+                                    }];
+                                }else if ([alarm_day isEqualToString:@"每周三"]){
+                                    //4
+                                    UNNotificationAction *action= [UNNotificationAction actionWithIdentifier:@"action" title:@"进入Will Power" options:UNNotificationActionOptionForeground];
+                                    
+                                    UNNotificationCategory *category=[UNNotificationCategory categoryWithIdentifier:@"category" actions:@[action] intentIdentifiers:@[] options:UNNotificationCategoryOptionCustomDismissAction];
+                                    
+                                    [[UNUserNotificationCenter currentNotificationCenter] setNotificationCategories:[NSSet setWithObjects:category,nil]];
+                                    
+                                    UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
+                                    content.title = [dic objectForKey:@"subject_title"];//标题应该是获取到对应项目的标题
+                                    //获取对应到的每日一句，1.每日一句API？2.或者是本地的数组，然后每个项目跟随一句
+                                    content.body=[[GetSaying shareGetSaying] getRandomSaying];
+                                    content.badge = @1;
+                                    NSError *error = nil;
+                                    NSString *path = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"%@-%@",imageIndex,imageIndex] ofType:@"png"];
+                                    
+                                    // 2.设置通知附件内容
+                                    UNNotificationAttachment *att = [UNNotificationAttachment attachmentWithIdentifier:@"att1" URL:[NSURL fileURLWithPath:path] options:nil error:&error];
+                                    if (error) {
+                                        NSLog(@"attachment error %@", error);
+                                    }
+                                    content.attachments = @[att];
+                                    //                content.launchImageName = @"跑步机";//这里无条件显示了上面载入的图片，该行没有起作用，或者说该行的作用是什么
+                                    content.categoryIdentifier =@"category";
+                                    
+                                    // 2.设置声音
+                                    UNNotificationSound *sound = [UNNotificationSound soundNamed:@"Intro.m4a"];
+                                    content.sound = sound;
+                                    
+                                    //从选取器中获取的内容，来设置trigger
+                                    //每周三
+                                    
+                                    NSDateComponents *component = [[NSDateComponents alloc] init];
+                                    component.weekday = 4;
+                                    component.hour = [alarm_hour integerValue];
+                                    component.minute=[alarm_minute integerValue];
+                                    UNCalendarNotificationTrigger *trigger = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:component repeats:YES];
+                                    
+                                    // 4.设置UNNotificationRequest
+                                    NSString *requestIdentifer = [NSString stringWithFormat:@"4notifiAND%ld",[[dic objectForKey:@"id"] integerValue]];
+                                    UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:requestIdentifer content:content trigger:trigger];
+                                    
+                                    //5.把通知加到UNUserNotificationCenter, 到指定触发点会被触发
+                                    [[UNUserNotificationCenter currentNotificationCenter] addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
+                                    }];
+                                }else if ([alarm_day isEqualToString:@"每周四"]){
+                                    //5
+                                    UNNotificationAction *action= [UNNotificationAction actionWithIdentifier:@"action" title:@"进入Will Power" options:UNNotificationActionOptionForeground];
+                                    
+                                    UNNotificationCategory *category=[UNNotificationCategory categoryWithIdentifier:@"category" actions:@[action] intentIdentifiers:@[] options:UNNotificationCategoryOptionCustomDismissAction];
+                                    
+                                    [[UNUserNotificationCenter currentNotificationCenter] setNotificationCategories:[NSSet setWithObjects:category,nil]];
+                                    
+                                    UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
+                                    content.title = [dic objectForKey:@"subject_title"];//标题应该是获取到对应项目的标题
+                                    //获取对应到的每日一句，1.每日一句API？2.或者是本地的数组，然后每个项目跟随一句
+                                    content.body=[[GetSaying shareGetSaying] getRandomSaying];
+                                    content.badge = @1;
+                                    NSError *error = nil;
+                                    NSString *path = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"%@-%@",imageIndex,imageIndex] ofType:@"png"];
+                                    
+                                    // 2.设置通知附件内容
+                                    UNNotificationAttachment *att = [UNNotificationAttachment attachmentWithIdentifier:@"att1" URL:[NSURL fileURLWithPath:path] options:nil error:&error];
+                                    if (error) {
+                                        NSLog(@"attachment error %@", error);
+                                    }
+                                    content.attachments = @[att];
+                                    //                content.launchImageName = @"跑步机";//这里无条件显示了上面载入的图片，该行没有起作用，或者说该行的作用是什么
+                                    content.categoryIdentifier =@"category";
+                                    
+                                    // 2.设置声音
+                                    UNNotificationSound *sound = [UNNotificationSound soundNamed:@"Intro.m4a"];
+                                    content.sound = sound;
+                                    
+                                    //从选取器中获取的内容，来设置trigger
+                                    //每周四
+                                    
+                                    NSDateComponents *component = [[NSDateComponents alloc] init];
+                                    component.weekday = 5;
+                                    component.hour = [alarm_hour integerValue];
+                                    component.minute=[alarm_minute integerValue];
+                                    UNCalendarNotificationTrigger *trigger = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:component repeats:YES];
+                                    
+                                    // 4.设置UNNotificationRequest
+                                    NSString *requestIdentifer = [NSString stringWithFormat:@"5notifiAND%ld",[[dic objectForKey:@"id"] integerValue]];
+                                    UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:requestIdentifer content:content trigger:trigger];
+                                    
+                                    //5.把通知加到UNUserNotificationCenter, 到指定触发点会被触发
+                                    [[UNUserNotificationCenter currentNotificationCenter] addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
+                                    }];
+                                }else if ([alarm_day isEqualToString:@"每周五"]){
+                                    //6
+                                    UNNotificationAction *action= [UNNotificationAction actionWithIdentifier:@"action" title:@"进入Will Power" options:UNNotificationActionOptionForeground];
+                                    
+                                    UNNotificationCategory *category=[UNNotificationCategory categoryWithIdentifier:@"category" actions:@[action] intentIdentifiers:@[] options:UNNotificationCategoryOptionCustomDismissAction];
+                                    
+                                    [[UNUserNotificationCenter currentNotificationCenter] setNotificationCategories:[NSSet setWithObjects:category,nil]];
+                                    
+                                    UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
+                                    content.title = [dic objectForKey:@"subject_title"];//标题应该是获取到对应项目的标题
+                                    //获取对应到的每日一句，1.每日一句API？2.或者是本地的数组，然后每个项目跟随一句
+                                    content.body=[[GetSaying shareGetSaying] getRandomSaying];
+                                    content.badge = @1;
+                                    NSError *error = nil;
+                                    NSString *path = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"%@-%@",imageIndex,imageIndex] ofType:@"png"];
+                                    
+                                    // 2.设置通知附件内容
+                                    UNNotificationAttachment *att = [UNNotificationAttachment attachmentWithIdentifier:@"att1" URL:[NSURL fileURLWithPath:path] options:nil error:&error];
+                                    if (error) {
+                                        NSLog(@"attachment error %@", error);
+                                    }
+                                    content.attachments = @[att];
+                                    //                content.launchImageName = @"跑步机";//这里无条件显示了上面载入的图片，该行没有起作用，或者说该行的作用是什么
+                                    content.categoryIdentifier =@"category";
+                                    
+                                    // 2.设置声音
+                                    UNNotificationSound *sound = [UNNotificationSound soundNamed:@"Intro.m4a"];
+                                    content.sound = sound;
+                                    
+                                    //从选取器中获取的内容，来设置trigger
+                                    //每周五
+                                    
+                                    NSDateComponents *component = [[NSDateComponents alloc] init];
+                                    component.weekday = 6;
+                                    component.hour = [alarm_hour integerValue];
+                                    component.minute=[alarm_minute integerValue];
+                                    UNCalendarNotificationTrigger *trigger = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:component repeats:YES];
+                                    
+                                    // 4.设置UNNotificationRequest
+                                    NSString *requestIdentifer = [NSString stringWithFormat:@"6notifiAND%ld",[[dic objectForKey:@"id"] integerValue]];
+                                    UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:requestIdentifer content:content trigger:trigger];
+                                    
+                                    //5.把通知加到UNUserNotificationCenter, 到指定触发点会被触发
+                                    [[UNUserNotificationCenter currentNotificationCenter] addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
+                                    }];
+                                }else if ([alarm_day isEqualToString:@"每周六"]){
+                                    //7
+                                    UNNotificationAction *action= [UNNotificationAction actionWithIdentifier:@"action" title:@"进入Will Power" options:UNNotificationActionOptionForeground];
+                                    
+                                    UNNotificationCategory *category=[UNNotificationCategory categoryWithIdentifier:@"category" actions:@[action] intentIdentifiers:@[] options:UNNotificationCategoryOptionCustomDismissAction];
+                                    
+                                    [[UNUserNotificationCenter currentNotificationCenter] setNotificationCategories:[NSSet setWithObjects:category,nil]];
+                                    
+                                    UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
+                                    content.title = [dic objectForKey:@"subject_title"];//标题应该是获取到对应项目的标题
+                                    //获取对应到的每日一句，1.每日一句API？2.或者是本地的数组，然后每个项目跟随一句
+                                    content.body=[[GetSaying shareGetSaying] getRandomSaying];
+                                    content.badge = @1;
+                                    NSError *error = nil;
+                                    NSString *path = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"%@-%@",imageIndex,imageIndex] ofType:@"png"];
+                                    
+                                    // 2.设置通知附件内容
+                                    UNNotificationAttachment *att = [UNNotificationAttachment attachmentWithIdentifier:@"att1" URL:[NSURL fileURLWithPath:path] options:nil error:&error];
+                                    if (error) {
+                                        NSLog(@"attachment error %@", error);
+                                    }
+                                    content.attachments = @[att];
+                                    //                content.launchImageName = @"跑步机";//这里无条件显示了上面载入的图片，该行没有起作用，或者说该行的作用是什么
+                                    content.categoryIdentifier =@"category";
+                                    
+                                    // 2.设置声音
+                                    UNNotificationSound *sound = [UNNotificationSound soundNamed:@"Intro.m4a"];
+                                    content.sound = sound;
+                                    
+                                    //从选取器中获取的内容，来设置trigger
+                                    //每周六
+                                    
+                                    NSDateComponents *component = [[NSDateComponents alloc] init];
+                                    component.weekday = 7;
+                                    component.hour = [alarm_hour integerValue];
+                                    component.minute=[alarm_minute integerValue];
+                                    UNCalendarNotificationTrigger *trigger = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:component repeats:YES];
+                                    
+                                    // 4.设置UNNotificationRequest
+                                    NSString *requestIdentifer = [NSString stringWithFormat:@"7notifiAND%ld",[[dic objectForKey:@"id"] integerValue]];
+                                    UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:requestIdentifer content:content trigger:trigger];
+                                    
+                                    //5.把通知加到UNUserNotificationCenter, 到指定触发点会被触发
+                                    [[UNUserNotificationCenter currentNotificationCenter] addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
+                                    }];
+                                }else if ([alarm_day isEqualToString:@"每周日"]){
+                                    //1
+                                    UNNotificationAction *action= [UNNotificationAction actionWithIdentifier:@"action" title:@"进入Will Power" options:UNNotificationActionOptionForeground];
+                                    
+                                    UNNotificationCategory *category=[UNNotificationCategory categoryWithIdentifier:@"category" actions:@[action] intentIdentifiers:@[] options:UNNotificationCategoryOptionCustomDismissAction];
+                                    
+                                    [[UNUserNotificationCenter currentNotificationCenter] setNotificationCategories:[NSSet setWithObjects:category,nil]];
+                                    
+                                    UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
+                                    content.title = [dic objectForKey:@"subject_title"];//标题应该是获取到对应项目的标题
+                                    //获取对应到的每日一句，1.每日一句API？2.或者是本地的数组，然后每个项目跟随一句
+                                    content.body=[[GetSaying shareGetSaying] getRandomSaying];
+                                    content.badge = @1;
+                                    NSError *error = nil;
+                                    NSString *path = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"%@-%@",imageIndex,imageIndex] ofType:@"png"];
+                                    
+                                    // 2.设置通知附件内容
+                                    UNNotificationAttachment *att = [UNNotificationAttachment attachmentWithIdentifier:@"att1" URL:[NSURL fileURLWithPath:path] options:nil error:&error];
+                                    if (error) {
+                                        NSLog(@"attachment error %@", error);
+                                    }
+                                    content.attachments = @[att];
+                                    //                content.launchImageName = @"跑步机";//这里无条件显示了上面载入的图片，该行没有起作用，或者说该行的作用是什么
+                                    content.categoryIdentifier =@"category";
+                                    
+                                    // 2.设置声音
+                                    UNNotificationSound *sound = [UNNotificationSound soundNamed:@"Intro.m4a"];
+                                    content.sound = sound;
+                                    
+                                    //从选取器中获取的内容，来设置trigger
+                                    //每周日
+                                    
+                                    NSDateComponents *component = [[NSDateComponents alloc] init];
+                                    component.weekday = 1;
+                                    component.hour = [alarm_hour integerValue];
+                                    component.minute=[alarm_minute integerValue];
+                                    UNCalendarNotificationTrigger *trigger = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:component repeats:YES];
+                                    
+                                    // 4.设置UNNotificationRequest
+                                    NSString *requestIdentifer = [NSString stringWithFormat:@"1notifiAND%ld",[[dic objectForKey:@"id"] integerValue]];
+                                    UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:requestIdentifer content:content trigger:trigger];
+                                    
+                                    //5.把通知加到UNUserNotificationCenter, 到指定触发点会被触发
+                                    [[UNUserNotificationCenter currentNotificationCenter] addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
+                                    }];
+                                }
                             }
-                            content.attachments = @[att];
-                            //                content.launchImageName = @"跑步机";//这里无条件显示了上面载入的图片，该行没有起作用，或者说该行的作用是什么
-                            content.categoryIdentifier =@"category";
-                            
-                            // 2.设置声音
-                           UNNotificationSound *sound = [UNNotificationSound soundNamed:@"Intro.m4a"];
-                            content.sound = sound;
-                            
-                            //从选取器中获取的内容，来设置trigger
-                            //每天都提醒
-                            
-                            NSDateComponents *component = [[NSDateComponents alloc] init];
-                            component.weekday = i;
-                            component.hour = [alarm_hour integerValue];
-                            component.minute=[alarm_minute integerValue];
-                            UNCalendarNotificationTrigger *trigger = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:component repeats:YES];
-                            
-                            // 4.设置UNNotificationRequest
-                            NSString *requestIdentifer =[NSString stringWithFormat:@"%ldnotifiAND%ld",i,[[dic objectForKey:@"id"] integerValue]];
-                            UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:requestIdentifer content:content trigger:trigger];
-                            
-                            //5.把通知加到UNUserNotificationCenter, 到指定触发点会被触发
-                            [[UNUserNotificationCenter currentNotificationCenter] addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
-                            }];
+                        }else{
+                            //不确立通知
                         }
-                    }else if ([alarm_day isEqualToString:@"工作日"]){
-                        //工作日 2，3，4，5，6
-                        for (NSInteger i=2; i<7; i++) {
+                    });
+                }else{
+                    //按照原有逻辑，直接确立通知
+                    //已经拿到了通知授权
+                if ([[NSUserDefaults standardUserDefaults] boolForKey:[NSString stringWithFormat:@"%@%@",[dic objectForKey:@"subject_title"],[dic objectForKey:@"reward"]]]) {
+                    
+                    NSLog(@"%ld",[[NotifiModel notifiModel] countForDataIn:[[dic objectForKey:@"id"] integerValue]]);
+                    for (NSInteger i=0; i<([[NotifiModel notifiModel] countForDataIn:[[dic objectForKey:@"id"] integerValue]]); i++) {
+                        NSString *alarm_day=[[[[NotifiModel notifiModel] selectItemsIn:[[dic objectForKey:@"id"] integerValue]] objectAtIndex:i] objectForKey:@"alarm_day"];
+                        NSString *alarm_hour=[[[[NotifiModel notifiModel] selectItemsIn:[[dic objectForKey:@"id"] integerValue]] objectAtIndex:i] objectForKey:@"alarm_hour"];
+                        NSString *alarm_minute=[[[[NotifiModel notifiModel] selectItemsIn:[[dic objectForKey:@"id"] integerValue]] objectAtIndex:i] objectForKey:@"alarm_minute"];
+                        NSString *imageIndex=[dic objectForKey:@"image"];
+                        
+                        //周日是从1开始的
+                        if ([alarm_day isEqualToString:@"每天"]) {
+                            //现在使用的是最笨的办法循坏来确立通知时间----->如果有更好的办法则升级
+                            for (NSInteger i=1; i<8; i++) {
+                                UNNotificationAction *action= [UNNotificationAction actionWithIdentifier:@"action" title:@"进入Will Power" options:UNNotificationActionOptionForeground];
+                                
+                                UNNotificationCategory *category=[UNNotificationCategory categoryWithIdentifier:@"category" actions:@[action] intentIdentifiers:@[] options:UNNotificationCategoryOptionCustomDismissAction];
+                                
+                                [[UNUserNotificationCenter currentNotificationCenter] setNotificationCategories:[NSSet setWithObjects:category,nil]];
+                                
+                                UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
+                                content.title = [dic objectForKey:@"subject_title"];//标题应该是获取到对应项目的标题
+                                //获取对应到的每日一句，1.每日一句API？2.或者是本地的数组，然后每个项目跟随一句
+                                content.body=[[GetSaying shareGetSaying] getRandomSaying];
+                                content.badge = @1;
+                                NSError *error = nil;
+                                NSString *path = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"%@-%@",imageIndex,imageIndex] ofType:@"png"];//图片必须放在文件目录下，不能放入Assets.xcassets
+                                
+                                // 2.设置通知附件内容
+                                UNNotificationAttachment *att = [UNNotificationAttachment attachmentWithIdentifier:@"att1" URL:[NSURL fileURLWithPath:path] options:nil error:&error];
+                                if (error) {
+                                    NSLog(@"attachment error %@", error);
+                                }
+                                content.attachments = @[att];
+                                //                content.launchImageName = @"跑步机";//这里无条件显示了上面载入的图片，该行没有起作用，或者说该行的作用是什么
+                                content.categoryIdentifier =@"category";
+                                
+                                // 2.设置声音
+                                UNNotificationSound *sound = [UNNotificationSound soundNamed:@"Intro.m4a"];
+                                content.sound = sound;
+                                
+                                //从选取器中获取的内容，来设置trigger
+                                //每天都提醒
+                                
+                                NSDateComponents *component = [[NSDateComponents alloc] init];
+                                component.weekday = i;
+                                component.hour = [alarm_hour integerValue];
+                                component.minute=[alarm_minute integerValue];
+                                UNCalendarNotificationTrigger *trigger = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:component repeats:YES];
+                                
+                                // 4.设置UNNotificationRequest
+                                NSString *requestIdentifer =[NSString stringWithFormat:@"%ldnotifiAND%ld",i,[[dic objectForKey:@"id"] integerValue]];
+                                UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:requestIdentifer content:content trigger:trigger];
+                                
+                                //5.把通知加到UNUserNotificationCenter, 到指定触发点会被触发
+                                [[UNUserNotificationCenter currentNotificationCenter] addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
+                                }];
+                            }
+                        }else if ([alarm_day isEqualToString:@"工作日"]){
+                            //工作日 2，3，4，5，6
+                            for (NSInteger i=2; i<7; i++) {
+                                UNNotificationAction *action= [UNNotificationAction actionWithIdentifier:@"action" title:@"进入Will Power" options:UNNotificationActionOptionForeground];
+                                
+                                UNNotificationCategory *category=[UNNotificationCategory categoryWithIdentifier:@"category" actions:@[action] intentIdentifiers:@[] options:UNNotificationCategoryOptionCustomDismissAction];
+                                
+                                [[UNUserNotificationCenter currentNotificationCenter] setNotificationCategories:[NSSet setWithObjects:category,nil]];
+                                
+                                UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
+                                content.title = [dic objectForKey:@"subject_title"];//标题应该是获取到对应项目的标题
+                                //获取对应到的每日一句，1.每日一句API？2.或者是本地的数组，然后每个项目跟随一句
+                                content.body=[[GetSaying shareGetSaying] getRandomSaying];
+                                content.badge = @1;
+                                NSError *error = nil;
+                                NSString *path = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"%@-%@",imageIndex,imageIndex] ofType:@"png"];
+                                
+                                // 2.设置通知附件内容
+                                UNNotificationAttachment *att = [UNNotificationAttachment attachmentWithIdentifier:@"att1" URL:[NSURL fileURLWithPath:path] options:nil error:&error];
+                                if (error) {
+                                    NSLog(@"attachment error %@", error);
+                                }
+                                content.attachments = @[att];
+                                //                content.launchImageName = @"跑步机";//这里无条件显示了上面载入的图片，该行没有起作用，或者说该行的作用是什么
+                                content.categoryIdentifier =@"category";
+                                
+                                // 2.设置声音
+                                UNNotificationSound *sound = [UNNotificationSound soundNamed:@"Intro.m4a"];
+                                content.sound = sound;
+                                
+                                //从选取器中获取的内容，来设置trigger
+                                //工作日
+                                
+                                NSDateComponents *component = [[NSDateComponents alloc] init];
+                                component.weekday = i;
+                                component.hour = [alarm_hour integerValue];
+                                component.minute=[alarm_minute integerValue];
+                                UNCalendarNotificationTrigger *trigger = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:component repeats:YES];
+                                
+                                // 4.设置UNNotificationRequest
+                                NSString *requestIdentifer = [NSString stringWithFormat:@"%ldnotifiAND%ld",i,[[dic objectForKey:@"id"] integerValue]];
+                                UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:requestIdentifer content:content trigger:trigger];
+                                
+                                //5.把通知加到UNUserNotificationCenter, 到指定触发点会被触发
+                                [[UNUserNotificationCenter currentNotificationCenter] addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
+                                }];
+                            }
+                            
+                        }else if ([alarm_day isEqualToString:@"每周一"]){
+                            //2
                             UNNotificationAction *action= [UNNotificationAction actionWithIdentifier:@"action" title:@"进入Will Power" options:UNNotificationActionOptionForeground];
                             
                             UNNotificationCategory *category=[UNNotificationCategory categoryWithIdentifier:@"category" actions:@[action] intentIdentifiers:@[] options:UNNotificationCategoryOptionCustomDismissAction];
@@ -302,347 +793,320 @@
                             content.categoryIdentifier =@"category";
                             
                             // 2.设置声音
-                           UNNotificationSound *sound = [UNNotificationSound soundNamed:@"Intro.m4a"];
+                            UNNotificationSound *sound = [UNNotificationSound soundNamed:@"Intro.m4a"];
                             content.sound = sound;
                             
                             //从选取器中获取的内容，来设置trigger
-                            //工作日
+                            //每周一
                             
                             NSDateComponents *component = [[NSDateComponents alloc] init];
-                            component.weekday = i;
+                            component.weekday = 2;
                             component.hour = [alarm_hour integerValue];
                             component.minute=[alarm_minute integerValue];
                             UNCalendarNotificationTrigger *trigger = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:component repeats:YES];
                             
                             // 4.设置UNNotificationRequest
-                            NSString *requestIdentifer = [NSString stringWithFormat:@"%ldnotifiAND%ld",i,[[dic objectForKey:@"id"] integerValue]];
+                            NSString *requestIdentifer = [NSString stringWithFormat:@"2notifiAND%ld",[[dic objectForKey:@"id"] integerValue]];
                             UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:requestIdentifer content:content trigger:trigger];
                             
                             //5.把通知加到UNUserNotificationCenter, 到指定触发点会被触发
                             [[UNUserNotificationCenter currentNotificationCenter] addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
                             }];
-                        }
-                        
-                    }else if ([alarm_day isEqualToString:@"每周一"]){
-                        //2
-                        UNNotificationAction *action= [UNNotificationAction actionWithIdentifier:@"action" title:@"进入Will Power" options:UNNotificationActionOptionForeground];
-                        
-                        UNNotificationCategory *category=[UNNotificationCategory categoryWithIdentifier:@"category" actions:@[action] intentIdentifiers:@[] options:UNNotificationCategoryOptionCustomDismissAction];
-                        
-                        [[UNUserNotificationCenter currentNotificationCenter] setNotificationCategories:[NSSet setWithObjects:category,nil]];
-                        
-                        UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
-                        content.title = [dic objectForKey:@"subject_title"];//标题应该是获取到对应项目的标题
-                        //获取对应到的每日一句，1.每日一句API？2.或者是本地的数组，然后每个项目跟随一句
-                        content.body=[[GetSaying shareGetSaying] getRandomSaying];
-                        content.badge = @1;
-                        NSError *error = nil;
-                        NSString *path = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"%@-%@",imageIndex,imageIndex] ofType:@"png"];
-                        
-                        // 2.设置通知附件内容
-                        UNNotificationAttachment *att = [UNNotificationAttachment attachmentWithIdentifier:@"att1" URL:[NSURL fileURLWithPath:path] options:nil error:&error];
-                        if (error) {
-                            NSLog(@"attachment error %@", error);
-                        }
-                        content.attachments = @[att];
-                        //                content.launchImageName = @"跑步机";//这里无条件显示了上面载入的图片，该行没有起作用，或者说该行的作用是什么
-                        content.categoryIdentifier =@"category";
-                        
-                        // 2.设置声音
-                       UNNotificationSound *sound = [UNNotificationSound soundNamed:@"Intro.m4a"];
-                        content.sound = sound;
-                        
-                        //从选取器中获取的内容，来设置trigger
-                        //每周一
-                        
-                        NSDateComponents *component = [[NSDateComponents alloc] init];
-                        component.weekday = 2;
-                        component.hour = [alarm_hour integerValue];
-                        component.minute=[alarm_minute integerValue];
-                        UNCalendarNotificationTrigger *trigger = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:component repeats:YES];
-                        
-                        // 4.设置UNNotificationRequest
-                        NSString *requestIdentifer = [NSString stringWithFormat:@"2notifiAND%ld",[[dic objectForKey:@"id"] integerValue]];
-                        UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:requestIdentifer content:content trigger:trigger];
-                        
-                        //5.把通知加到UNUserNotificationCenter, 到指定触发点会被触发
-                        [[UNUserNotificationCenter currentNotificationCenter] addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
-                        }];
-                    }else if ([alarm_day isEqualToString:@"每周二"]){
-                        //3
-                        UNNotificationAction *action= [UNNotificationAction actionWithIdentifier:@"action" title:@"进入Will Power" options:UNNotificationActionOptionForeground];
-                        
-                        UNNotificationCategory *category=[UNNotificationCategory categoryWithIdentifier:@"category" actions:@[action] intentIdentifiers:@[] options:UNNotificationCategoryOptionCustomDismissAction];
-                        
-                        [[UNUserNotificationCenter currentNotificationCenter] setNotificationCategories:[NSSet setWithObjects:category,nil]];
-                        
-                        UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
-                        content.title = [dic objectForKey:@"subject_title"];//标题应该是获取到对应项目的标题
-                        //获取对应到的每日一句，1.每日一句API？2.或者是本地的数组，然后每个项目跟随一句
-                        content.body=[[GetSaying shareGetSaying] getRandomSaying];
-                        content.badge = @1;
-                        NSError *error = nil;
-                        NSString *path = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"%@-%@",imageIndex,imageIndex] ofType:@"png"];
-                        
-                        // 2.设置通知附件内容
-                        UNNotificationAttachment *att = [UNNotificationAttachment attachmentWithIdentifier:@"att1" URL:[NSURL fileURLWithPath:path] options:nil error:&error];
-                        if (error) {
-                            NSLog(@"attachment error %@", error);
-                        }
-                        content.attachments = @[att];
-                        //                content.launchImageName = @"跑步机";//这里无条件显示了上面载入的图片，该行没有起作用，或者说该行的作用是什么
-                        content.categoryIdentifier =@"category";
-                        
-                        // 2.设置声音
-                       UNNotificationSound *sound = [UNNotificationSound soundNamed:@"Intro.m4a"];
-                        content.sound = sound;
-                        
-                        //从选取器中获取的内容，来设置trigger
-                        //每周二
-                        
-                        NSDateComponents *component = [[NSDateComponents alloc] init];
-                        component.weekday = 3;
-                        component.hour = [alarm_hour integerValue];
-                        component.minute=[alarm_minute integerValue];
-                        UNCalendarNotificationTrigger *trigger = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:component repeats:YES];
-                        
-                        // 4.设置UNNotificationRequest
-                        NSString *requestIdentifer = [NSString stringWithFormat:@"3notifiAND%ld",[[dic objectForKey:@"id"] integerValue]];
-                        UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:requestIdentifer content:content trigger:trigger];
-                        
-                        //5.把通知加到UNUserNotificationCenter, 到指定触发点会被触发
-                        [[UNUserNotificationCenter currentNotificationCenter] addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
-                        }];
-                    }else if ([alarm_day isEqualToString:@"每周三"]){
-                        //4
-                        UNNotificationAction *action= [UNNotificationAction actionWithIdentifier:@"action" title:@"进入Will Power" options:UNNotificationActionOptionForeground];
-                        
-                        UNNotificationCategory *category=[UNNotificationCategory categoryWithIdentifier:@"category" actions:@[action] intentIdentifiers:@[] options:UNNotificationCategoryOptionCustomDismissAction];
-                        
-                        [[UNUserNotificationCenter currentNotificationCenter] setNotificationCategories:[NSSet setWithObjects:category,nil]];
-                        
-                        UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
-                        content.title = [dic objectForKey:@"subject_title"];//标题应该是获取到对应项目的标题
-                        //获取对应到的每日一句，1.每日一句API？2.或者是本地的数组，然后每个项目跟随一句
-                        content.body=[[GetSaying shareGetSaying] getRandomSaying];
-                        content.badge = @1;
-                        NSError *error = nil;
-                        NSString *path = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"%@-%@",imageIndex,imageIndex] ofType:@"png"];
-                        
-                        // 2.设置通知附件内容
-                        UNNotificationAttachment *att = [UNNotificationAttachment attachmentWithIdentifier:@"att1" URL:[NSURL fileURLWithPath:path] options:nil error:&error];
-                        if (error) {
-                            NSLog(@"attachment error %@", error);
-                        }
-                        content.attachments = @[att];
-                        //                content.launchImageName = @"跑步机";//这里无条件显示了上面载入的图片，该行没有起作用，或者说该行的作用是什么
-                        content.categoryIdentifier =@"category";
-                        
-                        // 2.设置声音
-                       UNNotificationSound *sound = [UNNotificationSound soundNamed:@"Intro.m4a"];
-                        content.sound = sound;
-                        
-                        //从选取器中获取的内容，来设置trigger
-                        //每周三
-                        
-                        NSDateComponents *component = [[NSDateComponents alloc] init];
-                        component.weekday = 4;
-                        component.hour = [alarm_hour integerValue];
-                        component.minute=[alarm_minute integerValue];
-                        UNCalendarNotificationTrigger *trigger = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:component repeats:YES];
-                        
-                        // 4.设置UNNotificationRequest
-                        NSString *requestIdentifer = [NSString stringWithFormat:@"4notifiAND%ld",[[dic objectForKey:@"id"] integerValue]];
-                        UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:requestIdentifer content:content trigger:trigger];
-                        
-                        //5.把通知加到UNUserNotificationCenter, 到指定触发点会被触发
-                        [[UNUserNotificationCenter currentNotificationCenter] addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
-                        }];
-                    }else if ([alarm_day isEqualToString:@"每周四"]){
-                        //5
-                        UNNotificationAction *action= [UNNotificationAction actionWithIdentifier:@"action" title:@"进入Will Power" options:UNNotificationActionOptionForeground];
-                        
-                        UNNotificationCategory *category=[UNNotificationCategory categoryWithIdentifier:@"category" actions:@[action] intentIdentifiers:@[] options:UNNotificationCategoryOptionCustomDismissAction];
-                        
-                        [[UNUserNotificationCenter currentNotificationCenter] setNotificationCategories:[NSSet setWithObjects:category,nil]];
-                        
-                        UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
-                        content.title = [dic objectForKey:@"subject_title"];//标题应该是获取到对应项目的标题
-                        //获取对应到的每日一句，1.每日一句API？2.或者是本地的数组，然后每个项目跟随一句
-                        content.body=[[GetSaying shareGetSaying] getRandomSaying];
-                        content.badge = @1;
-                        NSError *error = nil;
-                        NSString *path = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"%@-%@",imageIndex,imageIndex] ofType:@"png"];
-                        
-                        // 2.设置通知附件内容
-                        UNNotificationAttachment *att = [UNNotificationAttachment attachmentWithIdentifier:@"att1" URL:[NSURL fileURLWithPath:path] options:nil error:&error];
-                        if (error) {
-                            NSLog(@"attachment error %@", error);
-                        }
-                        content.attachments = @[att];
-                        //                content.launchImageName = @"跑步机";//这里无条件显示了上面载入的图片，该行没有起作用，或者说该行的作用是什么
-                        content.categoryIdentifier =@"category";
-                        
-                        // 2.设置声音
-                       UNNotificationSound *sound = [UNNotificationSound soundNamed:@"Intro.m4a"];
-                        content.sound = sound;
-                        
-                        //从选取器中获取的内容，来设置trigger
-                        //每周四
-                        
-                        NSDateComponents *component = [[NSDateComponents alloc] init];
-                        component.weekday = 5;
-                        component.hour = [alarm_hour integerValue];
-                        component.minute=[alarm_minute integerValue];
-                        UNCalendarNotificationTrigger *trigger = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:component repeats:YES];
-                        
-                        // 4.设置UNNotificationRequest
-                        NSString *requestIdentifer = [NSString stringWithFormat:@"5notifiAND%ld",[[dic objectForKey:@"id"] integerValue]];
-                        UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:requestIdentifer content:content trigger:trigger];
-                        
-                        //5.把通知加到UNUserNotificationCenter, 到指定触发点会被触发
-                        [[UNUserNotificationCenter currentNotificationCenter] addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
-                        }];
-                    }else if ([alarm_day isEqualToString:@"每周五"]){
-                        //6
-                        UNNotificationAction *action= [UNNotificationAction actionWithIdentifier:@"action" title:@"进入Will Power" options:UNNotificationActionOptionForeground];
-                        
-                        UNNotificationCategory *category=[UNNotificationCategory categoryWithIdentifier:@"category" actions:@[action] intentIdentifiers:@[] options:UNNotificationCategoryOptionCustomDismissAction];
-                        
-                        [[UNUserNotificationCenter currentNotificationCenter] setNotificationCategories:[NSSet setWithObjects:category,nil]];
-                        
-                        UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
-                        content.title = [dic objectForKey:@"subject_title"];//标题应该是获取到对应项目的标题
-                        //获取对应到的每日一句，1.每日一句API？2.或者是本地的数组，然后每个项目跟随一句
-                        content.body=[[GetSaying shareGetSaying] getRandomSaying];
-                        content.badge = @1;
-                        NSError *error = nil;
-                        NSString *path = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"%@-%@",imageIndex,imageIndex] ofType:@"png"];
-                        
-                        // 2.设置通知附件内容
-                        UNNotificationAttachment *att = [UNNotificationAttachment attachmentWithIdentifier:@"att1" URL:[NSURL fileURLWithPath:path] options:nil error:&error];
-                        if (error) {
-                            NSLog(@"attachment error %@", error);
-                        }
-                        content.attachments = @[att];
-                        //                content.launchImageName = @"跑步机";//这里无条件显示了上面载入的图片，该行没有起作用，或者说该行的作用是什么
-                        content.categoryIdentifier =@"category";
-                        
-                        // 2.设置声音
-                       UNNotificationSound *sound = [UNNotificationSound soundNamed:@"Intro.m4a"];
-                        content.sound = sound;
-                        
-                        //从选取器中获取的内容，来设置trigger
-                        //每周五
-                        
-                        NSDateComponents *component = [[NSDateComponents alloc] init];
-                        component.weekday = 6;
-                        component.hour = [alarm_hour integerValue];
-                        component.minute=[alarm_minute integerValue];
-                        UNCalendarNotificationTrigger *trigger = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:component repeats:YES];
-                        
-                        // 4.设置UNNotificationRequest
-                        NSString *requestIdentifer = [NSString stringWithFormat:@"6notifiAND%ld",[[dic objectForKey:@"id"] integerValue]];
-                        UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:requestIdentifer content:content trigger:trigger];
-                        
-                        //5.把通知加到UNUserNotificationCenter, 到指定触发点会被触发
-                        [[UNUserNotificationCenter currentNotificationCenter] addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
-                        }];
-                    }else if ([alarm_day isEqualToString:@"每周六"]){
-                        //7
-                        UNNotificationAction *action= [UNNotificationAction actionWithIdentifier:@"action" title:@"进入Will Power" options:UNNotificationActionOptionForeground];
-                        
-                        UNNotificationCategory *category=[UNNotificationCategory categoryWithIdentifier:@"category" actions:@[action] intentIdentifiers:@[] options:UNNotificationCategoryOptionCustomDismissAction];
-                        
-                        [[UNUserNotificationCenter currentNotificationCenter] setNotificationCategories:[NSSet setWithObjects:category,nil]];
-                        
-                        UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
-                        content.title = [dic objectForKey:@"subject_title"];//标题应该是获取到对应项目的标题
-                        //获取对应到的每日一句，1.每日一句API？2.或者是本地的数组，然后每个项目跟随一句
-                        content.body=[[GetSaying shareGetSaying] getRandomSaying];
-                        content.badge = @1;
-                        NSError *error = nil;
-                        NSString *path = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"%@-%@",imageIndex,imageIndex] ofType:@"png"];
-                        
-                        // 2.设置通知附件内容
-                        UNNotificationAttachment *att = [UNNotificationAttachment attachmentWithIdentifier:@"att1" URL:[NSURL fileURLWithPath:path] options:nil error:&error];
-                        if (error) {
-                            NSLog(@"attachment error %@", error);
-                        }
-                        content.attachments = @[att];
-                        //                content.launchImageName = @"跑步机";//这里无条件显示了上面载入的图片，该行没有起作用，或者说该行的作用是什么
-                        content.categoryIdentifier =@"category";
-                        
-                        // 2.设置声音
-                       UNNotificationSound *sound = [UNNotificationSound soundNamed:@"Intro.m4a"];
-                        content.sound = sound;
-                        
-                        //从选取器中获取的内容，来设置trigger
-                        //每周六
-                        
-                        NSDateComponents *component = [[NSDateComponents alloc] init];
-                        component.weekday = 7;
-                        component.hour = [alarm_hour integerValue];
-                        component.minute=[alarm_minute integerValue];
-                        UNCalendarNotificationTrigger *trigger = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:component repeats:YES];
-                        
-                        // 4.设置UNNotificationRequest
-                        NSString *requestIdentifer = [NSString stringWithFormat:@"7notifiAND%ld",[[dic objectForKey:@"id"] integerValue]];
-                        UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:requestIdentifer content:content trigger:trigger];
-                        
-                        //5.把通知加到UNUserNotificationCenter, 到指定触发点会被触发
-                        [[UNUserNotificationCenter currentNotificationCenter] addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
-                        }];
-                    }else if ([alarm_day isEqualToString:@"每周日"]){
-                        //1
-                        UNNotificationAction *action= [UNNotificationAction actionWithIdentifier:@"action" title:@"进入Will Power" options:UNNotificationActionOptionForeground];
-                        
-                        UNNotificationCategory *category=[UNNotificationCategory categoryWithIdentifier:@"category" actions:@[action] intentIdentifiers:@[] options:UNNotificationCategoryOptionCustomDismissAction];
-                        
-                        [[UNUserNotificationCenter currentNotificationCenter] setNotificationCategories:[NSSet setWithObjects:category,nil]];
-                        
-                        UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
-                        content.title = [dic objectForKey:@"subject_title"];//标题应该是获取到对应项目的标题
-                        //获取对应到的每日一句，1.每日一句API？2.或者是本地的数组，然后每个项目跟随一句
-                        content.body=[[GetSaying shareGetSaying] getRandomSaying];
-                        content.badge = @1;
-                        NSError *error = nil;
-                        NSString *path = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"%@-%@",imageIndex,imageIndex] ofType:@"png"];
-                        
-                        // 2.设置通知附件内容
-                        UNNotificationAttachment *att = [UNNotificationAttachment attachmentWithIdentifier:@"att1" URL:[NSURL fileURLWithPath:path] options:nil error:&error];
-                        if (error) {
-                            NSLog(@"attachment error %@", error);
-                        }
-                        content.attachments = @[att];
-                        //                content.launchImageName = @"跑步机";//这里无条件显示了上面载入的图片，该行没有起作用，或者说该行的作用是什么
-                        content.categoryIdentifier =@"category";
-                        
-                        // 2.设置声音
-                       UNNotificationSound *sound = [UNNotificationSound soundNamed:@"Intro.m4a"];
-                        content.sound = sound;
-                        
-                        //从选取器中获取的内容，来设置trigger
-                        //每周日
-                        
-                        NSDateComponents *component = [[NSDateComponents alloc] init];
-                        component.weekday = 1;
-                        component.hour = [alarm_hour integerValue];
-                        component.minute=[alarm_minute integerValue];
-                        UNCalendarNotificationTrigger *trigger = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:component repeats:YES];
-                        
-                        // 4.设置UNNotificationRequest
-                        NSString *requestIdentifer = [NSString stringWithFormat:@"1notifiAND%ld",[[dic objectForKey:@"id"] integerValue]];
-                        UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:requestIdentifer content:content trigger:trigger];
-                        
-                        //5.把通知加到UNUserNotificationCenter, 到指定触发点会被触发
-                        [[UNUserNotificationCenter currentNotificationCenter] addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
-                        }];
-                    }
+                        }else if ([alarm_day isEqualToString:@"每周二"]){
+                            //3
+                            UNNotificationAction *action= [UNNotificationAction actionWithIdentifier:@"action" title:@"进入Will Power" options:UNNotificationActionOptionForeground];
+                            
+                            UNNotificationCategory *category=[UNNotificationCategory categoryWithIdentifier:@"category" actions:@[action] intentIdentifiers:@[] options:UNNotificationCategoryOptionCustomDismissAction];
+                            
+                            [[UNUserNotificationCenter currentNotificationCenter] setNotificationCategories:[NSSet setWithObjects:category,nil]];
+                            
+                            UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
+                            content.title = [dic objectForKey:@"subject_title"];//标题应该是获取到对应项目的标题
+                            //获取对应到的每日一句，1.每日一句API？2.或者是本地的数组，然后每个项目跟随一句
+                            content.body=[[GetSaying shareGetSaying] getRandomSaying];
+                            content.badge = @1;
+                            NSError *error = nil;
+                            NSString *path = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"%@-%@",imageIndex,imageIndex] ofType:@"png"];
+                            
+                            // 2.设置通知附件内容
+                            UNNotificationAttachment *att = [UNNotificationAttachment attachmentWithIdentifier:@"att1" URL:[NSURL fileURLWithPath:path] options:nil error:&error];
+                            if (error) {
+                                NSLog(@"attachment error %@", error);
+                            }
+                            content.attachments = @[att];
+                            //                content.launchImageName = @"跑步机";//这里无条件显示了上面载入的图片，该行没有起作用，或者说该行的作用是什么
+                            content.categoryIdentifier =@"category";
+                            
+                            // 2.设置声音
+                            UNNotificationSound *sound = [UNNotificationSound soundNamed:@"Intro.m4a"];
+                            content.sound = sound;
+                            
+                            //从选取器中获取的内容，来设置trigger
+                            //每周二
+                            
+                            NSDateComponents *component = [[NSDateComponents alloc] init];
+                            component.weekday = 3;
+                            component.hour = [alarm_hour integerValue];
+                            component.minute=[alarm_minute integerValue];
+                            UNCalendarNotificationTrigger *trigger = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:component repeats:YES];
+                            
+                            // 4.设置UNNotificationRequest
+                            NSString *requestIdentifer = [NSString stringWithFormat:@"3notifiAND%ld",[[dic objectForKey:@"id"] integerValue]];
+                            UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:requestIdentifer content:content trigger:trigger];
+                            
+                            //5.把通知加到UNUserNotificationCenter, 到指定触发点会被触发
+                            [[UNUserNotificationCenter currentNotificationCenter] addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
+                            }];
+                        }else if ([alarm_day isEqualToString:@"每周三"]){
+                            //4
+                            UNNotificationAction *action= [UNNotificationAction actionWithIdentifier:@"action" title:@"进入Will Power" options:UNNotificationActionOptionForeground];
+                            
+                            UNNotificationCategory *category=[UNNotificationCategory categoryWithIdentifier:@"category" actions:@[action] intentIdentifiers:@[] options:UNNotificationCategoryOptionCustomDismissAction];
+                            
+                            [[UNUserNotificationCenter currentNotificationCenter] setNotificationCategories:[NSSet setWithObjects:category,nil]];
+                            
+                            UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
+                            content.title = [dic objectForKey:@"subject_title"];//标题应该是获取到对应项目的标题
+                            //获取对应到的每日一句，1.每日一句API？2.或者是本地的数组，然后每个项目跟随一句
+                            content.body=[[GetSaying shareGetSaying] getRandomSaying];
+                            content.badge = @1;
+                            NSError *error = nil;
+                            NSString *path = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"%@-%@",imageIndex,imageIndex] ofType:@"png"];
+                            
+                            // 2.设置通知附件内容
+                            UNNotificationAttachment *att = [UNNotificationAttachment attachmentWithIdentifier:@"att1" URL:[NSURL fileURLWithPath:path] options:nil error:&error];
+                            if (error) {
+                                NSLog(@"attachment error %@", error);
+                            }
+                            content.attachments = @[att];
+                            //                content.launchImageName = @"跑步机";//这里无条件显示了上面载入的图片，该行没有起作用，或者说该行的作用是什么
+                            content.categoryIdentifier =@"category";
+                            
+                            // 2.设置声音
+                            UNNotificationSound *sound = [UNNotificationSound soundNamed:@"Intro.m4a"];
+                            content.sound = sound;
+                            
+                            //从选取器中获取的内容，来设置trigger
+                            //每周三
+                            
+                            NSDateComponents *component = [[NSDateComponents alloc] init];
+                            component.weekday = 4;
+                            component.hour = [alarm_hour integerValue];
+                            component.minute=[alarm_minute integerValue];
+                            UNCalendarNotificationTrigger *trigger = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:component repeats:YES];
+                            
+                            // 4.设置UNNotificationRequest
+                            NSString *requestIdentifer = [NSString stringWithFormat:@"4notifiAND%ld",[[dic objectForKey:@"id"] integerValue]];
+                            UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:requestIdentifer content:content trigger:trigger];
+                            
+                            //5.把通知加到UNUserNotificationCenter, 到指定触发点会被触发
+                            [[UNUserNotificationCenter currentNotificationCenter] addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
+                            }];
+                        }else if ([alarm_day isEqualToString:@"每周四"]){
+                            //5
+                            UNNotificationAction *action= [UNNotificationAction actionWithIdentifier:@"action" title:@"进入Will Power" options:UNNotificationActionOptionForeground];
+                            
+                            UNNotificationCategory *category=[UNNotificationCategory categoryWithIdentifier:@"category" actions:@[action] intentIdentifiers:@[] options:UNNotificationCategoryOptionCustomDismissAction];
+                            
+                            [[UNUserNotificationCenter currentNotificationCenter] setNotificationCategories:[NSSet setWithObjects:category,nil]];
+                            
+                            UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
+                            content.title = [dic objectForKey:@"subject_title"];//标题应该是获取到对应项目的标题
+                            //获取对应到的每日一句，1.每日一句API？2.或者是本地的数组，然后每个项目跟随一句
+                            content.body=[[GetSaying shareGetSaying] getRandomSaying];
+                            content.badge = @1;
+                            NSError *error = nil;
+                            NSString *path = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"%@-%@",imageIndex,imageIndex] ofType:@"png"];
+                            
+                            // 2.设置通知附件内容
+                            UNNotificationAttachment *att = [UNNotificationAttachment attachmentWithIdentifier:@"att1" URL:[NSURL fileURLWithPath:path] options:nil error:&error];
+                            if (error) {
+                                NSLog(@"attachment error %@", error);
+                            }
+                            content.attachments = @[att];
+                            //                content.launchImageName = @"跑步机";//这里无条件显示了上面载入的图片，该行没有起作用，或者说该行的作用是什么
+                            content.categoryIdentifier =@"category";
+                            
+                            // 2.设置声音
+                            UNNotificationSound *sound = [UNNotificationSound soundNamed:@"Intro.m4a"];
+                            content.sound = sound;
+                            
+                            //从选取器中获取的内容，来设置trigger
+                            //每周四
+                            
+                            NSDateComponents *component = [[NSDateComponents alloc] init];
+                            component.weekday = 5;
+                            component.hour = [alarm_hour integerValue];
+                            component.minute=[alarm_minute integerValue];
+                            UNCalendarNotificationTrigger *trigger = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:component repeats:YES];
+                            
+                            // 4.设置UNNotificationRequest
+                            NSString *requestIdentifer = [NSString stringWithFormat:@"5notifiAND%ld",[[dic objectForKey:@"id"] integerValue]];
+                            UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:requestIdentifer content:content trigger:trigger];
+                            
+                            //5.把通知加到UNUserNotificationCenter, 到指定触发点会被触发
+                            [[UNUserNotificationCenter currentNotificationCenter] addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
+                            }];
+                        }else if ([alarm_day isEqualToString:@"每周五"]){
+                            //6
+                            UNNotificationAction *action= [UNNotificationAction actionWithIdentifier:@"action" title:@"进入Will Power" options:UNNotificationActionOptionForeground];
+                            
+                            UNNotificationCategory *category=[UNNotificationCategory categoryWithIdentifier:@"category" actions:@[action] intentIdentifiers:@[] options:UNNotificationCategoryOptionCustomDismissAction];
+                            
+                            [[UNUserNotificationCenter currentNotificationCenter] setNotificationCategories:[NSSet setWithObjects:category,nil]];
+                            
+                            UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
+                            content.title = [dic objectForKey:@"subject_title"];//标题应该是获取到对应项目的标题
+                            //获取对应到的每日一句，1.每日一句API？2.或者是本地的数组，然后每个项目跟随一句
+                            content.body=[[GetSaying shareGetSaying] getRandomSaying];
+                            content.badge = @1;
+                            NSError *error = nil;
+                            NSString *path = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"%@-%@",imageIndex,imageIndex] ofType:@"png"];
+                            
+                            // 2.设置通知附件内容
+                            UNNotificationAttachment *att = [UNNotificationAttachment attachmentWithIdentifier:@"att1" URL:[NSURL fileURLWithPath:path] options:nil error:&error];
+                            if (error) {
+                                NSLog(@"attachment error %@", error);
+                            }
+                            content.attachments = @[att];
+                            //                content.launchImageName = @"跑步机";//这里无条件显示了上面载入的图片，该行没有起作用，或者说该行的作用是什么
+                            content.categoryIdentifier =@"category";
+                            
+                            // 2.设置声音
+                            UNNotificationSound *sound = [UNNotificationSound soundNamed:@"Intro.m4a"];
+                            content.sound = sound;
+                            
+                            //从选取器中获取的内容，来设置trigger
+                            //每周五
+                            
+                            NSDateComponents *component = [[NSDateComponents alloc] init];
+                            component.weekday = 6;
+                            component.hour = [alarm_hour integerValue];
+                            component.minute=[alarm_minute integerValue];
+                            UNCalendarNotificationTrigger *trigger = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:component repeats:YES];
+                            
+                            // 4.设置UNNotificationRequest
+                            NSString *requestIdentifer = [NSString stringWithFormat:@"6notifiAND%ld",[[dic objectForKey:@"id"] integerValue]];
+                            UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:requestIdentifer content:content trigger:trigger];
+                            
+                            //5.把通知加到UNUserNotificationCenter, 到指定触发点会被触发
+                            [[UNUserNotificationCenter currentNotificationCenter] addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
+                            }];
+                        }else if ([alarm_day isEqualToString:@"每周六"]){
+                            //7
+                            UNNotificationAction *action= [UNNotificationAction actionWithIdentifier:@"action" title:@"进入Will Power" options:UNNotificationActionOptionForeground];
+                            
+                            UNNotificationCategory *category=[UNNotificationCategory categoryWithIdentifier:@"category" actions:@[action] intentIdentifiers:@[] options:UNNotificationCategoryOptionCustomDismissAction];
+                            
+                            [[UNUserNotificationCenter currentNotificationCenter] setNotificationCategories:[NSSet setWithObjects:category,nil]];
+                            
+                            UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
+                            content.title = [dic objectForKey:@"subject_title"];//标题应该是获取到对应项目的标题
+                            //获取对应到的每日一句，1.每日一句API？2.或者是本地的数组，然后每个项目跟随一句
+                            content.body=[[GetSaying shareGetSaying] getRandomSaying];
+                            content.badge = @1;
+                            NSError *error = nil;
+                            NSString *path = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"%@-%@",imageIndex,imageIndex] ofType:@"png"];
+                            
+                            // 2.设置通知附件内容
+                            UNNotificationAttachment *att = [UNNotificationAttachment attachmentWithIdentifier:@"att1" URL:[NSURL fileURLWithPath:path] options:nil error:&error];
+                            if (error) {
+                                NSLog(@"attachment error %@", error);
+                            }
+                            content.attachments = @[att];
+                            //                content.launchImageName = @"跑步机";//这里无条件显示了上面载入的图片，该行没有起作用，或者说该行的作用是什么
+                            content.categoryIdentifier =@"category";
+                            
+                            // 2.设置声音
+                            UNNotificationSound *sound = [UNNotificationSound soundNamed:@"Intro.m4a"];
+                            content.sound = sound;
+                            
+                            //从选取器中获取的内容，来设置trigger
+                            //每周六
+                            
+                            NSDateComponents *component = [[NSDateComponents alloc] init];
+                            component.weekday = 7;
+                            component.hour = [alarm_hour integerValue];
+                            component.minute=[alarm_minute integerValue];
+                            UNCalendarNotificationTrigger *trigger = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:component repeats:YES];
+                            
+                            // 4.设置UNNotificationRequest
+                            NSString *requestIdentifer = [NSString stringWithFormat:@"7notifiAND%ld",[[dic objectForKey:@"id"] integerValue]];
+                            UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:requestIdentifer content:content trigger:trigger];
+                            
+                            //5.把通知加到UNUserNotificationCenter, 到指定触发点会被触发
+                            [[UNUserNotificationCenter currentNotificationCenter] addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
+                            }];
+                        }else if ([alarm_day isEqualToString:@"每周日"]){
+                            //1
+                            UNNotificationAction *action= [UNNotificationAction actionWithIdentifier:@"action" title:@"进入Will Power" options:UNNotificationActionOptionForeground];
+                            
+                            UNNotificationCategory *category=[UNNotificationCategory categoryWithIdentifier:@"category" actions:@[action] intentIdentifiers:@[] options:UNNotificationCategoryOptionCustomDismissAction];
+                            
+                            [[UNUserNotificationCenter currentNotificationCenter] setNotificationCategories:[NSSet setWithObjects:category,nil]];
+                            
+                            UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
+                            content.title = [dic objectForKey:@"subject_title"];//标题应该是获取到对应项目的标题
+                            //获取对应到的每日一句，1.每日一句API？2.或者是本地的数组，然后每个项目跟随一句
+                            content.body=[[GetSaying shareGetSaying] getRandomSaying];
+                            content.badge = @1;
+                            NSError *error = nil;
+                            NSString *path = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"%@-%@",imageIndex,imageIndex] ofType:@"png"];
+                            
+                            // 2.设置通知附件内容
+                            UNNotificationAttachment *att = [UNNotificationAttachment attachmentWithIdentifier:@"att1" URL:[NSURL fileURLWithPath:path] options:nil error:&error];
+                            if (error) {
+                                NSLog(@"attachment error %@", error);
+                            }
+                            content.attachments = @[att];
+                            //                content.launchImageName = @"跑步机";//这里无条件显示了上面载入的图片，该行没有起作用，或者说该行的作用是什么
+                            content.categoryIdentifier =@"category";
+                            
+                            // 2.设置声音
+                            UNNotificationSound *sound = [UNNotificationSound soundNamed:@"Intro.m4a"];
+                            content.sound = sound;
+                            
+                            //从选取器中获取的内容，来设置trigger
+                            //每周日
+                            
+                            NSDateComponents *component = [[NSDateComponents alloc] init];
+                            component.weekday = 1;
+                            component.hour = [alarm_hour integerValue];
+                            component.minute=[alarm_minute integerValue];
+                            UNCalendarNotificationTrigger *trigger = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:component repeats:YES];
+                            
+                            // 4.设置UNNotificationRequest
+                            NSString *requestIdentifer = [NSString stringWithFormat:@"1notifiAND%ld",[[dic objectForKey:@"id"] integerValue]];
+                            UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:requestIdentifer content:content trigger:trigger];
+                            
+                            //5.把通知加到UNUserNotificationCenter, 到指定触发点会被触发
+                            [[UNUserNotificationCenter currentNotificationCenter] addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
+                            }];
+                        }//判断周几的
+                    }//for循环的
+                }else{
+                    //什么都不做
+                }//判断bool任务是否是打开的
+            }//比较日期的
+            }//for 循环的
+        }else{
+            //这里是还没有确立通知的，所以提出打开通知提示框
+            UIAlertController *alertController=[UIAlertController alertControllerWithTitle:@"未打开通知" message:nil preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *yesAction=[UIAlertAction actionWithTitle:@"打开通知" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                if (IS_IOS10_OR_ABOVE) {
+                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
                 }
-            }
+            }];
+            UIAlertAction *nooAction=[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                
+            }];
+            [alertController addAction:yesAction];
+            [alertController addAction:nooAction];
+            [self presentViewController:alertController animated:true completion:nil];
         }
     }];
+    
+    
 
 }
 
@@ -660,6 +1124,8 @@
         }
     }];
 }
+
+//对起始日期和当前日期进行比较，如果是在之后的日期就跳出，不确立通知
 
 
 

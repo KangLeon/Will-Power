@@ -21,6 +21,7 @@
 @property(nonatomic,strong)UILabel *goalDiscription;//项目距离目标还有多时间
 @property(nonatomic,strong)UILabel *subject_start_time;//项目开始时间
 
+@property(nonatomic,strong)UILabel *subject_isOn_label;
 @property(nonatomic,strong)UISwitch *subject_isOn_switch;//项目是否进行按钮
 
 @property(nonatomic,strong)UILabel *reward_label;//奖励内容

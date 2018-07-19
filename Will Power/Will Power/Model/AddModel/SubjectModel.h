@@ -11,7 +11,9 @@
 @interface SubjectModel : BaseModel
 
 //只需要存关联任务id和该id下的所有任务
-//id号
+//id号，主键
+@property(nonatomic,assign)NSInteger plus_id;
+//关联id号,不是主键
 @property(nonatomic,assign)NSInteger subject_id;
 //我想要的数据
 @property(nonatomic,strong)NSDate *subject_execute;//一个任务只需要关联一个NSDate，

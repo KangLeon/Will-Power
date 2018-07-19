@@ -20,6 +20,7 @@
 @property(nonatomic,strong)UILabel *goalDiscription;
 @property(nonatomic,strong)UILabel *subject_start_time;
 
+@property(nonatomic,strong)UILabel *subject_isOn_label;
 @property(nonatomic,strong)UISwitch *subject_isOn_switch;
 
 @property(nonatomic,strong)UILabel *reward_label;

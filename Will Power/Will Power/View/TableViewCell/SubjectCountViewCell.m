@@ -29,7 +29,6 @@
 @property(nonatomic,assign)CGSize label_size_2;
 
 @property(nonatomic,strong)UIView *subject_isOn_view;
-@property(nonatomic,strong)UILabel *subject_isOn_label;
 
 @property(nonatomic,strong)UILabel *reward_discription;
 
@@ -47,7 +46,6 @@
         [self.backView addSubview:self.footerView];
         [self.backView addSubview:self.bodyView];
         
-        [self updateConstraintsIfNeeded];
     }
     return self;
 }
@@ -249,10 +247,11 @@
     if (!_subject_isOn_label) {
         _subject_isOn_label=[[UILabel alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH*0.36231884, SCREEN_HEIGHT*0.02173)];
         //根据switch判断然后改变这里的值
-        _subject_isOn_label.text=@"项目进行中";
+        _subject_isOn_label.text=@"项目提醒已经打开";
         _subject_isOn_label.textColor=[UIColor darkGrayColor];
         _subject_isOn_label.font=[UIFont systemFontOfSize:16.0 weight:UIFontWeightMedium];
         _subject_isOn_label.textAlignment=NSTextAlignmentLeft;
+        _subject_isOn_label.adjustsFontSizeToFitWidth=YES;
     }
     return _subject_isOn_label;
 }
@@ -312,77 +311,6 @@
     return _animation;
 }
 
-
-//#pragma mark --Masonry布局约束相关
--(void)updateConstraints{
-    [super updateConstraints];
-    __weak __typeof(self)weakSelf = self;
-    //1.提醒时间的布局约束
-    //2.都是相对于
-//    [self.headView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(weakSelf.backView.mas_left);
-//        make.top.equalTo(weakSelf.backView.mas_top);
-//        make.right.equalTo(weakSelf.backView.mas_right);
-//        make.bottom.equalTo(weakSelf.backView.mas_bottom).offset(-SCREEN_HEIGHT*0.03396);
-//    }];
-//    [self.titleImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(weakSelf.backView.mas_left).offset(10);
-//        make.top.equalTo(weakSelf.backView.mas_top).offset(5);
-//        make.width.equalTo(@(SCREEN_WIDTH*0.1207));
-//        make.height.equalTo(@(SCREEN_WIDTH*0.1207));
-//    }];
-//    [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(weakSelf.titleImageView.mas_right).offset(30);
-//        make.top.equalTo(weakSelf.backView.mas_top).offset((SCREEN_HEIGHT*0.35*0.35-SCREEN_HEIGHT*0.03396-40)/2);
-//        make.width.equalTo(@(SCREEN_WIDTH-90));
-//        make.height.equalTo(@(40));
-//    }];
-//    [self.footerView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(weakSelf.backView.mas_left);
-//        make.top.equalTo(weakSelf.backView.mas_top).offset(SCREEN_HEIGHT*0.35*0.5);
-//        make.right.equalTo(weakSelf.backView.mas_right);
-//        make.bottom.equalTo(weakSelf.backView.mas_bottom);
-//    }];
-//    [self.bodyView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(weakSelf.backView.mas_left);
-//        make.top.equalTo(weakSelf.titleImageView.mas_bottom).offset(5+10+SCREEN_WIDTH*0.1207);
-//        make.right.equalTo(weakSelf.backView.mas_right);
-//        make.bottom.equalTo(weakSelf.backView.mas_bottom).offset(15);
-//    }];
-//    [self.repeatView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(weakSelf.bodyView.mas_left).offset(10);
-//        make.top.equalTo(weakSelf.bodyView.mas_top).offset(15+5+10+SCREEN_WIDTH*0.1207);
-//        make.width.equalTo(@(SCREEN_WIDTH*0.2415));
-//        make.height.equalTo(@(SCREEN_HEIGHT*0.0951));
-//    }];
-//    [self.goalView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(weakSelf.bodyView.mas_left).offset(SCREEN_WIDTH-SCREEN_WIDTH*0.3864);
-//        make.top.equalTo(weakSelf.bodyView.mas_top).offset(15+5+10+SCREEN_WIDTH*0.1207);
-//        make.width.equalTo(@(SCREEN_WIDTH*0.2415));
-//        make.height.equalTo(@(SCREEN_HEIGHT*0.0951));
-//    }];
-//    [self.subject_isOn_view mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(weakSelf.bodyView.mas_left).offset(10);
-//        make.top.equalTo(weakSelf.repeatView.mas_bottom).offset(21);
-//    }];
-//    [self.subject_isOn_switch mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(weakSelf.bodyView.mas_right).offset(-90);
-//        make.top.equalTo(weakSelf.repeatView.mas_bottom).offset(15);
-//    }];
-//    [self.reward_discription mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(weakSelf.bodyView.mas_left).offset(10);
-//        make.top.equalTo(weakSelf.subject_isOn_view.mas_bottom).offset(5);
-//    }];
-//    [self.reward_label mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(weakSelf.reward_discription.mas_right).offset(15);
-//        make.top.equalTo(weakSelf.subject_isOn_view.mas_bottom).offset(5);
-//    }];
-//    [self.animation mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(weakSelf.bodyView.mas_right).offset(-90);
-//        make.top.equalTo(weakSelf.subject_isOn_switch.mas_bottom).offset(15);
-//    }];
-    
-}
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code

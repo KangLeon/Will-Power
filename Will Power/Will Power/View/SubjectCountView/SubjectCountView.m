@@ -27,7 +27,6 @@
 @property(nonatomic,assign)CGSize label_size_2;
 
 @property(nonatomic,strong)UIView *subject_isOn_view;
-@property(nonatomic,strong)UILabel *subject_isOn_label;
 
 @property(nonatomic,strong)UILabel *reward_discription;
 
@@ -248,10 +247,11 @@
     if (!_subject_isOn_label) {
         _subject_isOn_label=[[UILabel alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH*0.36231884, SCREEN_HEIGHT*0.02173)];
         //根据switch判断然后改变这里的值
-        _subject_isOn_label.text=@"项目进行中";
+        _subject_isOn_label.text=@"项目提醒已经打开";
         _subject_isOn_label.textColor=[UIColor darkGrayColor];
         _subject_isOn_label.font=[UIFont systemFontOfSize:16.0 weight:UIFontWeightMedium];
         _subject_isOn_label.textAlignment=NSTextAlignmentLeft;
+        _subject_isOn_label.adjustsFontSizeToFitWidth=YES;
     }
     return _subject_isOn_label;
 }

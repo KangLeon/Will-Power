@@ -191,11 +191,43 @@ static NSString *cell_id3=@"subject_cell_3";
         if ([[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row] objectForKey:@"image"] isEqualToString:@"46"] | [[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row] objectForKey:@"image"] isEqualToString:@"47"] | [[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row] objectForKey:@"image"] isEqualToString:@"48"] | [[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row] objectForKey:@"image"] isEqualToString:@"49"]) {
             cell.titleImageView.image=[UIImage imageNamed:[NSString stringWithFormat:@"%@",[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row] objectForKey:@"image"]]];
             cell.headView.backgroundColor=twenty_three_BACKGROUND_COLOR;
+            [cell.subject_isOn_switch setOnTintColor:twenty_three_BACKGROUND_COLOR];
         }else{
             cell.headView.backgroundColor=[[GetColor shareGetColor] getMyColorWith:[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row] objectForKey:@"image"]];
             cell.titleImageView.image=[UIImage imageNamed:[NSString stringWithFormat:@"%@-%@",[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row] objectForKey:@"image"],[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row] objectForKey:@"image"]]];
+            [cell.subject_isOn_switch setOnTintColor:[[GetColor shareGetColor] getMyColorWith:[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row] objectForKey:@"image"]]];
         }
         cell.subject_start_time.text=[NSString stringWithFormat:@"Since %@",[[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row] objectForKey:@"start_date"] startDateForm:[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row] objectForKey:@"start_date"]]];
+        
+        cell.subject_isOn_switch.on=[[NSUserDefaults standardUserDefaults] boolForKey:[NSString stringWithFormat:@"%@%@",cell.titleLabel.text,[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row] objectForKey:@"reward"]]];
+        if (cell.subject_isOn_switch.isOn) {
+            cell.subject_isOn_label.text=@"项目提醒已经打开";
+        }else{
+            cell.subject_isOn_label.text=@"项目提醒关闭";
+        }
+        [[cell.subject_isOn_switch rac_signalForControlEvents:UIControlEventValueChanged]  subscribeNext:^(__kindof UIControl * _Nullable x) {
+           //添加按钮切换事件
+            if (cell.subject_isOn_switch.isOn) {
+                //如果是打开的话，按正常业务逻辑继续执行
+                //1.打开该任务的通知
+                //2.改变左边项目正在执行的label的文字
+                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:[NSString stringWithFormat:@"%@%@",cell.titleLabel.text,[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row] objectForKey:@"reward"]]];
+                cell.subject_isOn_label.text=@"项目提醒已经打开";
+                [self startNotifi];
+                
+            }else{
+                //如果是关闭的话
+                [[NSUserDefaults standardUserDefaults] setBool:NO forKey:[NSString stringWithFormat:@"%@%@",cell.titleLabel.text,[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row] objectForKey:@"reward"]]];
+                cell.subject_isOn_label.text=@"项目提醒关闭";
+                for (NSInteger i=1; i<8; i++)  {
+                    [self removePending:[NSString stringWithFormat:@"%ldnotifiAND%ld",i,(NSInteger)[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row] objectForKey:@"id"]]];//取消指定标识符下的通知
+                }
+                //业务逻辑总共飞为两部分：1.取消该任务的所有通知
+                //                    2.该任务不应该继续计数了(这是2期的)
+                //                    3.同时该任务应该从首页列表移除，全app内都不应该再对该任务进行任何逻辑上的操作
+                //
+            }
+        }];
         cell.reward_label.text=[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row] objectForKey:@"reward"];
         
         return cell;
@@ -221,9 +253,11 @@ static NSString *cell_id3=@"subject_cell_3";
         if ([[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+1] objectForKey:@"image"] isEqualToString:@"46"] | [[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+1] objectForKey:@"image"] isEqualToString:@"47"] | [[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+1] objectForKey:@"image"] isEqualToString:@"48"] | [[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+1] objectForKey:@"image"] isEqualToString:@"49"]) {
             cell.headView.backgroundColor=twenty_three_BACKGROUND_COLOR;
             cell.titleImageView.image=[UIImage imageNamed:[NSString stringWithFormat:@"%@",[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+1] objectForKey:@"image"]]];
+            [cell.subject_isOn_switch setOnTintColor:twenty_three_BACKGROUND_COLOR];
         }else{
             cell.headView.backgroundColor=[[GetColor shareGetColor] getMyColorWith:[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+1] objectForKey:@"image"]];
             cell.titleImageView.image=[UIImage imageNamed:[NSString stringWithFormat:@"%@-%@",[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+1] objectForKey:@"image"],[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+1] objectForKey:@"image"]]];
+            [cell.subject_isOn_switch setOnTintColor:[[GetColor shareGetColor] getMyColorWith:[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+1] objectForKey:@"image"]]];
         }
         cell.goalDiscription.text=[NSString stringWithFormat:@"距%@天目标还有",[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+1] objectForKey:@"goal_total"]];
         cell.goalDay_label.text=[NSString stringWithFormat:@"%ld",[self countDaysAtIndex:indexPath.row+1]]; //距离目标天数还有多少天
@@ -234,6 +268,32 @@ static NSString *cell_id3=@"subject_cell_3";
             cell.dayView_goal.day_label.text=@"Days";
         }
         cell.subject_start_time.text=[NSString stringWithFormat:@"Since %@",[[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+1] objectForKey:@"start_date"] startDateForm:[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+1] objectForKey:@"start_date"]]];
+        cell.subject_isOn_switch.on=[[NSUserDefaults standardUserDefaults] boolForKey:[NSString stringWithFormat:@"%@%@",cell.titleLabel.text,[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+1] objectForKey:@"reward"]]];
+        if (cell.subject_isOn_switch.isOn) {
+            cell.subject_isOn_label.text=@"项目提醒已经打开";
+        }else{
+            cell.subject_isOn_label.text=@"项目提醒关闭";
+        }
+        [[cell.subject_isOn_switch rac_signalForControlEvents:UIControlEventValueChanged]  subscribeNext:^(__kindof UIControl * _Nullable x) {
+            //添加按钮切换事件
+            if (cell.subject_isOn_switch.isOn) {
+                //如果是打开的话，按正常业务逻辑继续执行
+                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:[NSString stringWithFormat:@"%@%@",cell.titleLabel.text,[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+1] objectForKey:@"reward"]]];
+                cell.subject_isOn_label.text=@"项目提醒已经打开";
+                [self startNotifi];
+            }else{
+                //如果是关闭的话
+                [[NSUserDefaults standardUserDefaults] setBool:NO forKey:[NSString stringWithFormat:@"%@%@",cell.titleLabel.text,[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+1] objectForKey:@"reward"]]];
+                cell.subject_isOn_label.text=@"项目提醒关闭";
+                for (NSInteger i=1; i<8; i++)  {
+                    [self removePending:[NSString stringWithFormat:@"%ldnotifiAND%ld",i,(NSInteger)[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+1] objectForKey:@"id"]]];//取消指定标识符下的通知
+                }
+                //业务逻辑总共飞为两部分：1.取消该任务的所有通知
+                //                    2.该任务不应该继续计数了(这是2期的)
+                //                    3.同时该任务应该从首页列表移除，全app内都不应该再对该任务进行任何逻辑上的操作
+                //
+            }
+        }];
         cell.reward_label.text=[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+1] objectForKey:@"reward"];
         
         return cell;
@@ -260,9 +320,11 @@ static NSString *cell_id3=@"subject_cell_3";
         if ([[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+2] objectForKey:@"image"] isEqualToString:@"46"] | [[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+2] objectForKey:@"image"] isEqualToString:@"47"] | [[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+2] objectForKey:@"image"] isEqualToString:@"48"] | [[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+2] objectForKey:@"image"] isEqualToString:@"49"]) {
             cell.headView.backgroundColor=twenty_three_BACKGROUND_COLOR;
             cell.titleImageView.image=[UIImage imageNamed:[NSString stringWithFormat:@"%@",[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+2] objectForKey:@"image"]]];
+            [cell.subject_isOn_switch setOnTintColor:twenty_three_BACKGROUND_COLOR];
         }else{
             cell.headView.backgroundColor=[[GetColor shareGetColor] getMyColorWith:[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+2] objectForKey:@"image"]];
             cell.titleImageView.image=[UIImage imageNamed:[NSString stringWithFormat:@"%@-%@",[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+2] objectForKey:@"image"],[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+2] objectForKey:@"image"]]];
+            [cell.subject_isOn_switch setOnTintColor:[[GetColor shareGetColor] getMyColorWith:[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+2] objectForKey:@"image"]]];
         }
         cell.goalDiscription.text=[NSString stringWithFormat:@"距%@天目标还有",[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+2] objectForKey:@"goal_total"]];
         cell.goalDay_label.text=[NSString stringWithFormat:@"%ld",[self countDaysAtIndex:indexPath.row+2]]; //距离目标天数还有多少天
@@ -273,6 +335,35 @@ static NSString *cell_id3=@"subject_cell_3";
             cell.dayView_goal.day_label.text=@"Days";
         }
         cell.subject_start_time.text=[NSString stringWithFormat:@"Since %@",[[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+2] objectForKey:@"start_date"] startDateForm:[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+2] objectForKey:@"start_date"]]];
+        cell.subject_isOn_switch.on=[[NSUserDefaults standardUserDefaults] boolForKey:[NSString stringWithFormat:@"%@%@",cell.titleLabel.text,[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+2] objectForKey:@"reward"]]];
+        if (cell.subject_isOn_switch.isOn) {
+            cell.subject_isOn_label.text=@"项目提醒已经打开";
+        }else{
+            cell.subject_isOn_label.text=@"项目提醒关闭";
+        }
+        [[cell.subject_isOn_switch rac_signalForControlEvents:UIControlEventValueChanged]  subscribeNext:^(__kindof UIControl * _Nullable x) {
+            //添加按钮切换事件
+            if (cell.subject_isOn_switch.isOn) {
+                //如果是打开的话，按正常业务逻辑继续执行
+                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:[NSString stringWithFormat:@"%@%@",cell.titleLabel.text,[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+2] objectForKey:@"reward"]]];
+                cell.subject_isOn_label.text=@"项目提醒已经打开";
+                //确立通知
+                [self startNotifi];
+                
+            }else{
+                //如果是关闭的话
+                [[NSUserDefaults standardUserDefaults] setBool:NO forKey:[NSString stringWithFormat:@"%@%@",cell.titleLabel.text,[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+2] objectForKey:@"reward"]]];
+                cell.subject_isOn_label.text=@"项目提醒关闭";
+                //取消通知
+                for (NSInteger i=1; i<8; i++)  {
+                    [self removePending:[NSString stringWithFormat:@"%ldnotifiAND%ld",i,(NSInteger)[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+2] objectForKey:@"id"]]];//取消指定标识符下的通知
+                }
+                //业务逻辑总共飞为两部分：1.取消该任务的所有通知
+                //                    2.该任务不应该继续计数了(这是2期的)
+                //                    3.同时该任务应该从首页列表移除，全app内都不应该再对该任务进行任何逻辑上的操作
+                //
+            }
+        }];
         cell.reward_label.text=[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+2] objectForKey:@"reward"];
         
         return cell;
@@ -340,32 +431,7 @@ static NSString *cell_id3=@"subject_cell_3";
     return total_days-days;
 }
 
--(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    if ([[AddModel shareAddMode] countForData]==0) {
-        //什么都不做
-        [self.firstTableView removeFromSuperview];
-        [self.secondTableView removeFromSuperview];
-        [self.thirdTableView removeFromSuperview];
-        EmptyView *empty=[[EmptyView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-288)/2, 100, 288, 341)];
-        empty.imageView.image=[UIImage imageNamed:@"empty_mission_2_image"];
-        [self.view addSubview:empty];
-    }else if ([[AddModel shareAddMode] countForData]==1) {
-        [self.firstTableView reloadData];
-    }else if ([[AddModel shareAddMode] countForData]==2){
-        [self.firstTableView reloadData];
-        [self.secondTableView reloadData];
-    }else{
-        [self.firstTableView reloadData];
-        [self.secondTableView reloadData];
-        [self.thirdTableView reloadData];
-    }
-    //把所有内容都删除掉
-    for (UIView *view in self.view.subviews) {
-        [view removeFromSuperview];
-    }
-    [self loadUI];
-}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

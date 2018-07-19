@@ -633,7 +633,7 @@ static NSString *cell_id_eighthStep=@"eighth_modify_tableView_cell_id";
                 cell=[[SwitchTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cell_id_thirdStep];
             }
             cell.cell_image.image=[UIImage imageNamed:@"clock_image"];
-            cell.cell_switch.on=[[NSUserDefaults standardUserDefaults] boolForKey:@"isAlarm"];
+            cell.cell_switch.on=[[NSUserDefaults standardUserDefaults] boolForKey:[NSString stringWithFormat:@"%@%@",[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:self.delete_index] objectForKey:@"subject_title"],[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:self.delete_index] objectForKey:@"reward"]]];
             if (!cell.cell_switch.isOn) {
                 cell.cell_title.text=@"提醒未开启";
             }else{
@@ -642,10 +642,23 @@ static NSString *cell_id_eighthStep=@"eighth_modify_tableView_cell_id";
             //开关的切换事件
             [[cell.cell_switch rac_signalForControlEvents:UIControlEventValueChanged] subscribeNext:^(__kindof UIControl * _Nullable x) {
                 //将是否打开提醒存储在NSUserDefaults中
+                //添加按钮切换事件
                 if (cell.cell_switch.isOn) {
-                    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isAlarm"];
+                    //如果是打开的话，按正常业务逻辑继续执行
+                    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:[NSString stringWithFormat:@"%@%@",[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:self.delete_index] objectForKey:@"subject_title"],[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:self.delete_index] objectForKey:@"reward"]]];
+                    cell.cell_title.text=@"提醒已经开启";
+                    [self startNotifi];
                 }else{
-                    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"isAlarm"];
+                    //如果是关闭的话
+                    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:[NSString stringWithFormat:@"%@%@",[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:self.delete_index] objectForKey:@"subject_title"],[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:self.delete_index] objectForKey:@"reward"]]];
+                    cell.cell_title.text=@"提醒未开启";
+                    for (NSInteger i=1; i<8; i++)  {
+                        [self removePending:[NSString stringWithFormat:@"%ldnotifiAND%ld",i,(NSInteger)[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:self.delete_index] objectForKey:@"id"]]];//取消指定标识符下的通知
+                    }
+                    //业务逻辑总共飞为两部分：1.取消该任务的所有通知
+                    //                    2.该任务不应该继续计数了(这是2期的)
+                    //                    3.同时该任务应该从首页列表移除，全app内都不应该再对该任务进行任何逻辑上的操作
+                    //
                 }
             }];
             return cell;
@@ -853,15 +866,6 @@ static NSString *cell_id_eighthStep=@"eighth_modify_tableView_cell_id";
             [self.nineth_cell subscribeNext:^(id  _Nullable x) {
                 self.reward_text=x;
             }];
-            NSLog(@"%@",self.subject_title);
-            NSLog(@"%@",self.subject_get);
-            NSLog(@"%@",self.subject_love_get);
-            NSLog(@"%@",self.subject_best_me);
-            NSLog(@"%@",self.things_text);
-            NSLog(@"%@",self.people_text);
-            NSLog(@"%@",self.time_text);
-            NSLog(@"%@",self.thought_text);
-            NSLog(@"%@",self.reward_text);
             [[AddModel shareAddMode] updateDataWithSubject_title:self.subject_title subject_get:self.subject_get subject_love_get:self.subject_love_get subject_best_me:self.subject_best_me goal_total:[self.for_repeat_cell_text integerValue] start_date:self.for_start_cell_text reject_things:self.things_text reject_people:self.people_text reject_time:self.time_text reject_thought:self.thought_text reward:self.reward_text where:(self.delete_index+1)];
             //将数组中的提醒时间值存到NotifiModel中
             //1.先删除
@@ -889,16 +893,6 @@ static NSString *cell_id_eighthStep=@"eighth_modify_tableView_cell_id";
                 }
             }
             //重新确立通知
-//            NSDate *start_date_for_subject=[self dateFrom:[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:self.delete_index] objectForKey:@"goal_total"]];//2018-07-05 00:00:00 UTC
-//            NSDate *loacdate4real=[NSDate localdate_4real];
-//            NSDate *laterDate=[start_date_for_subject laterDate:loacdate4real];//获取更晚的日期
-//            NSTimeInterval timeInterval=[start_date_for_subject timeIntervalSinceDate:loacdate4real];
-//            if ([laterDate isEqualToDate:start_date_for_subject]) {
-//                //判断两个日期，如果开始日期更靠后的话,就需要确立一个定时器，在时间间隔到达后再确立通知
-//                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(timeInterval * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//                    [self startNotifi];
-//                });
-//            }
             [self startNotifi];
             //返回上一级
             [self.navigationController popViewControllerAnimated:true];
@@ -911,6 +905,9 @@ static NSString *cell_id_eighthStep=@"eighth_modify_tableView_cell_id";
             //继续删除
             NSArray *controllers = self.navigationController.viewControllers;
             [[AddModel shareAddMode] deleteDataByID:(self.delete_index+1)];
+            //同时将对应任务的偏好设置值也删除掉
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:[NSString stringWithFormat:@"%@%@",[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:self.delete_index] objectForKey:@"subject_title"],[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:self.delete_index] objectForKey:@"reward"]]];
+            //返回
             for ( id viewController in controllers) {
                 if ([viewController isKindOfClass:[SubjectCountViewController class]]) {
                     [self.navigationController popToViewController:viewController animated:YES];

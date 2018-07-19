@@ -19,7 +19,7 @@
 #import "NSString+DateTitle.h"
 #import "AddModel.h"
 
-#define SIZE ((SCREEN_WIDTH-20-6*5)/7)
+#define SIZE ((SCREEN_WIDTH-SCREEN_WIDTH*0.04830-SCREEN_WIDTH*0.0144927*5)/7)
 
 static NSString *cell_id=@"reuse_collection";
 
@@ -151,7 +151,7 @@ static NSString *cell_id=@"reuse_collection";
 
 -(UIView *)back_view{
     if (!_back_view) {
-        _back_view=[[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT*0.047554, SCREEN_WIDTH-SCREEN_WIDTH*0.04830, SCREEN_HEIGHT*0.07472+(SIZE+SCREEN_HEIGHT*0.00679)*5+SCREEN_HEIGHT*0.00543*5+SCREEN_HEIGHT*0.02038)];
+        _back_view=[[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT*0.047554, SCREEN_WIDTH-SCREEN_WIDTH*0.04830, SCREEN_HEIGHT*0.07472+(SIZE+SCREEN_HEIGHT*0.00679)*5+SCREEN_HEIGHT*0.00543*5+SCREEN_HEIGHT*0.02038+10)];
         _back_view.backgroundColor=[UIColor whiteColor];
         _back_view.layer.cornerRadius=12;
         
@@ -213,7 +213,7 @@ static NSString *cell_id=@"reuse_collection";
         
         NSArray *weeks_array=@[@"周日",@"周一",@"周二",@"周三",@"周四",@"周五",@"周六"];
         for (int i=0; i<7; i++) {
-            UILabel *week_label=[[UILabel alloc] initWithFrame:CGRectMake(0+(SCREEN_WIDTH-20)/7*i, 35, (SCREEN_WIDTH-20)/7, 15)];
+            UILabel *week_label=[[UILabel alloc] initWithFrame:CGRectMake(self.back_view.frame.size.width/7*i, 35, self.back_view.frame.size.width/7, SCREEN_HEIGHT*0.0203804)];
             week_label.text=weeks_array[i];
             week_label.textColor=[UIColor grayColor];
             week_label.font=[UIFont systemFontOfSize:14.0 weight:UIFontWeightThin];
@@ -273,7 +273,7 @@ static NSString *cell_id=@"reuse_collection";
         //滑动方向
         layout.scrollDirection=UICollectionViewScrollDirectionVertical;
         
-        _calender_collectionView=[[UICollectionView alloc] initWithFrame:CGRectMake(0, 55, SCREEN_WIDTH-20, (SIZE+5)*5+4*5) collectionViewLayout:layout];
+        _calender_collectionView=[[UICollectionView alloc] initWithFrame:CGRectMake(0, 55, SCREEN_WIDTH-SCREEN_WIDTH*0.0484091, (SIZE+SCREEN_HEIGHT*0.0067934)*5+SCREEN_HEIGHT*0.005434782*5) collectionViewLayout:layout];
         
         _calender_collectionView.backgroundColor=[UIColor whiteColor];
         
@@ -952,19 +952,19 @@ static NSString *cell_id=@"reuse_collection";
 //}
 //定义每个Cell的大小
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
-    CGSize size = CGSizeMake(SIZE,SIZE+5);
+    CGSize size = CGSizeMake(SIZE,SIZE+SCREEN_HEIGHT*0.0067934);
     return size;
 }
 
 //水平之间cell的间距
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section{
-    return 4;
+    return SCREEN_WIDTH*0.009661;
 }
 
 // 两个cell之间的最小间距，是由API自动计算的，只有当间距小于该值时，cell会进行换行
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
 {
-    return 4;
+    return SCREEN_HEIGHT*0.005434748;
 }
 
 #pragma mark 多余的方法
