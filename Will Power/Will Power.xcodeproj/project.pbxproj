@@ -244,10 +244,10 @@
 		5980F6EA20F81B7B00AD9F25 /* success.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5980F6E920F81B7B00AD9F25 /* success.wav */; };
 		5980F6ED20F8EEEB00AD9F25 /* GetSaying.m in Sources */ = {isa = PBXBuildFile; fileRef = 5980F6EC20F8EEEB00AD9F25 /* GetSaying.m */; };
 		5980F6F020F92B7B00AD9F25 /* ReviewRemarkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5980F6EF20F92B7B00AD9F25 /* ReviewRemarkViewController.m */; };
+		598CE3F82102A75A00924122 /* Intro.wav in Resources */ = {isa = PBXBuildFile; fileRef = 598CE3F72102A75900924122 /* Intro.wav */; };
 		59BB615A20C9353A00923E01 /* SubjectModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 59BB615920C9353A00923E01 /* SubjectModel.m */; };
 		59BB615D20C9E7D800923E01 /* CheckedModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 59BB615C20C9E7D800923E01 /* CheckedModel.m */; };
 		59BB616920CCFC7F00923E01 /* PopRemarkView.m in Sources */ = {isa = PBXBuildFile; fileRef = 59BB616820CCFC7F00923E01 /* PopRemarkView.m */; };
-		59BE016C2101DCC70091AEC0 /* Intro.wav in Resources */ = {isa = PBXBuildFile; fileRef = 59BE016B2101DCC60091AEC0 /* Intro.wav */; };
 		59BE4E97209B1E4A0001DC02 /* CuteAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 59BE4E96209B1E4A0001DC02 /* CuteAlert.m */; };
 		59D21C3C2071FDDB008DFA94 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 59D21C3B2071FDDB008DFA94 /* BaseViewController.m */; };
 		59D21C412071FE9C008DFA94 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 59D21C402071FE9C008DFA94 /* HomeViewController.m */; };
@@ -642,13 +642,13 @@
 		5980F6EC20F8EEEB00AD9F25 /* GetSaying.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GetSaying.m; sourceTree = "<group>"; };
 		5980F6EE20F92B7B00AD9F25 /* ReviewRemarkViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReviewRemarkViewController.h; sourceTree = "<group>"; };
 		5980F6EF20F92B7B00AD9F25 /* ReviewRemarkViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReviewRemarkViewController.m; sourceTree = "<group>"; };
+		598CE3F72102A75900924122 /* Intro.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Intro.wav; sourceTree = "<group>"; };
 		59BB615820C9353A00923E01 /* SubjectModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SubjectModel.h; sourceTree = "<group>"; };
 		59BB615920C9353A00923E01 /* SubjectModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SubjectModel.m; sourceTree = "<group>"; };
 		59BB615B20C9E7D800923E01 /* CheckedModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CheckedModel.h; sourceTree = "<group>"; };
 		59BB615C20C9E7D800923E01 /* CheckedModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CheckedModel.m; sourceTree = "<group>"; };
 		59BB616720CCFC7F00923E01 /* PopRemarkView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PopRemarkView.h; sourceTree = "<group>"; };
 		59BB616820CCFC7F00923E01 /* PopRemarkView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PopRemarkView.m; sourceTree = "<group>"; };
-		59BE016B2101DCC60091AEC0 /* Intro.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Intro.wav; sourceTree = "<group>"; };
 		59BE4E95209B1E4A0001DC02 /* CuteAlert.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CuteAlert.h; sourceTree = "<group>"; };
 		59BE4E96209B1E4A0001DC02 /* CuteAlert.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CuteAlert.m; sourceTree = "<group>"; };
 		59D21C3A2071FDDB008DFA94 /* BaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
@@ -1201,9 +1201,9 @@
 			children = (
 				595B586520F94AAD008B2B23 /* SubjectImage */,
 				5980F6E920F81B7B00AD9F25 /* success.wav */,
-				59BE016B2101DCC60091AEC0 /* Intro.wav */,
 				5980F6E420F8120C00AD9F25 /* done.json */,
 				5980F6DC20F8064F00AD9F25 /* newAnimation.json */,
+				598CE3F72102A75900924122 /* Intro.wav */,
 				59D4D49720ECD3F1006449E9 /* little_girl_jumping_-_loader.json */,
 				59D4D49320ECB454006449E9 /* emoji.json */,
 				5928DEEE20E212D7008E5423 /* suncloud.json */,
@@ -1860,7 +1860,7 @@
 				595B597820F94AF0008B2B23 /* 52-52@2x.png in Resources */,
 				595B593720F94AF0008B2B23 /* 12-12@3x.png in Resources */,
 				595B59AF20F94AF0008B2B23 /* 31-31.png in Resources */,
-				59BE016C2101DCC70091AEC0 /* Intro.wav in Resources */,
+				598CE3F82102A75A00924122 /* Intro.wav in Resources */,
 				595B592A20F94AF0008B2B23 /* 42-42@2x.png in Resources */,
 				595B593220F94AF0008B2B23 /* 12-12@2x.png in Resources */,
 			);
@@ -1952,19 +1952,8 @@
 				"${PODS_ROOT}/TSMessages/Pod/Assets/NotificationButtonBackground.png",
 				"${PODS_ROOT}/TSMessages/Pod/Assets/NotificationButtonBackground@2x.png",
 				"${PODS_ROOT}/TSMessages/Pod/Assets/TSMessagesDefaultDesign.json",
-				"${PODS_ROOT}/UMengSocialCOM/Umeng_SDK_Social_iOS_ARM64_5.2.1/UMSocial_Sdk_5.2.1/UMSocialSDKResourcesNew.bundle",
-				"${PODS_ROOT}/UMengSocialCOM/Umeng_SDK_Social_iOS_ARM64_5.2.1/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI/TencentOpenApi_IOS_Bundle.bundle",
-				"${PODS_ROOT}/UMengSocialCOM/Umeng_SDK_Social_iOS_ARM64_5.2.1/UMSocial_Sdk_Extra_Frameworks/SinaSSO/WeiboSDK.bundle",
-				"${PODS_ROOT}/UMengSocialCOM/Umeng_SDK_Social_iOS_ARM64_5.2.1/UMSocial_Sdk_5.2.1/SocialSDKXib/UMSCommentDetailController.xib",
-				"${PODS_ROOT}/UMengSocialCOM/Umeng_SDK_Social_iOS_ARM64_5.2.1/UMSocial_Sdk_5.2.1/SocialSDKXib/UMSCommentInputController.xib",
-				"${PODS_ROOT}/UMengSocialCOM/Umeng_SDK_Social_iOS_ARM64_5.2.1/UMSocial_Sdk_5.2.1/SocialSDKXib/UMSCommentInputControlleriPad.xib",
-				"${PODS_ROOT}/UMengSocialCOM/Umeng_SDK_Social_iOS_ARM64_5.2.1/UMSocial_Sdk_5.2.1/SocialSDKXib/UMShareEditViewController.xib",
-				"${PODS_ROOT}/UMengSocialCOM/Umeng_SDK_Social_iOS_ARM64_5.2.1/UMSocial_Sdk_5.2.1/SocialSDKXib/UMShareEditViewControlleriPad.xib",
-				"${PODS_ROOT}/UMengSocialCOM/Umeng_SDK_Social_iOS_ARM64_5.2.1/UMSocial_Sdk_5.2.1/SocialSDKXib/UMSLoginViewController.xib",
-				"${PODS_ROOT}/UMengSocialCOM/Umeng_SDK_Social_iOS_ARM64_5.2.1/UMSocial_Sdk_5.2.1/SocialSDKXib/UMSnsAccountViewController.xib",
-				"${PODS_ROOT}/UMengSocialCOM/Umeng_SDK_Social_iOS_ARM64_5.2.1/UMSocial_Sdk_5.2.1/SocialSDKXib/UMSShareListController.xib",
-				"${PODS_ROOT}/UMengSocialCOM/Umeng_SDK_Social_iOS_ARM64_5.2.1/UMSocial_Sdk_5.2.1/en.lproj",
-				"${PODS_ROOT}/UMengSocialCOM/Umeng_SDK_Social_iOS_ARM64_5.2.1/UMSocial_Sdk_5.2.1/zh-Hans.lproj",
+				"${PODS_ROOT}/UMengUShare/UShareSDK/UMSocialSDK/UMSocialSDKPromptResources.bundle",
+				"${PODS_ROOT}/UMengUShare/UShareSDK/UMSocialUI/UMSocialSDKResources.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
@@ -1990,19 +1979,8 @@
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/NotificationButtonBackground.png",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/NotificationButtonBackground@2x.png",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TSMessagesDefaultDesign.json",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/UMSocialSDKResourcesNew.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TencentOpenApi_IOS_Bundle.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/WeiboSDK.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/UMSCommentDetailController.nib",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/UMSCommentInputController.nib",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/UMSCommentInputControlleriPad.nib",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/UMShareEditViewController.nib",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/UMShareEditViewControlleriPad.nib",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/UMSLoginViewController.nib",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/UMSnsAccountViewController.nib",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/UMSShareListController.nib",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/en.lproj",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/zh-Hans.lproj",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/UMSocialSDKPromptResources.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/UMSocialSDKResources.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

@@ -585,6 +585,10 @@ static NSString *cell_id_share=@"cell_share";
                 }
                 //判断每日签到按钮是否打开了（默认按钮是打开的）
                 if (self.isSign) {
+                    //先撤销了确立的签到通知，然后再确认，防止确认两次同样的tong zhi
+                    for (NSInteger i=1; i<8; i++)  {
+                        [self removePending:[NSString stringWithFormat:@"%ld_notifi_Serious",i]];//取消指定标识符下的通知
+                    }
                      //1.如果按钮是开着的，就确立通知
                     //确立通知
                     //现在使用的是最笨的办法循坏来确立通知时间----->如果有更好的办法则升级

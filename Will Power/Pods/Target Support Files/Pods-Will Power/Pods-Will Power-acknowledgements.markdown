@@ -278,9 +278,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
-## UMengSocialCOM
+## UMengUShare
 
-Copyright 2011 - 2016 UMeng.com. All rights reserved.
+Copyright 2011 - 2018 UMeng.com. All rights reserved.
 
 
 ## lottie-ios

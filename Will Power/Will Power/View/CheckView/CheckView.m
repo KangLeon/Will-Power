@@ -49,6 +49,7 @@
        _check_title=[[UILabel alloc] initWithFrame:CGRectMake(80, 13, 100, 20)];
         _check_title.textColor=BACKGROUND_COLOR;
         _check_title.font=[UIFont systemFontOfSize:18.0 weight:UIFontWeightMedium];
+        _check_title.adjustsFontSizeToFitWidth=YES;
     }
     return _check_title;
 }
