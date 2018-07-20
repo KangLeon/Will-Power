@@ -73,5 +73,7 @@
 //music的背景颜色
 #define MUSIC_BLUE [UIColor colorWithRed:57/255.0 green:181/255.0 blue:255/255.0 alpha:1.0]
 
+//当选了国旗之后的替代绿色
 #define twenty_three_BACKGROUND_COLOR [UIColor colorWithRed:0/255.0 green:201/255.0 blue:166/255.0 alpha:1.0]
+
 #endif /* ColorDefine_h */

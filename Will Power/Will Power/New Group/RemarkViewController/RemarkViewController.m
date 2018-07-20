@@ -194,14 +194,66 @@ static NSString *cell_title_id=@"cell_title";
     return 55;
 }
 
+#pragma mark --tableView delegate
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
+    return YES;
+}
+
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
+    //删除内容
+    UITableViewCell *cell=[tableView cellForRowAtIndexPath:indexPath];
+    [[RemarkModel shareAddMode] deleteDataByTitle:[cell.textLabel.text substringFromIndex:2]];
+
+    //更新数组
+    self.remark_title_array=[[NSMutableArray alloc] init];
+    self.remark_date_array=[[NSMutableArray alloc] init];
+    if (kDevice_Is_iPhoneX) {
+        //从数据库中查出值,并填充到数组中
+        for (NSInteger i=0; i<[[RemarkModel shareAddMode] countForData]; i++) {
+            [self.remark_title_array addObject:[[[[RemarkModel shareAddMode] selectEveryThing] objectAtIndex:i] objectForKey:@"remark_title"]];//获得当前备注的标题
+            [self.remark_date_array addObject:[[[[RemarkModel shareAddMode] selectEveryThing] objectAtIndex:i] objectForKey:@"remark_date"]];//获得当前备注的标题
+        }
+        if (self.remark_title_array.count==0) {
+            [self.view addSubview:self.empty];
+            [self.remarkTitle_tableView removeFromSuperview];
+        }else{
+            [self.empty removeFromSuperview];
+            [self.view addSubview:self.remarkTitle_tableView];
+        }
+    }else{
+        //从数据库中查出值,并填充到数组中
+        for (NSInteger i=0; i<[[RemarkModel shareAddMode] countForData]; i++) {
+            [self.remark_title_array addObject:[[[[RemarkModel shareAddMode] selectEveryThing] objectAtIndex:i] objectForKey:@"remark_title"]];//获得当前备注的标题
+            [self.remark_date_array addObject:[[[[RemarkModel shareAddMode] selectEveryThing] objectAtIndex:i] objectForKey:@"remark_date"]];//获得当前备注的标题
+        }
+        if (self.remark_title_array.count==0) {
+            [self.view addSubview:self.empty];
+            [self.remarkTitle_tableView removeFromSuperview];
+        }else{
+            [self.empty removeFromSuperview];
+            [self.view addSubview:self.remarkTitle_tableView];
+        }
+    }
+    
+    //更新视图尺寸
+    self.remarkTitle_tableView.frame=CGRectMake(10, 90, SCREEN_WIDTH-20, 55*self.remark_title_array.count);
+    
+    //以动画形式删除行
+    [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];//以动画形式删除该行
+}
+
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     ReviewRemarkViewController *review_VC=[[ReviewRemarkViewController alloc] init];
     review_VC.select_index=indexPath.row;
     [self presentViewController:review_VC animated:true completion:nil];
 }
 
+
 //RAC信号的理解还不是很深入，所以暂时还是使用代理的方式来反向传值吧
 -(void)refresh{
+    self.remark_title_array=[[NSMutableArray alloc] init];
+    self.remark_date_array=[[NSMutableArray alloc] init];
     if (kDevice_Is_iPhoneX) {
         //从数据库中查出值,并填充到数组中
         for (NSInteger i=0; i<[[RemarkModel shareAddMode] countForData]; i++) {

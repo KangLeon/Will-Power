@@ -69,6 +69,7 @@
 #pragma mark 删除数据部分
 //删除数据,
 -(void)deleteDataByTitle:(NSString *)title{
+    [self createDataBase];
     //删除数据，默认已经执行查询数据了
     if (self.database!=nil) {
         if ([self.database open]) {
@@ -82,7 +83,7 @@
 #pragma mark 修改数据部分
 //修改数据，每一项都应该提供修改借口
 -(void)updateDataWithRemark_title:(NSString *)title remark_content:(NSString *)content remark_date:(NSString *)date remark_heart:(NSString *)heart  where:(NSInteger)id{
-    
+    [self createDataBase];
     //修改数据，默认已经执行查询数据了
     if (self.database!=nil) {
         if([self.database open]){

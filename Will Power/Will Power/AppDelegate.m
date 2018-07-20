@@ -76,7 +76,7 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-    // 修改角标
+    // 修改角标，这里没有搞好的是本地统计使应用的角标累加，希望找到好的解决办法，
     [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
 }
 
