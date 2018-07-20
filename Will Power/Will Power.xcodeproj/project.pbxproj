@@ -247,6 +247,7 @@
 		59BB615A20C9353A00923E01 /* SubjectModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 59BB615920C9353A00923E01 /* SubjectModel.m */; };
 		59BB615D20C9E7D800923E01 /* CheckedModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 59BB615C20C9E7D800923E01 /* CheckedModel.m */; };
 		59BB616920CCFC7F00923E01 /* PopRemarkView.m in Sources */ = {isa = PBXBuildFile; fileRef = 59BB616820CCFC7F00923E01 /* PopRemarkView.m */; };
+		59BE016C2101DCC70091AEC0 /* Intro.wav in Resources */ = {isa = PBXBuildFile; fileRef = 59BE016B2101DCC60091AEC0 /* Intro.wav */; };
 		59BE4E97209B1E4A0001DC02 /* CuteAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 59BE4E96209B1E4A0001DC02 /* CuteAlert.m */; };
 		59D21C3C2071FDDB008DFA94 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 59D21C3B2071FDDB008DFA94 /* BaseViewController.m */; };
 		59D21C412071FE9C008DFA94 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 59D21C402071FE9C008DFA94 /* HomeViewController.m */; };
@@ -647,6 +648,7 @@
 		59BB615C20C9E7D800923E01 /* CheckedModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CheckedModel.m; sourceTree = "<group>"; };
 		59BB616720CCFC7F00923E01 /* PopRemarkView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PopRemarkView.h; sourceTree = "<group>"; };
 		59BB616820CCFC7F00923E01 /* PopRemarkView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PopRemarkView.m; sourceTree = "<group>"; };
+		59BE016B2101DCC60091AEC0 /* Intro.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Intro.wav; sourceTree = "<group>"; };
 		59BE4E95209B1E4A0001DC02 /* CuteAlert.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CuteAlert.h; sourceTree = "<group>"; };
 		59BE4E96209B1E4A0001DC02 /* CuteAlert.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CuteAlert.m; sourceTree = "<group>"; };
 		59D21C3A2071FDDB008DFA94 /* BaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
@@ -730,7 +732,6 @@
 		59D4D48720E3A336006449E9 /* SignView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SignView.m; sourceTree = "<group>"; };
 		59D4D48A20EA21EA006449E9 /* MusicSelect.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MusicSelect.h; sourceTree = "<group>"; };
 		59D4D48B20EA21EA006449E9 /* MusicSelect.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MusicSelect.m; sourceTree = "<group>"; };
-		59D4D48F20EA298F006449E9 /* Intro.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = Intro.m4a; sourceTree = "<group>"; };
 		59D4D49020ECB11D006449E9 /* CheckEmptyView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CheckEmptyView.h; sourceTree = "<group>"; };
 		59D4D49120ECB11D006449E9 /* CheckEmptyView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CheckEmptyView.m; sourceTree = "<group>"; };
 		59D4D49320ECB454006449E9 /* emoji.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = emoji.json; sourceTree = "<group>"; };
@@ -1200,11 +1201,11 @@
 			children = (
 				595B586520F94AAD008B2B23 /* SubjectImage */,
 				5980F6E920F81B7B00AD9F25 /* success.wav */,
+				59BE016B2101DCC60091AEC0 /* Intro.wav */,
 				5980F6E420F8120C00AD9F25 /* done.json */,
 				5980F6DC20F8064F00AD9F25 /* newAnimation.json */,
 				59D4D49720ECD3F1006449E9 /* little_girl_jumping_-_loader.json */,
 				59D4D49320ECB454006449E9 /* emoji.json */,
-				59D4D48F20EA298F006449E9 /* Intro.m4a */,
 				5928DEEE20E212D7008E5423 /* suncloud.json */,
 				5903820820E11F42004F0489 /* checked_loading.json */,
 				5903820620E11ECD004F0489 /* check_mark_-_done.json */,
@@ -1859,6 +1860,7 @@
 				595B597820F94AF0008B2B23 /* 52-52@2x.png in Resources */,
 				595B593720F94AF0008B2B23 /* 12-12@3x.png in Resources */,
 				595B59AF20F94AF0008B2B23 /* 31-31.png in Resources */,
+				59BE016C2101DCC70091AEC0 /* Intro.wav in Resources */,
 				595B592A20F94AF0008B2B23 /* 42-42@2x.png in Resources */,
 				595B593220F94AF0008B2B23 /* 12-12@2x.png in Resources */,
 			);
