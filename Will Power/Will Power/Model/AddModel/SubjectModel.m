@@ -48,7 +48,7 @@
         NSLog(@"打开数据库成功");
     }
     //创建数据表的sql语句
-    NSString *stringCreateTable=@"create table if not exists mission(plus_id integer primary key,id interger,subject_execute varchar(20))";
+    NSString *stringCreateTable=@"create table if not exists mission(plus_id integer primary key,id integer,subject_execute varchar(20))";
     //检查数据表是否创建成功
     if ([self.database executeUpdate:stringCreateTable]){
         NSLog(@"创建数据表成功");
