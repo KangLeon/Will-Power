@@ -46,6 +46,7 @@
 #import "CheckEmptyView.h"
 #import "GetSaying.h"
 #import <Masonry.h>
+#import "NSString+DateTitle.h"
 
 @interface HomeViewController ()<UIPopoverPresentationControllerDelegate,FUIAlertViewDelegate>
 @property(nonatomic) TapMusic *tapMusic;
@@ -116,9 +117,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-//    [[CheckedModel shareCheckedModel] selectEveryThing];
-//    [[CheckedModel shareCheckedModel] deleteAll];
     
     [self myTabButton];//加载底部3个button
     [self myDragView];//加载5个小button
@@ -262,15 +260,14 @@
         //构思逻辑：需要判断今天是否有任务，如果有的话才添加button到界面上
         //1.拿到subjectModel中查询到的数组，转化后拿到年月日，
         //2.当前时间,转化后拿到年月日，
-        for (NSInteger j=1; j<([[AddModel shareAddMode] countForData]+1); j++) {
+        NSInteger addModel_count=[[AddModel shareAddMode] countForData];
+        for (NSInteger j=1; j<(addModel_count+1); j++) {
             if ([self.check_view.check_title.text isEqualToString: [[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:j-1] objectForKey:@"subject_title"]]) {
                 //添加您今天没有项目
                 [self.view addSubview:self.checkEmptyView];
-                for (NSInteger i=0; i<[[SubjectModel shareSubjectModel] countForDataAtId:j]; i++) {
-                    //3.比较二者，如果相等的话，则添加check_view到页面上------------------------------------------>selectEveryThing的参数可能有误，
-                    //这里默认显示最新的一条任务的关联提醒，
-                    //如果今天的日期等于总计划数组里的日期值，则把view添加到视图上
-                    if ([[self stringFrom:[NSDate localdate]] isEqualToString:[self stringFrom:[[[[SubjectModel shareSubjectModel] selectEveryThing:[[AddModel shareAddMode] countForData]] objectAtIndex:i] objectForKey:@"subject_execute"]]]) {
+                NSArray *allArray=[[SubjectModel shareSubjectModel] selectEveryThing:j];
+                for (NSDictionary *dic in allArray) {
+                    if ([[self stringFrom:[NSDate localdate]] isEqualToString:[dic objectForKey:@"subject_execute"]]) {
                         [self.checkEmptyView removeFromSuperview];
                         [self.view addSubview:self.check_view];
                     }else{
@@ -552,7 +549,7 @@
         for (NSInteger i=1; i<([[AddModel shareAddMode] countForData]+1); i++) {//循环所有项目，检测是否和当前checkView的文字标题一致
             if ([self.check_view.check_title.text isEqualToString: [[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:i-1] objectForKey:@"subject_title"]]) {//如果是当前项目
                 for (NSDictionary *dic in [[CheckedModel shareCheckedModel] selectEveryThingById:i]) {
-                    if([[self stringFrom:[NSDate localdate]] isEqualToString:[self stringFrom:[dic objectForKey:@"checked"]]]){//如果数据库中已经存了今天的数据
+                    if([[self stringFrom:[NSDate localdate]] isEqualToString:[dic objectForKey:@"checked"]]){//如果数据库中已经存了今天的数据
                         //将对号打勾
                         self.check_view.isChecked=YES;
                         //右边的动画框勾选
@@ -582,7 +579,7 @@
                 for (NSInteger i=1; i<([[AddModel shareAddMode] countForData]+1); i++) {
                     if ([self.check_view.check_title.text isEqualToString: [[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:i-1] objectForKey:@"subject_title"]]) {
                         for (NSDictionary *dic in [[CheckedModel shareCheckedModel] selectEveryThingById:i]) {
-                            if([[self stringFrom:[NSDate localdate]] isEqualToString:[self stringFrom:[dic objectForKey:@"checked"]]]){//如果数据库中已经存了今天的数据
+                            if([[self stringFrom:[NSDate localdate]] isEqualToString:[dic objectForKey:@"checked"]]){//如果数据库中已经存了今天的数据
                               [[CheckedModel shareCheckedModel] deleteDataByChecked:[dic objectForKey:@"checked"]];
                             }
                         }
@@ -654,7 +651,7 @@
 //                        }
                         [CheckedModel shareCheckedModel].count=([[CheckedModel shareCheckedModel] countForDataByID:i]+1);
                         [CheckedModel shareCheckedModel].subject_id=i;
-                        [CheckedModel shareCheckedModel].checked=[NSDate localdate];
+                        [CheckedModel shareCheckedModel].checked=[NSString stringFrom:[NSDate localdate]];
                         [[CheckedModel shareCheckedModel] insertData];
                         [[CheckedModel shareCheckedModel] selectEveryThing];
                     }
@@ -766,7 +763,7 @@
                         //这里默认显示最新的一条任务的关联提醒，
                         //如果今天的日期等于总计划数组里的日期值，则把view添加到视图上
 
-                        if ([[self stringFrom:[NSDate localdate]] isEqualToString:[self stringFrom:[[self.array_mission1 objectAtIndex:i] objectForKey:@"subject_execute"]]]) {
+                        if ([[self stringFrom:[NSDate localdate]] isEqualToString:[[self.array_mission1 objectAtIndex:i] objectForKey:@"subject_execute"]]) {
                             [self.checkEmptyView removeFromSuperview];
                             [self.view addSubview:self.check_view];
                         }else{
@@ -780,7 +777,7 @@
                         //3.比较二者，如果相等的话，则添加check_view到页面上------------------------------------------>selectEveryThing的参数可能有误，
                         //这里默认显示最新的一条任务的关联提醒，
                         //如果今天的日期等于总计划数组里的日期值，则把view添加到视图上
-                        if ([[self stringFrom:[NSDate localdate]] isEqualToString:[self stringFrom:[[self.array_mission2 objectAtIndex:i] objectForKey:@"subject_execute"]]]) {
+                        if ([[self stringFrom:[NSDate localdate]] isEqualToString:[[self.array_mission2 objectAtIndex:i] objectForKey:@"subject_execute"]]) {
                             [self.checkEmptyView removeFromSuperview];
                             [self.view addSubview:self.check_view];
                         }else{
@@ -793,7 +790,7 @@
                         //3.比较二者，如果相等的话，则添加check_view到页面上------------------------------------------>selectEveryThing的参数可能有误，
                         //这里默认显示最新的一条任务的关联提醒，
                         //如果今天的日期等于总计划数组里的日期值，则把view添加到视图上
-                        if ([[self stringFrom:[NSDate localdate]] isEqualToString:[self stringFrom:[[self.array_mission3 objectAtIndex:i] objectForKey:@"subject_execute"]]]) {
+                        if ([[self stringFrom:[NSDate localdate]] isEqualToString:[[self.array_mission3 objectAtIndex:i] objectForKey:@"subject_execute"]]) {
                             [self.checkEmptyView removeFromSuperview];
                             [self.view addSubview:self.check_view];
                         }else{
@@ -818,7 +815,7 @@
                 [self.check_view removeCheck];
             }
             for (NSDictionary *dic in [[CheckedModel shareCheckedModel] selectEveryThingById:i]) {
-                if([[self stringFrom:[NSDate localdate]] isEqualToString:[self stringFrom:[dic objectForKey:@"checked"]]]){//如果数据库中已经存了今天的数据
+                if([[self stringFrom:[NSDate localdate]] isEqualToString:[dic objectForKey:@"checked"]]){//如果数据库中已经存了今天的数据
                     //将对号打勾
                     self.check_view.isChecked=YES;
                     //右边的动画框勾选
@@ -876,7 +873,7 @@
                     //3.比较二者，如果相等的话，则添加check_view到页面上------------------------------------------>selectEveryThing的参数可能有误，
                     //这里默认显示最新的一条任务的关联提醒，
                     //如果今天的日期等于总计划数组里的日期值，则把view添加到视图上
-                    if ([[self stringFrom:[NSDate localdate]] isEqualToString:[self stringFrom:[[self.array_mission1 objectAtIndex:i] objectForKey:@"subject_execute"]]]) {
+                    if ([[self stringFrom:[NSDate localdate]] isEqualToString:[[self.array_mission1 objectAtIndex:i] objectForKey:@"subject_execute"]]) {
                         [self.checkEmptyView removeFromSuperview];
                         [self.view addSubview:self.check_view];
                     }else{
@@ -888,7 +885,7 @@
                     //3.比较二者，如果相等的话，则添加check_view到页面上------------------------------------------>selectEveryThing的参数可能有误，
                     //这里默认显示最新的一条任务的关联提醒，
                     //如果今天的日期等于总计划数组里的日期值，则把view添加到视图上
-                    if ([[self stringFrom:[NSDate localdate]] isEqualToString:[self stringFrom:[[self.array_mission2 objectAtIndex:i] objectForKey:@"subject_execute"]]]) {
+                    if ([[self stringFrom:[NSDate localdate]] isEqualToString:[[self.array_mission2 objectAtIndex:i] objectForKey:@"subject_execute"]]) {
                         [self.checkEmptyView removeFromSuperview];
                         [self.view addSubview:self.check_view];
                     }else{
@@ -901,7 +898,7 @@
                     //3.比较二者，如果相等的话，则添加check_view到页面上------------------------------------------>selectEveryThing的参数可能有误，
                     //这里默认显示最新的一条任务的关联提醒，
                     //如果今天的日期等于总计划数组里的日期值，则把view添加到视图上
-                    if ([[self stringFrom:[NSDate localdate]] isEqualToString:[self stringFrom:[[self.array_mission3 objectAtIndex:i] objectForKey:@"subject_execute"]]]) {
+                    if ([[self stringFrom:[NSDate localdate]] isEqualToString:[[self.array_mission3 objectAtIndex:i] objectForKey:@"subject_execute"]]) {
                         [self.checkEmptyView removeFromSuperview];
                         [self.view addSubview:self.check_view];
                     }else{
@@ -927,7 +924,7 @@
                 [self.check_view removeCheck];
             }
             for (NSDictionary *dic in [[CheckedModel shareCheckedModel] selectEveryThingById:i]) {
-                if([[self stringFrom:[NSDate localdate]] isEqualToString:[self stringFrom:[dic objectForKey:@"checked"]]]){//如果数据库中已经存了今天的数据
+                if([[self stringFrom:[NSDate localdate]] isEqualToString:[dic objectForKey:@"checked"]]){//如果数据库中已经存了今天的数据
                     //将对号打勾
                     self.check_view.isChecked=YES;
                     //右边的动画框勾选

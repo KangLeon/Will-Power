@@ -31,6 +31,8 @@ static NSString *cell_id3=@"subject_cell_3";
 @property(nonatomic,strong)UITableView *secondTableView;
 @property(nonatomic,strong)UITableView *thirdTableView;
 
+@property(nonatomic,strong)UIScrollView *scollView;
+
 @end
 
 @implementation SubjectCountViewController
@@ -46,9 +48,9 @@ static NSString *cell_id3=@"subject_cell_3";
 -(void)loadUI{
     
     //添加在滚动视图上防止项目多的的时候一个页面无法显示所有内容
-    UIScrollView *scollView=[[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-    scollView.contentSize=CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT);//画布大小
-    scollView.showsVerticalScrollIndicator=false;
+    self.scollView=[[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    self.scollView.contentSize=CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT);//画布大小
+    self.scollView.showsVerticalScrollIndicator=false;
     
     //从数据库中查数据，查询当前有几条数据
     for (NSInteger i=0; i<4; i++) {
@@ -62,23 +64,23 @@ static NSString *cell_id3=@"subject_cell_3";
         }else if([[AddModel shareAddMode] countForData]==1){
             //当前数据库中有一条数据
             //创建一个项目view并显示
-            [scollView addSubview:self.firstTableView];
+            [self.scollView addSubview:self.firstTableView];
         }else if([[AddModel shareAddMode] countForData]==2){
             //当前数据库中有两条数据
             //创建一个项目view并显示
-            [scollView addSubview:self.firstTableView];
-            [scollView addSubview:self.secondTableView];
+            [self.scollView addSubview:self.firstTableView];
+            [self.scollView addSubview:self.secondTableView];
         }else if([[AddModel shareAddMode] countForData]==3){
             //当前数据库中有一条数据
             //创建一个项目view并显示
-            scollView.contentSize=CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT*1.4);//改变画布大小
-            [scollView addSubview:self.firstTableView];
-            [scollView addSubview:self.secondTableView];
-            [scollView addSubview:self.thirdTableView];
+            self.scollView.contentSize=CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT*1.4);//改变画布大小
+            [self.scollView addSubview:self.firstTableView];
+            [self.scollView addSubview:self.secondTableView];
+            [self.scollView addSubview:self.thirdTableView];
         }
     }
     
-    [self.view addSubview:scollView];
+    [self.view addSubview:self.scollView];
     
 }
 #pragma mark 懒加载
@@ -431,6 +433,14 @@ static NSString *cell_id3=@"subject_cell_3";
     return total_days-days;
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    //从数据库中查数据，查询当前有几条数据
+    for (UIView *view in self.view.subviews) {
+        [view removeFromSuperview];
+    }
+    [self loadUI];
+}
 
 
 - (void)didReceiveMemoryWarning {

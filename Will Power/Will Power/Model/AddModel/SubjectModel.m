@@ -141,7 +141,7 @@
                 //获取id字段内容(根据字段名字来获取)
                 NSInteger id=[result intForColumn:@"id"];
                 //获取subject_title字段内容(根据字段名字来获取)
-                NSDate *subject_execute=[result dateForColumn:@"subject_execute"];
+                NSString *subject_execute=[result stringForColumn:@"subject_execute"];
                 
                 //装入字典
                 NSDictionary *resultDicitonary=@{@"id":@(id),
@@ -177,7 +177,7 @@
                 //获取id字段内容(根据字段名字来获取)
                 NSInteger id=[result intForColumn:@"id"];
                 //获取subject_title字段内容(根据字段名字来获取)
-                NSDate *subject_execute=[result dateForColumn:@"subject_execute"];
+                NSString *subject_execute=[result stringForColumn:@"subject_execute"];
                 
                 //装入字典
                 NSDictionary *resultDicitonary=@{@"id":@(id),

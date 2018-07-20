@@ -71,7 +71,7 @@
 #pragma mark 修改，暂时没有需求，所以暂时不做，
 #pragma mark 删除数据部分
 //删除数据
--(void)deleteDataByChecked:(NSDate*)date{
+-(void)deleteDataByChecked:(NSString*)date{
     //删除数据，默认已经执行查询数据了
     if (self.database!=nil) {
         if ([self.database open]) {
@@ -164,7 +164,7 @@
                 //获取id字段内容(根据字段名字来获取)
                 NSInteger id=[result intForColumn:@"id"];
                 //获取subject_title字段内容(根据字段名字来获取)
-                NSDate *checked=[result dateForColumn:@"checked"];
+                NSString *checked=[result stringForColumn:@"checked"];
                 
                 //装入字典
                 NSDictionary *resultDicitonary=@{@"count":@(count),
@@ -200,7 +200,7 @@
                 //获取id字段内容(根据字段名字来获取)
                 NSInteger id=[result intForColumn:@"id"];
                 //获取subject_title字段内容(根据字段名字来获取)
-                NSDate *checked=[result dateForColumn:@"checked"];
+                NSString *checked=[result stringForColumn:@"checked"];
                 
                 //装入字典
                 NSDictionary *resultDicitonary=@{@"count":@(count),

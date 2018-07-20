@@ -80,104 +80,105 @@
             if([self.database executeUpdate:@"delete from subject where id=?",@(id)]){
                 NSLog(@"删除数据成功");
             }
-        }
-        //忘了一点：同时把NotifiModel，subjectModel和checkedModel里的相关id下的所有内容都要删除
-        //删除NotifiModel的
-        if([self.database executeUpdate:@"delete from alarm where subject_id=?",@(id)]){
-            NSLog(@"删除数据成功");
-        }
-        //删除subjectModel的
-        if([self.database executeUpdate:@"delete from mission where id=?",@(id)]){
-            NSLog(@"删除数据成功");
-        }
-        //删除CheckModel的
-        [[CheckedModel shareCheckedModel] createDataBase];
-        if([self.database executeUpdate:@"delete from checked where id=?",@(id)]){
-            NSLog(@"删除数据成功");
-        }
-        //1.同时把后面的所有数据都移动到前面,
-        //2.同时将所有的关联NotifiModel，SubjectModel，CheckedModel的subject_id都修改
-        if(id==1){
-            //修改后面两条
-            //一.修改第一条
-            if ([self.database executeUpdate:@"update subject set id=? where id=?",@(id),@(id+1)]) {
-                NSLog(@"修改数据成功");//将第三条改成第二条
+            //忘了一点：同时把NotifiModel，subjectModel和checkedModel里的相关id下的所有内容都要删除
+            //删除NotifiModel的
+            if([self.database executeUpdate:@"delete from alarm where subject_id=?",@(id)]){
+                NSLog(@"删除数据成功");
             }
-            //修改NotifiModel的
-            if ([self.database executeUpdate:@"update alarm set subject_id=? where subject_id=?",@(id),@(id+1)]) {
-                NSLog(@"修改数据成功");//
+            //删除subjectModel的
+            if([self.database executeUpdate:@"delete from mission where id=?",@(id)]){
+                NSLog(@"删除数据成功");
             }
-            //修改SubjectModel的
-            if ([self.database executeUpdate:@"update mission set id=? where id=?",@(id),@(id+1)]) {
-                NSLog(@"修改数据成功");//
-            }
-            //修改CheckModel的
+            //删除CheckModel的
             [[CheckedModel shareCheckedModel] createDataBase];
-            if ([self.database executeUpdate:@"update checked set id=? where id=?",@(id),@(id+1)]) {
-                NSLog(@"修改数据成功");//
+            if([self.database executeUpdate:@"delete from checked where id=?",@(id)]){
+                NSLog(@"删除数据成功");
             }
-            //二.修改第三条
-            if ([self.database executeUpdate:@"update subject set id=? where id=?",@(id),@(id+2)]) {
-                NSLog(@"修改数据成功");//将第三条改成第二条
+            //1.同时把后面的所有数据都移动到前面,
+            //2.同时将所有的关联NotifiModel，SubjectModel，CheckedModel的subject_id都修改
+            if(id==1){
+                //修改后面两条
+                //一.修改第一条
+                if ([self.database executeUpdate:@"update subject set id=? where id=?",@(id),@(id+1)]) {
+                    NSLog(@"修改数据成功");//将第三条改成第二条
+                }
+                //修改NotifiModel的
+                if ([self.database executeUpdate:@"update alarm set subject_id=? where subject_id=?",@(id),@(id+1)]) {
+                    NSLog(@"修改数据成功");//
+                }
+                //修改SubjectModel的
+                if ([self.database executeUpdate:@"update mission set id=? where id=?",@(id),@(id+1)]) {
+                    NSLog(@"修改数据成功");//
+                }
+                //修改CheckModel的
+                [[CheckedModel shareCheckedModel] createDataBase];
+                if ([self.database executeUpdate:@"update checked set id=? where id=?",@(id),@(id+1)]) {
+                    NSLog(@"修改数据成功");//
+                }
+                //二.修改第三条
+                if ([self.database executeUpdate:@"update subject set id=? where id=?",@(id+1),@(id+2)]) {
+                    NSLog(@"修改数据成功");//将第三条改成第二条
+                }
+                //修改NotifiModel的
+                if ([self.database executeUpdate:@"update alarm set subject_id=? where subject_id=?",@(id+1),@(id+2)]) {
+                    NSLog(@"修改数据成功");//
+                }
+                //修改SubjectModel的
+                if ([self.database executeUpdate:@"update mission set id=? where id=?",@(id+1),@(id+2)]) {
+                    NSLog(@"修改数据成功");//
+                }
+                //修改CheckModel的
+                [[CheckedModel shareCheckedModel] createDataBase];
+                if ([self.database executeUpdate:@"update checked set id=? where id=?",@(id+1),@(id+2)]) {
+                    NSLog(@"修改数据成功");//
+                }
+            }else if (id==2){
+                //修改后面一条
+                if ([self.database executeUpdate:@"update subject set id=? where id=?",@(id),@(id+1)]) {
+                    NSLog(@"修改数据成功");//将第三条改成第二条
+                }
+                //修改NotifiModel的
+                if ([self.database executeUpdate:@"update alarm set subject_id=? where subject_id=?",@(id),@(id+1)]) {
+                    NSLog(@"修改数据成功");//
+                }
+                //修改SubjectModel的
+                if ([self.database executeUpdate:@"update mission set id=? where id=?",@(id),@(id+1)]) {
+                    NSLog(@"修改数据成功");//
+                    //                NSMutableArray *resultArray=[[NSMutableArray alloc] init];
+                    //
+                    //                NSString *query=@"select * from mission";
+                    //                if (self.database!=nil) {
+                    //                    if ([self.database open]) {
+                    //
+                    //                        FMResultSet *result=[self.database executeQuery:query];
+                    //
+                    //                        //由于返回的是一个set，所以遍历所有结果
+                    //                        while ([result next]) {
+                    //                            //获取id字段内容(根据字段名字来获取)
+                    //                            NSInteger id=[result intForColumn:@"id"];
+                    //                            //获取subject_title字段内容(根据字段名字来获取)
+                    //                            NSDate *subject_execute=[result dateForColumn:@"subject_execute"];
+                    //
+                    //                            //装入字典
+                    //                            NSDictionary *resultDicitonary=@{@"id":@(id),
+                    //                                                             @"subject_execute":subject_execute
+                    //                                                             };
+                    //                            [resultArray addObject:resultDicitonary];//把取出来的字典添加到数组中
+                    //                            //                NSLog(@"查找关联id下的提醒时间%ld,%@",id,subject_execute);
+                    //                        }
+                    //                    }
+                    //                }
+                }
+                //修改CheckModel的
+                [[CheckedModel shareCheckedModel] createDataBase];
+                if ([self.database executeUpdate:@"update checked set id=? where id=?",@(id),@(id+1)]) {
+                    NSLog(@"修改数据成功");//
+                }
+            }else if (id==3){
+                //不需要做修改
             }
-            //修改NotifiModel的
-            if ([self.database executeUpdate:@"update alarm set subject_id=? where subject_id=?",@(id),@(id+2)]) {
-                NSLog(@"修改数据成功");//
-            }
-            //修改SubjectModel的
-            if ([self.database executeUpdate:@"update mission set id=? where id=?",@(id),@(id+2)]) {
-                NSLog(@"修改数据成功");//
-            }
-            //修改CheckModel的
-            [[CheckedModel shareCheckedModel] createDataBase];
-            if ([self.database executeUpdate:@"update checked set id=? where id=?",@(id),@(id+2)]) {
-                NSLog(@"修改数据成功");//
-            }
-        }else if (id==2){
-            //修改后面一条
-            if ([self.database executeUpdate:@"update subject set id=? where id=?",@(id),@(id+1)]) {
-                NSLog(@"修改数据成功");//将第三条改成第二条
-            }
-            //修改NotifiModel的
-            if ([self.database executeUpdate:@"update alarm set subject_id=? where subject_id=?",@(id),@(id+1)]) {
-                NSLog(@"修改数据成功");//
-            }
-            //修改SubjectModel的
-            if ([self.database executeUpdate:@"update mission set id=? where id=?",@(id),@(id+1)]) {
-                NSLog(@"修改数据成功");//
-//                NSMutableArray *resultArray=[[NSMutableArray alloc] init];
-//
-//                NSString *query=@"select * from mission";
-//                if (self.database!=nil) {
-//                    if ([self.database open]) {
-//
-//                        FMResultSet *result=[self.database executeQuery:query];
-//
-//                        //由于返回的是一个set，所以遍历所有结果
-//                        while ([result next]) {
-//                            //获取id字段内容(根据字段名字来获取)
-//                            NSInteger id=[result intForColumn:@"id"];
-//                            //获取subject_title字段内容(根据字段名字来获取)
-//                            NSDate *subject_execute=[result dateForColumn:@"subject_execute"];
-//
-//                            //装入字典
-//                            NSDictionary *resultDicitonary=@{@"id":@(id),
-//                                                             @"subject_execute":subject_execute
-//                                                             };
-//                            [resultArray addObject:resultDicitonary];//把取出来的字典添加到数组中
-//                            //                NSLog(@"查找关联id下的提醒时间%ld,%@",id,subject_execute);
-//                        }
-//                    }
-//                }
-            }
-            //修改CheckModel的
-            [[CheckedModel shareCheckedModel] createDataBase];
-            if ([self.database executeUpdate:@"update checked set id=? where id=?",@(id),@(id+1)]) {
-                NSLog(@"修改数据成功");//
-            }
-        }else if (id==3){
-            //不需要做修改
         }
+       
         [self.database close];
     }
 }

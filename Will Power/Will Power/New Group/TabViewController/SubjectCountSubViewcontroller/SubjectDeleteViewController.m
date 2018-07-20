@@ -871,7 +871,7 @@ static NSString *cell_id_eighthStep=@"eighth_modify_tableView_cell_id";
             //1.先删除
             [[NotifiModel notifiModel] deleteDataByID:(self.delete_index+1)];
             //2.再存储
-            NSInteger for_plus=1;
+            NSInteger for_plus=[[NotifiModel notifiModel] countForData];
             for (NSDictionary *dic in self.alarm_all_array) {
                 //每循环一次就存储一条数据到数据库
                 [NotifiModel notifiModel].alarm_id=for_plus;//关联该任务的数据条数累加
@@ -904,9 +904,13 @@ static NSString *cell_id_eighthStep=@"eighth_modify_tableView_cell_id";
         }else if(buttonIndex==1){
             //继续删除
             NSArray *controllers = self.navigationController.viewControllers;
+            NSString *aksdhjkhsajkd=[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:self.delete_index] objectForKey:@"subject_title"];
+            NSString *asdjlsajdkasndaksdka=[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:self.delete_index] objectForKey:@"reward"];
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:[NSString stringWithFormat:@"%@%@",[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:self.delete_index] objectForKey:@"subject_title"],[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:self.delete_index] objectForKey:@"reward"]]];
             [[AddModel shareAddMode] deleteDataByID:(self.delete_index+1)];
             //同时将对应任务的偏好设置值也删除掉
-            [[NSUserDefaults standardUserDefaults] removeObjectForKey:[NSString stringWithFormat:@"%@%@",[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:self.delete_index] objectForKey:@"subject_title"],[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:self.delete_index] objectForKey:@"reward"]]];
+            
+
             //返回
             for ( id viewController in controllers) {
                 if ([viewController isKindOfClass:[SubjectCountViewController class]]) {

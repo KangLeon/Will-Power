@@ -22,6 +22,7 @@
 #import "CheckedModel.h"
 #import "NSDate+LocalDate.h"
 #import "EmptyView.h"
+#import "NSString+DateTitle.h"
 
 static NSString *cell_id_check=@"cell_check";
 
@@ -51,7 +52,7 @@ static NSString *cell_id_check=@"cell_check";
         //遍历该任务下所有的提醒项目
         for (NSDictionary *content_dic in [[SubjectModel shareSubjectModel] selectEveryThing:i]) {
             //只要有相同的值就将该值的i值获取，并通过该值获得任务的标题名
-            if ([[self stringFrom:[NSDate localdate]] isEqualToString:[self stringFrom:[content_dic objectForKey:@"subject_execute"]]]) {
+            if ([[self stringFrom:[NSDate localdate]] isEqualToString:[content_dic objectForKey:@"subject_execute"]]) {
                 [self.today_array addObject:[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:i-1] objectForKey:@"subject_title"]];
             }
         }
@@ -129,7 +130,7 @@ static NSString *cell_id_check=@"cell_check";
     for (NSInteger i=1; i<([[AddModel shareAddMode] countForData]+1); i++) {
         if ([cell.subject_label.text isEqualToString: [[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:i-1] objectForKey:@"subject_title"]]) {
             for (NSDictionary *dic in [[CheckedModel shareCheckedModel] selectEveryThingById:i]) {
-                if([[self stringFrom:[NSDate localdate]] isEqualToString:[self stringFrom:[dic objectForKey:@"checked"]]]){
+                if([[self stringFrom:[NSDate localdate]] isEqualToString:[dic objectForKey:@"checked"]]){
                     cell.status_check=YES;//根据数据库中有没有改天的数据来确定
                     cell.check_backView.backgroundColor=CUTE_BLUE;
                     [cell loadCheck];
@@ -163,7 +164,7 @@ static NSString *cell_id_check=@"cell_check";
             if ([cell.subject_label.text isEqualToString: [[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:i-1] objectForKey:@"subject_title"]]) {
                 [CheckedModel shareCheckedModel].count=([[CheckedModel shareCheckedModel] countForDataByID:i]+1);//存储count
                 [CheckedModel shareCheckedModel].subject_id=i;
-                [CheckedModel shareCheckedModel].checked=[NSDate localdate];
+                [CheckedModel shareCheckedModel].checked=[NSString stringFrom:[NSDate localdate]];
                 [[CheckedModel shareCheckedModel] insertData];
             }
         }
@@ -178,7 +179,7 @@ static NSString *cell_id_check=@"cell_check";
         for (NSInteger i=1; i<([[AddModel shareAddMode] countForData]+1); i++) {
             if ([cell.subject_label.text isEqualToString: [[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:i-1] objectForKey:@"subject_title"]]) {
                 for (NSDictionary *dic in [[CheckedModel shareCheckedModel] selectEveryThingById:i]) {
-                    if([[self stringFrom:[NSDate localdate]] isEqualToString:[self stringFrom:[dic objectForKey:@"checked"]]]){//如果数据库中已经存了今天的数据
+                    if([[self stringFrom:[NSDate localdate]] isEqualToString:[dic objectForKey:@"checked"]]){//如果数据库中已经存了今天的数据
                         [[CheckedModel shareCheckedModel] deleteDataByChecked:[dic objectForKey:@"checked"]];
                         [[CheckedModel shareCheckedModel] selectEveryThing];
                     }

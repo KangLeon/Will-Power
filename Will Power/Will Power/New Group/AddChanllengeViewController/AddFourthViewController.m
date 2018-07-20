@@ -18,6 +18,7 @@
 #import "SubjectModel.h"
 #import "HomeViewController.h"
 #import "SuccessMusic.h"
+#import "NSString+DateTitle.h"
 
 static NSString *cell_id=@"text_cell";
 
@@ -147,15 +148,15 @@ static NSString *cell_id=@"text_cell";
                 NSInteger count_for_subject=[[SubjectModel shareSubjectModel] countForData];
                 //每循坏一次，存储一次条任务时间到数据库
                 for (NSInteger i=0; i<[AddModel shareAddMode].goal_total; i++) {
-                    count_for_subject++;
                     [SubjectModel shareSubjectModel].plus_id=count_for_subject;
                     [SubjectModel shareSubjectModel].subject_id=[AddModel shareAddMode].subject_id;//当前任务关联的id
-                    [SubjectModel shareSubjectModel].subject_execute=[start_date_for_subject dateByAddingTimeInterval:i*24*60*60];//需要执行的任务时间
+                    [SubjectModel shareSubjectModel].subject_execute=[NSString stringFrom:[start_date_for_subject dateByAddingTimeInterval:i*24*60*60]];//需要执行的任务时间
                     NSDictionary *dic=@{@"subject_id":@([SubjectModel shareSubjectModel].subject_id),
                                         @"subject_execute":[SubjectModel shareSubjectModel].subject_execute,
                                         @"plus_id":@([SubjectModel shareSubjectModel].plus_id)
                                         };
                     [[SubjectModel shareSubjectModel].add_array addObject:dic];
+                    count_for_subject++;
                 }
                 [[NSUserDefaults standardUserDefaults] setBool:YES forKey:[NSString stringWithFormat:@"%@%@",[AddModel shareAddMode].subject_title,[AddModel shareAddMode].reward]];//该任务正在执行
                 [[SubjectModel shareSubjectModel] insertData];

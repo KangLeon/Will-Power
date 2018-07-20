@@ -336,7 +336,7 @@ static NSString *cell_picker_id_add=@"picker_add";
             [self.navigationController pushViewController:addThird_VC animated:true];
             
             NSLog(@"self.cellTitle_added %@",self.cellTitle_added);
-            NSInteger for_plus=1;//sb
+            NSInteger for_plus=[[NotifiModel notifiModel] countForData];//sb
             //完成数据存储
             //从字典中遍历值，填充到数据库中
             for (NSString *alarm_string in self.cellTitle_added) {

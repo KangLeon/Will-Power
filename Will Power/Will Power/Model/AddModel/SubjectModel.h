@@ -16,7 +16,7 @@
 //关联id号,不是主键
 @property(nonatomic,assign)NSInteger subject_id;
 //我想要的数据
-@property(nonatomic,strong)NSDate *subject_execute;//一个任务只需要关联一个NSDate，
+@property(nonatomic,strong)NSString *subject_execute;//一个任务只需要关联一个NSDate，
 
 @property(nonatomic,strong)NSMutableArray *add_array;
 

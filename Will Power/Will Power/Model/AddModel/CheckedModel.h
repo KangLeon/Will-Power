@@ -15,7 +15,7 @@
 //id号
 @property(nonatomic,assign)NSInteger subject_id;
 //我想要的数据
-@property(nonatomic,strong)NSDate *checked;//一个任务只关联一个NSDate
+@property(nonatomic,strong)NSString *checked;//一个任务只关联一个NSDate
 
 //方法
 +(instancetype)shareCheckedModel;
