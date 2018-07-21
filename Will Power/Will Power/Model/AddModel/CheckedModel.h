@@ -23,7 +23,7 @@
 -(void)insertData;
 -(NSInteger)countForData;
 -(NSInteger)countForDataByID:(NSInteger)select_id;
--(void)deleteDataByChecked:(NSDate*)date;//删除指定id下的数据
+-(void)deleteDataByChecked:(NSString*)date andId:(NSInteger)id;//删除指定id下的数据
 -(void)deleteAll;
 -(NSMutableArray*)selectEveryThing;
 -(NSMutableArray*)selectEveryThingById:(NSInteger)select_id;

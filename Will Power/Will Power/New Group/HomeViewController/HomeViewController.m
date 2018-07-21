@@ -580,7 +580,7 @@
                     if ([self.check_view.check_title.text isEqualToString: [[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:i-1] objectForKey:@"subject_title"]]) {
                         for (NSDictionary *dic in [[CheckedModel shareCheckedModel] selectEveryThingById:i]) {
                             if([[self stringFrom:[NSDate localdate]] isEqualToString:[dic objectForKey:@"checked"]]){//如果数据库中已经存了今天的数据
-                              [[CheckedModel shareCheckedModel] deleteDataByChecked:[dic objectForKey:@"checked"]];
+                              [[CheckedModel shareCheckedModel] deleteDataByChecked:[dic objectForKey:@"checked"] andId:i];
                             }
                         }
                     }
@@ -634,21 +634,11 @@
                 //a.得到当前的时间
                 //b.当前时间已经是NSDate了，所以直接存就可以
                 
+                [[CheckedModel shareCheckedModel] deleteAll];
+                
                 //判断当前显示的是哪条任务
                 for (NSInteger i=1; i<([[AddModel shareAddMode] countForData]+1); i++) {//循环所有任务
                     if ([self.check_view.check_title.text isEqualToString: [[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:i-1] objectForKey:@"subject_title"]]) {//判断是否为该条任务
-                        //如果数据库中已经有改天的数据，就不应该再存储数据了,本身是不应该有这个
-//                        for (NSDictionary *dic in [[CheckedModel shareCheckedModel] selectEveryThingById:i]) {
-//                            if([[self stringFrom:[NSDate localdate_4real]] isEqualToString:[self stringFrom:[dic objectForKey:@"checked"]]]){//如果数据库中已经存了今天的数据
-//
-//                            }else{
-//                                //没有存改天的数据
-//                                [CheckedModel shareCheckedModel].count=([[CheckedModel shareCheckedModel] countForDataByID:i]+1);
-//                                [CheckedModel shareCheckedModel].subject_id=i;
-//                                [CheckedModel shareCheckedModel].checked=[NSDate localdate];
-//                                [[CheckedModel shareCheckedModel] insertData];
-//                            }
-//                        }
                         [CheckedModel shareCheckedModel].count=[[CheckedModel shareCheckedModel] countForData]+1;
                         [CheckedModel shareCheckedModel].subject_id=i;
                         [CheckedModel shareCheckedModel].checked=[NSString stringFrom:[NSDate localdate]];

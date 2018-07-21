@@ -71,11 +71,11 @@
 #pragma mark 修改，暂时没有需求，所以暂时不做，
 #pragma mark 删除数据部分
 //删除数据
--(void)deleteDataByChecked:(NSString*)date{
+-(void)deleteDataByChecked:(NSString*)date andId:(NSInteger)id{
     //删除数据，默认已经执行查询数据了
     if (self.database!=nil) {
         if ([self.database open]) {
-            if([self.database executeUpdate:@"delete from checked where checked=?",date]){
+            if([self.database executeUpdate:@"delete from checked where checked=? and id=? ",date,@(id)]){
                 NSLog(@"删除数据成功");
             }
         }

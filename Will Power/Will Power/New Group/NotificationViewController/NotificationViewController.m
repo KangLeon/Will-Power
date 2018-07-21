@@ -180,7 +180,7 @@ static NSString *cell_id_check=@"cell_check";
             if ([cell.subject_label.text isEqualToString: [[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:i-1] objectForKey:@"subject_title"]]) {
                 for (NSDictionary *dic in [[CheckedModel shareCheckedModel] selectEveryThingById:i]) {
                     if([[self stringFrom:[NSDate localdate]] isEqualToString:[dic objectForKey:@"checked"]]){//如果数据库中已经存了今天的数据
-                        [[CheckedModel shareCheckedModel] deleteDataByChecked:[dic objectForKey:@"checked"]];
+                        [[CheckedModel shareCheckedModel] deleteDataByChecked:[dic objectForKey:@"checked"] andId:i];
                         [[CheckedModel shareCheckedModel] selectEveryThing];
                     }
                 }
