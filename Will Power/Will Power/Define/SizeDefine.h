@@ -21,4 +21,8 @@
 
 //判断是否是iphone X
 #define kDevice_Is_iPhoneX ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO)
+
+//友盟AppKey
+#define USHARE_DEMO_APPKEY @"5b222fa7f29d9822d1000189"
+
 #endif /* SizeDefine_h */

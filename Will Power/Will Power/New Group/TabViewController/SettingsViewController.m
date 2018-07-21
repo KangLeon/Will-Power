@@ -24,6 +24,8 @@
 #import "NotifiModel.h"
 #import "AddModel.h"
 #import "MusicSelect.h"
+#import <UMSocialCore/UMSocialCore.h>
+#import <UShareUI/UShareUI.h>
 
 static NSString *cell_id_switch=@"cell_switch";
 static NSString *cell_id_label=@"cell_label";
@@ -54,7 +56,7 @@ static NSString *cell_id_share=@"cell_share";
 -(void)loadUI{
     //一些变量的初始化
     self.scollrView=[[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-    self.scollrView.contentSize=CGSizeMake(SCREEN_WIDTH, 700);
+    self.scollrView.contentSize=CGSizeMake(SCREEN_WIDTH, 700+50);
     
     self.scollrView.backgroundColor=BACKGROUND_COLOR;
     [self.view addSubview:self.scollrView];
@@ -116,23 +118,23 @@ static NSString *cell_id_share=@"cell_share";
     
     [self.scollrView addSubview:self.about_tableView_set];
     
-//    //捐赠
-//    UILabel *donate_label=[[UILabel alloc] initWithFrame:CGRectMake(20, 575, 100, 55)];
-//    donate_label.text=@"支持";
-//    donate_label.font=[UIFont systemFontOfSize:20.0 weight:UIFontWeightBold];
-//    donate_label.backgroundColor=[UIColor clearColor];
-//    donate_label.textColor=[UIColor whiteColor];
-//
-//    [self.scollrView addSubview:donate_label];
-//
-//    self.donate_tableView_set=[[UITableView alloc] initWithFrame:CGRectMake(10, 625, SCREEN_WIDTH-20, 55*3)];
-//    self.donate_tableView_set.layer.cornerRadius=12;
-//    self.donate_tableView_set.dataSource=self;
-//    self.donate_tableView_set.delegate=self;
-//    self.donate_tableView_set.scrollEnabled=NO;
-//    [self.donate_tableView_set registerClass:[SetSwitchTableViewCell class] forCellReuseIdentifier:cell_id_switch];
-//
-//    [self.scollrView addSubview:self.donate_tableView_set];
+    //捐赠
+    UILabel *donate_label=[[UILabel alloc] initWithFrame:CGRectMake(20, 575, 100, 55)];
+    donate_label.text=@"支持";
+    donate_label.font=[UIFont systemFontOfSize:20.0 weight:UIFontWeightBold];
+    donate_label.backgroundColor=[UIColor clearColor];
+    donate_label.textColor=[UIColor whiteColor];
+
+    [self.scollrView addSubview:donate_label];
+
+    self.donate_tableView_set=[[UITableView alloc] initWithFrame:CGRectMake(10, 625, SCREEN_WIDTH-20, 55)];
+    self.donate_tableView_set.layer.cornerRadius=12;
+    self.donate_tableView_set.dataSource=self;
+    self.donate_tableView_set.delegate=self;
+    self.donate_tableView_set.scrollEnabled=NO;
+    [self.donate_tableView_set registerClass:[SetSwitchTableViewCell class] forCellReuseIdentifier:cell_id_switch];
+
+    [self.scollrView addSubview:self.donate_tableView_set];
     
     
 }
@@ -188,7 +190,7 @@ static NSString *cell_id_share=@"cell_share";
     }else if ([tableView isEqual:self.about_tableView_set]){
         return 2;
     }else if ([tableView isEqual:self.donate_tableView_set]){
-        return 3;
+        return 1;
     }
     return 0;
 }
@@ -495,42 +497,52 @@ static NSString *cell_id_share=@"cell_share";
             return cell;
         }
     }else if ([tableView isEqual:self.donate_tableView_set]){
-        if (indexPath.row==0) {
-            SetLabelTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:cell_id_label];
-            if (cell==nil) {
-                cell=[[SetLabelTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cell_id_label];
-            }
-            
-            cell.title_label.text=@"我的产品真的帮到了你";
-            cell.content_label.text=@"捐赠";
-            [cell setSelectionStyle:UITableViewCellSelectionStyleNone];//取消选中状态
-            cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
-            
-            return cell;
-        }else if (indexPath.row==1){
-            ShareTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:cell_id_share];
-            if (cell==nil) {
-                cell=[[ShareTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cell_id_share];
-            }
-            
-            cell.title_label.text=@"分享";
-            [cell setSelectionStyle:UITableViewCellSelectionStyleNone];//取消选中状态
-            cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
-            
-            return cell;
-        }else if (indexPath.row==2){
-            SetLabelTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:cell_id_label];
-            if (cell==nil) {
-                cell=[[SetLabelTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cell_id_label];
-            }
-            
-            cell.title_label.text=@"给个好评";
-            cell.content_label.text=@"";
-            [cell setSelectionStyle:UITableViewCellSelectionStyleNone];//取消选中状态
-            cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
-            
-            return cell;
+//        if (indexPath.row==0) {
+//            SetLabelTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:cell_id_label];
+//            if (cell==nil) {
+//                cell=[[SetLabelTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cell_id_label];
+//            }
+//
+//            cell.title_label.text=@"我的产品真的帮到了你";
+//            cell.content_label.text=@"捐赠";
+//            [cell setSelectionStyle:UITableViewCellSelectionStyleNone];//取消选中状态
+//            cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
+//
+//            return cell;
+//        }else if (indexPath.row==1){
+//            ShareTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:cell_id_share];
+//            if (cell==nil) {
+//                cell=[[ShareTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cell_id_share];
+//            }
+//
+//            cell.title_label.text=@"分享";
+//            [cell setSelectionStyle:UITableViewCellSelectionStyleNone];//取消选中状态
+//            cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
+//
+//            return cell;
+//        }else if (indexPath.row==2){
+//            SetLabelTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:cell_id_label];
+//            if (cell==nil) {
+//                cell=[[SetLabelTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cell_id_label];
+//            }
+//
+//            cell.title_label.text=@"给个好评";
+//            cell.content_label.text=@"";
+//            [cell setSelectionStyle:UITableViewCellSelectionStyleNone];//取消选中状态
+//            cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
+//
+//            return cell;
+//        }
+        ShareTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:cell_id_share];
+        if (cell==nil) {
+            cell=[[ShareTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cell_id_share];
         }
+        
+        cell.title_label.text=@"分享";
+        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];//取消选中状态
+        cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
+        
+        return cell;
     }
     
     return nil;
@@ -668,10 +680,20 @@ static NSString *cell_id_share=@"cell_share";
     
     //捐赠tableView的操作
     if ([tableView isEqual:self.donate_tableView_set]){
-        if(indexPath.row==0){
-            //捐赠给开发者
-            [self.navigationController pushViewController:[[DonateViewController alloc] init] animated:true];
-        }
+//        if(indexPath.row==0){
+//            //捐赠给开发者
+//            [self.navigationController pushViewController:[[DonateViewController alloc] init] animated:true];
+//        }
+        [UMSocialUIManager setPreDefinePlatforms:@[@(UMSocialPlatformType_WechatSession),@(UMSocialPlatformType_WechatTimeLine)]];
+        [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMSocialPlatformType platformType, NSDictionary *userInfo) {
+            // 根据获取的platformType确定所选平台进行下一步操作
+            if (platformType==UMSocialPlatformType_WechatTimeLine) {
+                [self shareWebPageToPlatformType:UMSocialPlatformType_WechatTimeLine];
+            }else if (platformType==UMSocialPlatformType_WechatSession){
+                [self shareWebPageToPlatformType:UMSocialPlatformType_WechatSession];
+            }
+        }];
+        
     }
     //反馈给开发者
     if ([tableView isEqual:self.about_tableView_set]) {
@@ -774,6 +796,30 @@ static NSString *cell_id_share=@"cell_share";
         }];
     });
 }
+
+- (void)shareWebPageToPlatformType:(UMSocialPlatformType)platformType
+{
+    //创建分享消息对象
+    UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
+    
+    //创建网页内容对象
+    UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:@"「分享」 Will Power 自控力 美好的生活源于自控" descr:@"" thumImage:[UIImage imageNamed:@"Rectangle 21"]];
+    //设置网页地址
+    shareObject.webpageUrl =@"https://kangleon.github.io/2018/07/01/Will%20Power/";
+    
+    //分享消息对象设置分享内容对象
+    messageObject.shareObject = shareObject;
+    
+    //调用分享接口
+    [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:self completion:^(id data, NSError *error) {
+        if (error) {
+            NSLog(@"************Share fail with error %@*********",error);
+        }else{
+            NSLog(@"response data is %@",data);
+        }
+    }];
+}
+
 
 /*
 #pragma mark - Navigation

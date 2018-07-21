@@ -39,7 +39,7 @@
 
 -(UIView*)content_view{
     if (!_content_view) {
-        _content_view=[[UIView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-20)/2, 0, (SCREEN_WIDTH-20)/2-30, 55)];
+        _content_view=[[UIView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-SCREEN_WIDTH*0.04830)/2, 0, (SCREEN_WIDTH-20)/2-30, 55)];
         [_content_view addSubview:self.weChat_imageView];
         [_content_view addSubview:self.QQ_imageView];
         [_content_view addSubview:self.weibo_imageView];
@@ -49,7 +49,7 @@
 
 -(UIImageView*)weChat_imageView{
     if (!_weChat_imageView) {
-        _weChat_imageView=[[UIImageView alloc] initWithFrame:CGRectMake(50, (55-30)/2, 30, 30)];
+        _weChat_imageView=[[UIImageView alloc] initWithFrame:CGRectMake(0, (55-30)/2, 30, 30)];
         _weChat_imageView.image=[UIImage imageNamed:@"wechat_image"];
     }
     return _weChat_imageView;
@@ -57,14 +57,14 @@
 
 -(UIImageView*)QQ_imageView{
     if (!_QQ_imageView) {
-        _QQ_imageView=[[UIImageView alloc] initWithFrame:CGRectMake(50+40, (55-30)/2, 30, 30)];
+        _QQ_imageView=[[UIImageView alloc] initWithFrame:CGRectMake(40, (55-30)/2, 30, 30)];
         _QQ_imageView.image=[UIImage imageNamed:@"QQ_image"];
     }
     return _QQ_imageView;
 }
 -(UIImageView*)weibo_imageView{
     if (!_weibo_imageView) {
-        _weibo_imageView=[[UIImageView alloc] initWithFrame:CGRectMake(50+80, (55-30)/2, 30, 30)];
+        _weibo_imageView=[[UIImageView alloc] initWithFrame:CGRectMake(80, (55-30)/2, 30, 30)];
         _weibo_imageView.image=[UIImage imageNamed:@"weibo_image"];
     }
     return _weibo_imageView;

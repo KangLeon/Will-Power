@@ -11,6 +11,7 @@
 #import <UserNotifications/UserNotifications.h>
 #import "SizeDefine.h"
 #import "LaunchViewController.h"
+#import <UMSocialCore/UMSocialCore.h>
 
 @interface AppDelegate ()<UNUserNotificationCenterDelegate>
 
@@ -53,6 +54,14 @@
         [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"0"] forKey:@"sign_minute"];//0分
     });
     
+    //设置友盟分享相关的
+    [[UMSocialManager defaultManager] openLog:YES];
+    
+    /* 设置友盟appkey */
+    [[UMSocialManager defaultManager] setUmSocialAppkey:USHARE_DEMO_APPKEY];
+    [self configUSharePlatforms];
+    
+    
     return YES;
 }
 
@@ -83,6 +92,28 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+//配置分享平台
+- (void)configUSharePlatforms
+{
+    /*
+     设置微信的appKey和appSecret
+     [微信平台从U-Share 4/5升级说明]http://dev.umeng.com/social/ios/%E8%BF%9B%E9%98%B6%E6%96%87%E6%A1%A3#1_1
+     */
+    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:@"wx6b26c9073e541806" appSecret:@"d76d0a7c2a581ee7567a912395a6c87d" redirectURL:nil];
+}
+
+// 设置系统回调，支持所有iOS系统，这个方法有用吗？
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    //6.3的新的API调用，是为了兼容国外平台(例如:新版facebookSDK,VK等)的调用[如果用6.2的api调用会没有回调],对国内平台没有影响
+    BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url sourceApplication:sourceApplication annotation:annotation];
+    if (!result) {
+        // 其他如支付等SDK的回调
+    }
+    return result;
+    
 }
 
 

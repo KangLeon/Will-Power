@@ -156,13 +156,13 @@ static NSString *cell_id_check=@"cell_check";
         [completeMusic playSoundEffect_complete];
         
         SCLAlertView *alert = [[SCLAlertView alloc] init];
-        [alert showSuccess:self title:@"干的好" subTitle:@"您已经累计成功完成计划20天." closeButtonTitle:@"ok 继续加油" duration:0.0f];
+        [alert showSuccess:self title:@"干的好" subTitle:@"请继续坚持完成计划！" closeButtonTitle:@"ok 继续加油" duration:0.0f];
         
         //2. 存储数据到数据库中
         //获得任务id，获得当前日期，存储数据到数据库
         for (NSInteger i=1; i<([[AddModel shareAddMode] countForData]+1); i++) {
             if ([cell.subject_label.text isEqualToString: [[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:i-1] objectForKey:@"subject_title"]]) {
-                [CheckedModel shareCheckedModel].count=([[CheckedModel shareCheckedModel] countForDataByID:i]+1);//存储count
+                [CheckedModel shareCheckedModel].count=[[CheckedModel shareCheckedModel] countForData]+1;//存储count
                 [CheckedModel shareCheckedModel].subject_id=i;
                 [CheckedModel shareCheckedModel].checked=[NSString stringFrom:[NSDate localdate]];
                 [[CheckedModel shareCheckedModel] insertData];

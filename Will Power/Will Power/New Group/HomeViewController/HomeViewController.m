@@ -649,7 +649,7 @@
 //                                [[CheckedModel shareCheckedModel] insertData];
 //                            }
 //                        }
-                        [CheckedModel shareCheckedModel].count=([[CheckedModel shareCheckedModel] countForDataByID:i]+1);
+                        [CheckedModel shareCheckedModel].count=[[CheckedModel shareCheckedModel] countForData]+1;
                         [CheckedModel shareCheckedModel].subject_id=i;
                         [CheckedModel shareCheckedModel].checked=[NSString stringFrom:[NSDate localdate]];
                         [[CheckedModel shareCheckedModel] insertData];
