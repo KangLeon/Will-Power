@@ -50,7 +50,7 @@ static NSString *cell_id_check=@"cell_check";
         //通过id，得到当前任务的标题,添加到数组中
         [self.today_array addObject:[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:([[[[[CheckedModel shareCheckedModel] selectEveryThing] objectAtIndex:i] objectForKey:@"id"] integerValue]-1)] objectForKey:@"subject_title"]];
         //将当前日期添加到日期数组中
-        [self.date_array addObject:[self stringFrom:[[[[CheckedModel shareCheckedModel] selectEveryThing] objectAtIndex:i] objectForKey:@"checked"]]];
+        [self.date_array addObject:[[[[CheckedModel shareCheckedModel] selectEveryThing] objectAtIndex:i] objectForKey:@"checked"]];
     }
     
     

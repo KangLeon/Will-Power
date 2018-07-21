@@ -366,7 +366,7 @@ static NSString *cell_id=@"reuse_collection";
                         
                         //判断逻辑，如果数据库中关于当年，当月，有数据，并且当日值和j的值相同，那么就把view的背景颜色改为绿色，
                         for (NSDictionary *resault_dict in [[CheckedModel shareCheckedModel] selectEveryThingById:self.index_calender]){
-                            NSString *checked_dateString=[NSString stringFrom:[resault_dict objectForKey:@"checked"]];//得到数据库中存的日期的字符串
+                            NSString *checked_dateString=[resault_dict objectForKey:@"checked"];//得到数据库中存的日期的字符串
                             if ([[checked_dateString substringWithRange:NSMakeRange(0, 4)] isEqualToString:self.current_year.text]) {
                                 //判断月是否一样
                                 if ([[checked_dateString substringWithRange:NSMakeRange(5, 2)] integerValue]==(i+1)) {
@@ -430,7 +430,7 @@ static NSString *cell_id=@"reuse_collection";
                         
                         //判断逻辑，如果数据库中关于当年，当月，有数据，并且当日值和j的值相同，那么就把view的背景颜色改为绿色，
                         for (NSDictionary *resault_dict in [[CheckedModel shareCheckedModel] selectEveryThingById:self.index_calender]){
-                            NSString *checked_dateString=[NSString stringFrom:[resault_dict objectForKey:@"checked"]];//得到数据库中存的日期的字符串
+                            NSString *checked_dateString=[resault_dict objectForKey:@"checked"];//得到数据库中存的日期的字符串
                             if ([[checked_dateString substringWithRange:NSMakeRange(0, 4)] isEqualToString:self.current_year.text]) {
                                 //判断月是否一样
                                 if ([[checked_dateString substringWithRange:NSMakeRange(5, 2)] integerValue]==(i+1)) {
@@ -530,7 +530,7 @@ static NSString *cell_id=@"reuse_collection";
                             
                             //判断逻辑，如果数据库中关于当年，当月，有数据，并且当日值和j的值相同，那么就把view的背景颜色改为绿色，
                             for (NSDictionary *resault_dict in [[CheckedModel shareCheckedModel] selectEveryThingById:self.index_calender]){
-                                NSString *checked_dateString=[NSString stringFrom:[resault_dict objectForKey:@"checked"]];//得到数据库中存的日期的字符串
+                                NSString *checked_dateString=[resault_dict objectForKey:@"checked"];//得到数据库中存的日期的字符串
                                 if ([[checked_dateString substringWithRange:NSMakeRange(0, 4)] isEqualToString:self.current_year.text]) {
                                     //判断月是否一样
                                     if ([[checked_dateString substringWithRange:NSMakeRange(5, 2)] integerValue]==(i+1)) {
@@ -642,7 +642,7 @@ static NSString *cell_id=@"reuse_collection";
                 
                 //判断逻辑，如果数据库中关于当年，当月，有数据，并且当日值和j的值相同，那么就把view的背景颜色改为绿色，
                 for (NSDictionary *resault_dict in [[CheckedModel shareCheckedModel] selectEveryThingById:self.index_calender]){
-                    NSString *checked_dateString=[NSString stringFrom:[resault_dict objectForKey:@"checked"]];//得到数据库中存的日期的字符串
+                    NSString *checked_dateString=[resault_dict objectForKey:@"checked"];//得到数据库中存的日期的字符串
                     if ([[checked_dateString substringWithRange:NSMakeRange(0, 4)] isEqualToString:self.current_year.text]) {
                         //判断月是否一样
                         if ([[checked_dateString substringWithRange:NSMakeRange(5, 2)] integerValue]==(i+1)) {
@@ -901,7 +901,7 @@ static NSString *cell_id=@"reuse_collection";
     //从数据库中查到数据以字符串来比较，如过和当前的日期一样的话就将背景置为绿色
     //开始循环，如果cell里面的文字日期和数据库中存的日一样的话，则改变背景的颜色为绿色
     for (NSDictionary *resault_dict in [[CheckedModel shareCheckedModel] selectEveryThingById:self.index_calender]){
-        NSString *checked_dateString=[NSString stringFrom:[resault_dict objectForKey:@"checked"]];//得到数据库中存的日期的字符串
+        NSString *checked_dateString=[resault_dict objectForKey:@"checked"];//得到数据库中存的日期的字符串
         if ([year isEqualToString:[checked_dateString substringWithRange:NSMakeRange(0, 4)]]) {
             //确定年一致
             if ([month isEqualToString:[checked_dateString substringWithRange:NSMakeRange(5, 2)]]) {
