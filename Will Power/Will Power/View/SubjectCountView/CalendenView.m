@@ -701,7 +701,7 @@ static NSString *cell_id=@"reuse_collection";
     
     //首先判断今天是周几,从哪一行开始
     NSString *week=calender_data.thisMonthFirst_week;//本月的月初是周几
-    if ([week isEqualToString:@"星期一"]) {
+    if ([week isEqualToString:@"星期一"] | [week isEqualToString:@"Monday"]) {
         //如果月初是周一的话，那么日历的的每一天日期数和索引是对应的
         if (indexPath.row>0) {
             if (indexPath.row>self.month_total_days) {
@@ -730,7 +730,7 @@ static NSString *cell_id=@"reuse_collection";
             }
             
         }
-    }else if ([week isEqualToString:@"星期二"]){
+    }else if ([week isEqualToString:@"星期二"] | [week isEqualToString:@"Tuesday"]){
         if (indexPath.row>1) {
             if ((indexPath.row-1)>self.month_total_days) {
                 cell.calenderTitle.text=@"";
@@ -757,7 +757,7 @@ static NSString *cell_id=@"reuse_collection";
             }
             
         }
-    }else if ([week isEqualToString:@"星期三"]){
+    }else if ([week isEqualToString:@"星期三"] | [week isEqualToString:@"Wednesday"]){
         if (indexPath.row>2) {
             if ((indexPath.row-2)>self.month_total_days) {
                 cell.calenderTitle.text=@"";
@@ -785,7 +785,7 @@ static NSString *cell_id=@"reuse_collection";
             }
            
         }
-    }else if ([week isEqualToString:@"星期四"]){
+    }else if ([week isEqualToString:@"星期四"]  | [week isEqualToString:@"Thursday"]){
         if (indexPath.row>3) {
             if ((indexPath.row-3)>self.month_total_days) {
                 cell.calenderTitle.text=@"";
@@ -813,7 +813,7 @@ static NSString *cell_id=@"reuse_collection";
             }
             
         }
-    }else if ([week isEqualToString:@"星期五"]){
+    }else if ([week isEqualToString:@"星期五"] | [week isEqualToString:@"Friday"]){
         if (indexPath.row>4) {
             if ((indexPath.row-4)>self.month_total_days) {
                 cell.calenderTitle.text=@"";
@@ -841,7 +841,7 @@ static NSString *cell_id=@"reuse_collection";
             }
            
         }
-    }else if ([week isEqualToString:@"星期六"]){
+    }else if ([week isEqualToString:@"星期六"] | [week isEqualToString:@"Saturday"]){
         if (indexPath.row>5) {
             if ((indexPath.row-5)>self.month_total_days) {
                 cell.calenderTitle.text=@"";
@@ -869,7 +869,7 @@ static NSString *cell_id=@"reuse_collection";
             }
           
         }
-    }else if ([week isEqualToString:@"星期日"]){
+    }else if ([week isEqualToString:@"星期日"] | [week isEqualToString:@"Sunday"]){
         if ((indexPath.row+1)>self.month_total_days) {
             cell.calenderTitle.text=@"";
         }

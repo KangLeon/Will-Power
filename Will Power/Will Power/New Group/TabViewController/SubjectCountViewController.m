@@ -430,7 +430,7 @@ static NSString *cell_id3=@"subject_cell_3";
     //6.获得数据库中总目标天数
     NSInteger total_days=[[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:row] objectForKey:@"goal_total"] integerValue];
     
-    return total_days-days;
+    return total_days-days-1;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
