@@ -634,8 +634,6 @@
                 //a.得到当前的时间
                 //b.当前时间已经是NSDate了，所以直接存就可以
                 
-                [[CheckedModel shareCheckedModel] deleteAll];
-                
                 //判断当前显示的是哪条任务
                 for (NSInteger i=1; i<([[AddModel shareAddMode] countForData]+1); i++) {//循环所有任务
                     if ([self.check_view.check_title.text isEqualToString: [[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:i-1] objectForKey:@"subject_title"]]) {//判断是否为该条任务

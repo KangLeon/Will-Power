@@ -56,7 +56,7 @@ static NSString *cell_id_share=@"cell_share";
 -(void)loadUI{
     //一些变量的初始化
     self.scollrView=[[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-    self.scollrView.contentSize=CGSizeMake(SCREEN_WIDTH, 700+50);
+    self.scollrView.contentSize=CGSizeMake(SCREEN_WIDTH, 700+80);
     
     self.scollrView.backgroundColor=BACKGROUND_COLOR;
     [self.view addSubview:self.scollrView];

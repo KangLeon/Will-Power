@@ -427,10 +427,16 @@ static NSString *cell_id3=@"subject_cell_3";
     //5.计算时间间隔总共换算为多少天
     //计算天数
     NSInteger days = ((NSInteger)timeInterval)/(3600*24);
+    if (days==0) {
+        days=1;
+    }
+    if (timeInterval<0) {
+        days=0;
+    }
     //6.获得数据库中总目标天数
     NSInteger total_days=[[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:row] objectForKey:@"goal_total"] integerValue];
     
-    return total_days-days-1;
+    return total_days-days;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
