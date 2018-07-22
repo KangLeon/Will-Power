@@ -446,6 +446,9 @@ static NSString *cell_id3=@"subject_cell_3";
         [view removeFromSuperview];
     }
     [self loadUI];
+    [self.firstTableView reloadData];
+    [self.secondTableView reloadData];
+    [self.thirdTableView reloadData];
 }
 
 
