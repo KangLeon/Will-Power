@@ -299,7 +299,7 @@
         NSLog(@"右上角的我被惦记了");
         //获得所有需要的界面内容
         //在这里存储构造数据并存储数据,并设置代理更新tableView更新值
-        [RemarkModel shareAddMode].remark_id=[[RemarkModel shareAddMode] countForData]+1;
+        [RemarkModel shareAddMode].remark_id=[[RemarkModel shareAddMode] countForData]+arc4random()%10;
         [RemarkModel shareAddMode].remark_title=self.float_Textfield.text;
         [RemarkModel shareAddMode].remark_content=self.float_TextField_content.text;
         [RemarkModel shareAddMode].remark_date=self.remark_dateString;

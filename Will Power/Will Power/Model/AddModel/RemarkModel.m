@@ -46,7 +46,7 @@
         NSLog(@"打开数据库成功");
     }
     //创建数据表的sql语句
-    NSString *stringCreateTable=@"create table if not exists remark(id integer primary key,remark_title varchar(20),remark_content varchar(20),remark_date varchar(20),remark_heart varchar(20))";
+    NSString *stringCreateTable=@"create table if not exists remark(id integer primary key ,remark_title varchar(20),remark_content varchar(20),remark_date varchar(20),remark_heart varchar(20))";
     //检查数据表是否创建成功
     if ([self.database executeUpdate:stringCreateTable]){
         NSLog(@"创建数据表成功");

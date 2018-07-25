@@ -336,7 +336,6 @@ static NSString *cell_picker_id_add=@"picker_add";
             [self.navigationController pushViewController:addThird_VC animated:true];
             
             NSLog(@"self.cellTitle_added %@",self.cellTitle_added);
-            NSInteger for_plus=[[NotifiModel notifiModel] countForData];//sb
             //完成数据存储
             //从字典中遍历值，填充到数据库中
             for (NSString *alarm_string in self.cellTitle_added) {
@@ -429,7 +428,7 @@ static NSString *cell_picker_id_add=@"picker_add";
                  3 2 周二 8 30
                  */
                 //每循环一次就存储一条数据到数据库
-                [NotifiModel notifiModel].alarm_id=for_plus;//关联该任务的数据条数累加
+                [NotifiModel notifiModel].alarm_id=[[NotifiModel notifiModel] countForData]+arc4random()%10;//关联该任务的数据条数累加
                 [NotifiModel notifiModel].subject_id=[AddModel shareAddMode].subject_id;
                 [NotifiModel notifiModel].alarm_day=day_type;
                 [NotifiModel notifiModel].alarm_hour=hour_type;
@@ -439,7 +438,6 @@ static NSString *cell_picker_id_add=@"picker_add";
                 
                 //问题：
                 
-                for_plus++;
             }
            
         }else{

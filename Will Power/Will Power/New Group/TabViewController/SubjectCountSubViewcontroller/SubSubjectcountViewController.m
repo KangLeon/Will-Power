@@ -41,9 +41,9 @@
 
 -(void)loadUI{
     SubjectCountView *view_subject1=[[SubjectCountView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH*0.024154, SCREEN_HEIGHT*0.03532, SCREEN_WIDTH-SCREEN_WIDTH*0.04830, SCREEN_HEIGHT*0.3)];
-    
+    NSDictionary *dicSelect=[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:self.index];
     //1.项目概览的情况部分
-    view_subject1.titleLabel.text=[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:self.index] objectForKey:@"subject_title"];
+    view_subject1.titleLabel.text=[dicSelect objectForKey:@"subject_title"];
     view_subject1.repeatDay_label.text=[NSString stringWithFormat:@"%ld",[[[CheckedModel shareCheckedModel] selectEveryThingById:self.index+1] count]];
     //设置DayView的判断逻辑
     if ([view_subject1.repeatDay_label.text isEqualToString:@"0"]) {
@@ -51,7 +51,7 @@
     }else{
         view_subject1.dayView.day_label.text=@"Days";
     }
-    view_subject1.goalDiscription.text=[NSString stringWithFormat:@"距%@天目标还有",[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:self.index] objectForKey:@"goal_total"]];
+    view_subject1.goalDiscription.text=[NSString stringWithFormat:@"距%@天目标还有",[dicSelect objectForKey:@"goal_total"]];
     
     view_subject1.goalDay_label.text=[NSString stringWithFormat:@"%ld",[self countDaysAtIndex:self.index]]; //距离目标天数还有多少天，这里需要再次修改lable的frame值
     //设置DayView的判断逻辑
@@ -60,30 +60,31 @@
     }else{
         view_subject1.dayView_goal.day_label.text=@"Days";
     }
-    if ([[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:self.index] objectForKey:@"image"] isEqualToString:@"46"] | [[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:self.index] objectForKey:@"image"] isEqualToString:@"47"] | [[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:self.index] objectForKey:@"image"] isEqualToString:@"48"] | [[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:self.index] objectForKey:@"image"] isEqualToString:@"49"]) {
+    
+    if ([[dicSelect objectForKey:@"image"] isEqualToString:@"46"] | [[dicSelect objectForKey:@"image"] isEqualToString:@"47"] | [[dicSelect objectForKey:@"image"] isEqualToString:@"48"] | [[dicSelect objectForKey:@"image"] isEqualToString:@"49"]) {
         view_subject1.headView.backgroundColor=twenty_three_BACKGROUND_COLOR;
-        view_subject1.titleImageView.image=[UIImage imageNamed:[NSString stringWithFormat:@"%@",[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:self.index] objectForKey:@"image"]]];
+        view_subject1.titleImageView.image=[UIImage imageNamed:[NSString stringWithFormat:@"%@",[dicSelect objectForKey:@"image"]]];
         [view_subject1.subject_isOn_switch setOnTintColor:twenty_three_BACKGROUND_COLOR];
     }else{
-        view_subject1.headView.backgroundColor=[[GetColor shareGetColor] getMyColorWith:[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:self.index] objectForKey:@"image"]];
-        view_subject1.titleImageView.image=[UIImage imageNamed:[NSString stringWithFormat:@"%@-%@",[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:self.index] objectForKey:@"image"],[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:self.index] objectForKey:@"image"]]];
-        [view_subject1.subject_isOn_switch setOnTintColor:[[GetColor shareGetColor] getMyColorWith:[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:self.index] objectForKey:@"image"]]];
+        view_subject1.headView.backgroundColor=[[GetColor shareGetColor] getMyColorWith:[dicSelect objectForKey:@"image"]];
+        view_subject1.titleImageView.image=[UIImage imageNamed:[NSString stringWithFormat:@"%@-%@",[dicSelect objectForKey:@"image"],[dicSelect objectForKey:@"image"]]];
+        [view_subject1.subject_isOn_switch setOnTintColor:[[GetColor shareGetColor] getMyColorWith:[dicSelect objectForKey:@"image"]]];
     }
-    view_subject1.subject_start_time.text=[NSString stringWithFormat:@"Since %@",[[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:self.index] objectForKey:@"start_date"] startDateForm:[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:self.index] objectForKey:@"start_date"]]];
-    view_subject1.subject_isOn_switch.on=[[NSUserDefaults standardUserDefaults] boolForKey:[NSString stringWithFormat:@"%@%@",[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:self.index] objectForKey:@"subject_title"],[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:self.index] objectForKey:@"reward"]]];//根据id和任务标题来确定key的值
+    view_subject1.subject_start_time.text=[NSString stringWithFormat:@"Since %@",[[dicSelect objectForKey:@"start_date"] startDateForm:[dicSelect objectForKey:@"start_date"]]];
+    view_subject1.subject_isOn_switch.on=[[NSUserDefaults standardUserDefaults] boolForKey:[NSString stringWithFormat:@"%@%@",[dicSelect objectForKey:@"subject_title"],[dicSelect objectForKey:@"reward"]]];//根据id和任务标题来确定key的值
     [[view_subject1.subject_isOn_switch rac_signalForControlEvents:UIControlEventValueChanged]  subscribeNext:^(__kindof UIControl * _Nullable x) {
         //添加按钮切换事件
         if (view_subject1.subject_isOn_switch.isOn) {
             //如果是打开的话，按正常业务逻辑继续执行
-            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:[NSString stringWithFormat:@"%@%@",view_subject1.titleLabel.text,[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:self.index] objectForKey:@"reward"]]];
+            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:[NSString stringWithFormat:@"%@%@",view_subject1.titleLabel.text,[dicSelect objectForKey:@"reward"]]];
             view_subject1.subject_isOn_label.text=@"项目提醒已经打开";
             [self startNotifi];
         }else{
             //如果是关闭的话
-            [[NSUserDefaults standardUserDefaults] setBool:NO forKey:[NSString stringWithFormat:@"%@%@",view_subject1.titleLabel.text,[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:self.index] objectForKey:@"reward"]]];
+            [[NSUserDefaults standardUserDefaults] setBool:NO forKey:[NSString stringWithFormat:@"%@%@",view_subject1.titleLabel.text,[dicSelect objectForKey:@"reward"]]];
             view_subject1.subject_isOn_label.text=@"项目提醒关闭";
             for (NSInteger i=1; i<8; i++)  {
-                [self removePending:[NSString stringWithFormat:@"%ldnotifiAND%ld",i,(NSInteger)[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:self.index] objectForKey:@"id"]]];//取消指定标识符下的通知
+                [self removePending:[NSString stringWithFormat:@"%ldnotifiAND%ld",i,(NSInteger)[dicSelect objectForKey:@"id"]]];//取消指定标识符下的通知
             }
             //业务逻辑总共飞为两部分：1.取消该任务的所有通知
             //                    2.该任务不应该继续计数了(这是2期的)
@@ -91,7 +92,7 @@
             //
         }
     }];
-    view_subject1.reward_label.text=[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:self.index] objectForKey:@"reward"];
+    view_subject1.reward_label.text=[dicSelect objectForKey:@"reward"];
     
     [self.view addSubview:view_subject1];
     
@@ -201,6 +202,8 @@
     for (UIView *view in self.view.subviews) {
         [view removeFromSuperview];
     }
+    
+    [self.navigationController setNavigationBarHidden:false animated:true];
     [self loadUI];
 }
 

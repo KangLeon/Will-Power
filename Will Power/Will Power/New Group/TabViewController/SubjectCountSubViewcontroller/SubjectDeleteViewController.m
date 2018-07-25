@@ -815,11 +815,20 @@ static NSString *cell_id_eighthStep=@"eighth_modify_tableView_cell_id";
         if (indexPath.row>3) {
             //将点按的一行从数组中删除
             AddTableViewCell *cell=[tableView cellForRowAtIndexPath:indexPath];
+             NSMutableArray *mutableArray=[[NSMutableArray alloc] init];
             for (NSString *str in self.alarm_temporary_array) {
+               
                 if ([cell.cell_title.text isEqualToString:str]) {
-                    [self.alarm_temporary_array removeObject:str];
+                    
+                }else{
+                    [mutableArray addObject:str];
                 }
             }
+            [self.alarm_temporary_array removeAllObjects];
+            for (NSString *contentStr in mutableArray) {
+                [self.alarm_temporary_array addObject:contentStr];
+            }
+            [self.alarm_all_array removeObjectAtIndex:indexPath.row-4];
             [self.second_modify_tableView reloadData];
         }
     }
@@ -871,18 +880,17 @@ static NSString *cell_id_eighthStep=@"eighth_modify_tableView_cell_id";
             //1.先删除
             [[NotifiModel notifiModel] deleteDataByID:(self.delete_index+1)];
             //2.再存储
-            NSInteger for_plus=[[NotifiModel notifiModel] countForData];
             for (NSDictionary *dic in self.alarm_all_array) {
                 //每循环一次就存储一条数据到数据库
-                [NotifiModel notifiModel].alarm_id=for_plus;//关联该任务的数据条数累加
+                [NotifiModel notifiModel].alarm_id=[[NotifiModel notifiModel] countForData]+arc4random()%10;//关联该任务的数据条数累加
                 [NotifiModel notifiModel].subject_id=(self.delete_index+1);
                 [NotifiModel notifiModel].alarm_day=[dic objectForKey:@"alarm_day"];
                 [NotifiModel notifiModel].alarm_hour=[dic objectForKey:@"alarm_hour"];
                 [NotifiModel notifiModel].alarm_minute=[dic objectForKey:@"alarm_minute"];
                 [[NotifiModel notifiModel] insertData];
-                
-                for_plus++;
             }
+            NSArray *augasuidg=[[NotifiModel notifiModel] selectEveryThing];
+            NSLog(@"%@",augasuidg);
             //取消之前的通知事项，现在重新确立通知事项
             //关闭每日待办项目提醒
             //根据标识取消每日通知
@@ -894,6 +902,10 @@ static NSString *cell_id_eighthStep=@"eighth_modify_tableView_cell_id";
             }
             //重新确立通知
             [self startNotifi];
+            
+            //设置睡眠两秒
+            [NSThread sleepForTimeInterval:2];
+            
             //返回上一级
             [self.navigationController popViewControllerAnimated:true];
         }
@@ -904,8 +916,6 @@ static NSString *cell_id_eighthStep=@"eighth_modify_tableView_cell_id";
         }else if(buttonIndex==1){
             //继续删除
             NSArray *controllers = self.navigationController.viewControllers;
-            NSString *aksdhjkhsajkd=[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:self.delete_index] objectForKey:@"subject_title"];
-            NSString *asdjlsajdkasndaksdka=[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:self.delete_index] objectForKey:@"reward"];
             [[NSUserDefaults standardUserDefaults] removeObjectForKey:[NSString stringWithFormat:@"%@%@",[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:self.delete_index] objectForKey:@"subject_title"],[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:self.delete_index] objectForKey:@"reward"]]];
             [[AddModel shareAddMode] deleteDataByID:(self.delete_index+1)];
             //同时将对应任务的偏好设置值也删除掉

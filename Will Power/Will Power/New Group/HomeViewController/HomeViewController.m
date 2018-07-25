@@ -637,7 +637,7 @@
                 //判断当前显示的是哪条任务
                 for (NSInteger i=1; i<([[AddModel shareAddMode] countForData]+1); i++) {//循环所有任务
                     if ([self.check_view.check_title.text isEqualToString: [[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:i-1] objectForKey:@"subject_title"]]) {//判断是否为该条任务
-                        [CheckedModel shareCheckedModel].count=[[CheckedModel shareCheckedModel] countForData]+1;
+                        [CheckedModel shareCheckedModel].count=[[CheckedModel shareCheckedModel] countForData]+arc4random()%10;
                         [CheckedModel shareCheckedModel].subject_id=i;
                         [CheckedModel shareCheckedModel].checked=[NSString stringFrom:[NSDate localdate]];
                         [[CheckedModel shareCheckedModel] insertData];

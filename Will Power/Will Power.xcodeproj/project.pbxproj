@@ -236,6 +236,7 @@
 		595EDF4120D2387E008F1D28 /* UINavigationController+FDFullscreenPopGesture.m in Sources */ = {isa = PBXBuildFile; fileRef = 595EDF4020D2387E008F1D28 /* UINavigationController+FDFullscreenPopGesture.m */; };
 		595EDF4520D247A7008F1D28 /* DonateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 595EDF4420D247A7008F1D28 /* DonateViewController.m */; };
 		595EDF4820D24AD3008F1D28 /* DonateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 595EDF4720D24AD3008F1D28 /* DonateTableViewCell.m */; };
+		597BA48B2108ADE800A2232C /* loader_and_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 597BA48A2108ADE800A2232C /* loader_and_success.json */; };
 		5980F6D420F7C93F00AD9F25 /* SubjectLogoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5980F6D320F7C93F00AD9F25 /* SubjectLogoView.m */; };
 		5980F6DB20F7F33300AD9F25 /* GetColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 5980F6DA20F7F33300AD9F25 /* GetColor.m */; };
 		5980F6DD20F8064F00AD9F25 /* newAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 5980F6DC20F8064F00AD9F25 /* newAnimation.json */; };
@@ -629,6 +630,7 @@
 		595EDF4420D247A7008F1D28 /* DonateViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DonateViewController.m; sourceTree = "<group>"; };
 		595EDF4620D24AD3008F1D28 /* DonateTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DonateTableViewCell.h; sourceTree = "<group>"; };
 		595EDF4720D24AD3008F1D28 /* DonateTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DonateTableViewCell.m; sourceTree = "<group>"; };
+		597BA48A2108ADE800A2232C /* loader_and_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loader_and_success.json; sourceTree = "<group>"; };
 		5980F6D220F7C93F00AD9F25 /* SubjectLogoView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SubjectLogoView.h; sourceTree = "<group>"; };
 		5980F6D320F7C93F00AD9F25 /* SubjectLogoView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SubjectLogoView.m; sourceTree = "<group>"; };
 		5980F6D920F7F33300AD9F25 /* GetColor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GetColor.h; sourceTree = "<group>"; };
@@ -1202,6 +1204,7 @@
 				595B586520F94AAD008B2B23 /* SubjectImage */,
 				5980F6E920F81B7B00AD9F25 /* success.wav */,
 				5980F6E420F8120C00AD9F25 /* done.json */,
+				597BA48A2108ADE800A2232C /* loader_and_success.json */,
 				5980F6DC20F8064F00AD9F25 /* newAnimation.json */,
 				598CE3F72102A75900924122 /* Intro.wav */,
 				59D4D49720ECD3F1006449E9 /* little_girl_jumping_-_loader.json */,
@@ -1672,6 +1675,7 @@
 				595B59B620F94AF0008B2B23 /* 7-7@3x.png in Resources */,
 				5949A42F2070A583003F9106 /* LaunchScreen.storyboard in Resources */,
 				595B59B420F94AF0008B2B23 /* 35-35@3x.png in Resources */,
+				597BA48B2108ADE800A2232C /* loader_and_success.json in Resources */,
 				595B592820F94AF0008B2B23 /* 3-3@2x.png in Resources */,
 				595B59A020F94AF0008B2B23 /* 58-58@2x.png in Resources */,
 				595B59C620F94AF0008B2B23 /* 15-15@2x.png in Resources */,

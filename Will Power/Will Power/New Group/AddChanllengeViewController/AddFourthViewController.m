@@ -145,10 +145,10 @@ static NSString *cell_id=@"text_cell";
                 
                 NSDate *start_date_for_subject=[self dateFrom:[AddModel shareAddMode].start_date];//2018-07-05 00:00:00 UTC
                 [SubjectModel shareSubjectModel].add_array=[[NSMutableArray alloc] init];
-                NSInteger count_for_subject=[[SubjectModel shareSubjectModel] countForData];
+            
                 //每循坏一次，存储一次条任务时间到数据库
                 for (NSInteger i=0; i<[AddModel shareAddMode].goal_total; i++) {
-                    [SubjectModel shareSubjectModel].plus_id=count_for_subject;
+                    [SubjectModel shareSubjectModel].plus_id=[[SubjectModel shareSubjectModel] countForData]+arc4random()%10;
                     [SubjectModel shareSubjectModel].subject_id=[AddModel shareAddMode].subject_id;//当前任务关联的id
                     [SubjectModel shareSubjectModel].subject_execute=[NSString stringFrom:[start_date_for_subject dateByAddingTimeInterval:i*24*60*60]];//需要执行的任务时间
                     NSDictionary *dic=@{@"subject_id":@([SubjectModel shareSubjectModel].subject_id),
@@ -156,7 +156,6 @@ static NSString *cell_id=@"text_cell";
                                         @"plus_id":@([SubjectModel shareSubjectModel].plus_id)
                                         };
                     [[SubjectModel shareSubjectModel].add_array addObject:dic];
-                    count_for_subject++;
                 }
                 [[NSUserDefaults standardUserDefaults] setBool:YES forKey:[NSString stringWithFormat:@"%@%@",[AddModel shareAddMode].subject_title,[AddModel shareAddMode].reward]];//该任务正在执行
                 [[SubjectModel shareSubjectModel] insertData];
