@@ -47,6 +47,7 @@
 #import "GetSaying.h"
 #import <Masonry.h>
 #import "NSString+DateTitle.h"
+#import "AddRemarkViewController.h"
 
 @interface HomeViewController ()<UIPopoverPresentationControllerDelegate,FUIAlertViewDelegate>
 @property(nonatomic) TapMusic *tapMusic;
@@ -150,6 +151,10 @@
     //检查今天是不是已经完成了任务了，如果完成任务的话，讲该任务的通知取消
     //将该任务取消，同时应该把完成的该任务从数据库中移除，新建一个记录表记录内容
     [self check_already_misson];
+    
+    //添加从3D Touch进入时的通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushToAddFirst) name:@"addNewSubject" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(presentAddRemark) name:@"addRemark" object:nil];
 }
 #pragma mark 项目配置部分
 
@@ -1035,6 +1040,16 @@
 -(void)pauseTimer{
     [self.animation stop];
     [self.sun_animation stop];
+}
+
+-(void)pushToAddFirst{
+    AddFirstViewController *addFirst_VC=[[AddFirstViewController alloc] init];
+    [self.navigationController pushViewController:addFirst_VC animated:true];
+}
+
+-(void)presentAddRemark{
+    AddRemarkViewController *addRemark_VC=[[AddRemarkViewController alloc] init];
+    [self presentViewController:addRemark_VC animated:true completion:nil];
 }
 
 - (void)didReceiveMemoryWarning {

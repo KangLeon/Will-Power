@@ -213,26 +213,14 @@ static NSString *cell_title_id=@"cell_title";
             [self.remark_title_array addObject:[[[[RemarkModel shareAddMode] selectEveryThing] objectAtIndex:i] objectForKey:@"remark_title"]];//获得当前备注的标题
             [self.remark_date_array addObject:[[[[RemarkModel shareAddMode] selectEveryThing] objectAtIndex:i] objectForKey:@"remark_date"]];//获得当前备注的标题
         }
-        if (self.remark_title_array.count==0) {
-            [self.view addSubview:self.empty];
-            [self.remarkTitle_tableView removeFromSuperview];
-        }else{
-            [self.empty removeFromSuperview];
-            [self.view addSubview:self.remarkTitle_tableView];
-        }
+       
     }else{
         //从数据库中查出值,并填充到数组中
         for (NSInteger i=0; i<[[RemarkModel shareAddMode] countForData]; i++) {
             [self.remark_title_array addObject:[[[[RemarkModel shareAddMode] selectEveryThing] objectAtIndex:i] objectForKey:@"remark_title"]];//获得当前备注的标题
             [self.remark_date_array addObject:[[[[RemarkModel shareAddMode] selectEveryThing] objectAtIndex:i] objectForKey:@"remark_date"]];//获得当前备注的标题
         }
-        if (self.remark_title_array.count==0) {
-            [self.view addSubview:self.empty];
-            [self.remarkTitle_tableView removeFromSuperview];
-        }else{
-            [self.empty removeFromSuperview];
-            [self.view addSubview:self.remarkTitle_tableView];
-        }
+        
     }
     
     //更新视图尺寸
@@ -240,6 +228,14 @@ static NSString *cell_title_id=@"cell_title";
     
     //以动画形式删除行
     [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];//以动画形式删除该行
+    
+    if (self.remark_title_array.count==0) {
+        [self.view addSubview:self.empty];
+        [self.remarkTitle_tableView removeFromSuperview];
+    }else{
+        [self.empty removeFromSuperview];
+        [self.view addSubview:self.remarkTitle_tableView];
+    }
 }
 
 

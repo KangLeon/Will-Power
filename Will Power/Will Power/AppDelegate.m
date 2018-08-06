@@ -12,6 +12,7 @@
 #import "SizeDefine.h"
 #import "LaunchViewController.h"
 #import <UMSocialCore/UMSocialCore.h>
+#import "AddRemarkViewController.h"
 
 @interface AppDelegate ()<UNUserNotificationCenterDelegate>
 
@@ -105,7 +106,7 @@
 }
 
 // 设置系统回调，支持所有iOS系统，这个方法有用吗？
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+-(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
     //6.3的新的API调用，是为了兼容国外平台(例如:新版facebookSDK,VK等)的调用[如果用6.2的api调用会没有回调],对国内平台没有影响
     BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url sourceApplication:sourceApplication annotation:annotation];
@@ -114,6 +115,17 @@
     }
     return result;
     
+}
+
+#pragma mark 快捷选项的回调方法
+-(void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler{
+    NSString *title=shortcutItem.localizedTitle;
+    
+    if ([title isEqualToString:@"备注"]) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"addRemark" object:nil];
+    }else if ([title isEqualToString:@"新增习惯"]){
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"addNewSubject" object:nil];
+    }
 }
 
 
