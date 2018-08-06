@@ -162,7 +162,7 @@ static NSString *cell_id_check=@"cell_check";
         //获得任务id，获得当前日期，存储数据到数据库
         for (NSInteger i=1; i<([[AddModel shareAddMode] countForData]+1); i++) {
             if ([cell.subject_label.text isEqualToString: [[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:i-1] objectForKey:@"subject_title"]]) {
-                [CheckedModel shareCheckedModel].count=[[CheckedModel shareCheckedModel] countForData]+arc4random()%10;//存储count
+//                [CheckedModel shareCheckedModel].count=[[CheckedModel shareCheckedModel] countForData]+arc4random()%10;//存储count
                 [CheckedModel shareCheckedModel].subject_id=i;
                 [CheckedModel shareCheckedModel].checked=[NSString stringFrom:[NSDate localdate]];
                 [[CheckedModel shareCheckedModel] insertData];

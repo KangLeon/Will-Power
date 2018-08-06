@@ -147,6 +147,9 @@
         self.subject_index=[[AddModel shareAddMode] countForData]-1;
     });
     
+    //检查今天是不是已经完成了任务了，如果完成任务的话，讲该任务的通知取消
+    //将该任务取消，同时应该把完成的该任务从数据库中移除，新建一个记录表记录内容
+    [self check_already_misson];
 }
 #pragma mark 项目配置部分
 
@@ -618,13 +621,13 @@
                     
                 }];
 
-                //把检查状态置为true
+                //3.把检查状态置为true
                 self.check_view.isChecked=!self->_check_view.isChecked;
-                //右边的动画框勾选
+                //4.右边的动画框勾选
                 self.check_view.check_backView.backgroundColor=CUTE_BLUE;
                 [self.check_view loadCheck];
                 
-                //显示成功提醒框
+                //5.显示成功提醒框
                 self.cuteMessage=[[CuteMessage alloc] initWithFrame:CGRectMake(0, -80, SCREEN_WIDTH, 80)];
                 
                 [self.navigationController.view addSubview:self.cuteMessage];
@@ -637,7 +640,8 @@
                 //判断当前显示的是哪条任务
                 for (NSInteger i=1; i<([[AddModel shareAddMode] countForData]+1); i++) {//循环所有任务
                     if ([self.check_view.check_title.text isEqualToString: [[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:i-1] objectForKey:@"subject_title"]]) {//判断是否为该条任务
-                        [CheckedModel shareCheckedModel].count=[[CheckedModel shareCheckedModel] countForData]+arc4random()%10;
+                        
+//                        [CheckedModel shareCheckedModel].count=[[CheckedModel shareCheckedModel] countForData]+arc4random()%10;
                         [CheckedModel shareCheckedModel].subject_id=i;
                         [CheckedModel shareCheckedModel].checked=[NSString stringFrom:[NSDate localdate]];
                         [[CheckedModel shareCheckedModel] insertData];
@@ -950,6 +954,7 @@
             }
         }
     }
+    
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -974,6 +979,51 @@
     }
     
     [self.navigationController setNavigationBarHidden:false animated:true];
+}
+
+//判断任务是否过期
+-(void)check_already_misson{
+    //首先将判断时间，如果有超过了目标的任务，就取消该任务的通知，
+    for (NSInteger j=1; j<([[AddModel shareAddMode] countForData]+1); j++) {
+            if (j==1) {
+
+                    //如果当前日期超过了数据库存的最后一条任务时间的话，就取消该任务的通知
+                    if ([[[NSDate localdate] laterDate:[self dateFrom:[[self.array_mission1 lastObject] objectForKey:@"subject_execute"]]] isEqualToDate:[NSDate localdate]]) {
+                        //如果日期超过了数据库存的最后一条mission
+                        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:[NSString stringWithFormat:@"%@%@",[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:j-1] objectForKey:@"subject_title"],[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:j-1] objectForKey:@"reward"]]];
+                        for (NSInteger i=1; i<8; i++)  {
+                            [self removePending:[NSString stringWithFormat:@"%ldnotifiAND%ld",i,(NSInteger)[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:j-1] objectForKey:@"id"]]];//取消指定标识符下的通知
+                        }
+                    }else{
+                        //未超过，所以不做任何操作
+                    }
+
+            }else if (j==2){
+
+                //如果当前日期超过了数据库存的最后一条任务时间的话，就取消该任务的通知
+                if ([[[NSDate localdate] laterDate:[self dateFrom:[[self.array_mission2 lastObject] objectForKey:@"subject_execute"]]] isEqualToDate:[NSDate localdate]]) {
+                    //如果日期超过了数据库存的最后一条mission
+                    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:[NSString stringWithFormat:@"%@%@",[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:j-1] objectForKey:@"subject_title"],[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:j-1] objectForKey:@"reward"]]];
+                    for (NSInteger i=1; i<8; i++)  {
+                        [self removePending:[NSString stringWithFormat:@"%ldnotifiAND%ld",i,(NSInteger)[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:j-1] objectForKey:@"id"]]];//取消指定标识符下的通知
+                    }
+                }else{
+                    //未超过，所以不做任何操作
+                }
+
+            }else if (j==3){
+                //如果当前日期超过了数据库存的最后一条任务时间的话，就取消该任务的通知
+                if ([[[NSDate localdate] laterDate:[self dateFrom:[[self.array_mission3 lastObject] objectForKey:@"subject_execute"]]] isEqualToDate:[NSDate localdate]]) {
+                    //如果日期超过了数据库存的最后一条mission
+                    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:[NSString stringWithFormat:@"%@%@",[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:j-1] objectForKey:@"subject_title"],[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:j-1] objectForKey:@"reward"]]];
+                    for (NSInteger i=1; i<8; i++)  {
+                        [self removePending:[NSString stringWithFormat:@"%ldnotifiAND%ld",i,(NSInteger)[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:j-1] objectForKey:@"id"]]];//取消指定标识符下的通知
+                    }
+                }else{
+                    //未超过，所以不做任何操作
+                }
+        }
+    }
 }
 
 //程序进入前台

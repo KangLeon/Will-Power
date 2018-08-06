@@ -27,6 +27,8 @@ static NSString *cell_id_check=@"cell_check";
 @property(nonatomic,strong)AlertView *alertView;
 @property(nonatomic,strong)UITableView *notification_tableView;
 
+@property(nonatomic,strong)UIScrollView *scrollView;
+
 @property(nonatomic,strong)NSMutableArray *today_array;//存储任务标题
 @property(nonatomic,strong)NSMutableArray *date_array;//存储日期字符串
 @end
@@ -53,6 +55,14 @@ static NSString *cell_id_check=@"cell_check";
         [self.date_array addObject:[[[[CheckedModel shareCheckedModel] selectEveryThing] objectAtIndex:i] objectForKey:@"checked"]];
     }
     
+    self.scrollView=[[UIScrollView alloc] initWithFrame:self.view.frame];
+    if (self.date_array.count>12) {
+        self.scrollView.contentSize=CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT+(self.date_array.count-12)*65);
+    }else{
+        self.scrollView.contentSize=CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT);
+    }
+    self.scrollView.showsVerticalScrollIndicator=false;
+    
     
     self.notification_tableView=[[UITableView alloc] initWithFrame:CGRectMake(10, 26, SCREEN_WIDTH-20, self.today_array.count*55)];
     self.notification_tableView.delegate=self;
@@ -64,10 +74,12 @@ static NSString *cell_id_check=@"cell_check";
         EmptyView *empty=[[EmptyView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-288)/2, 100, 288, 341)];
         empty.imageView.image=[UIImage imageNamed:@"empty_record_image"];
         
-        [self.view addSubview:empty];
+        [self.scrollView addSubview:empty];
     }else{
-       [self.view addSubview:self.notification_tableView];
+       [self.scrollView addSubview:self.notification_tableView];
     }
+    
+    [self.view addSubview:self.scrollView];
 }
 
 //配置导航栏标题

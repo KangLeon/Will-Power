@@ -48,7 +48,7 @@
         NSLog(@"打开数据库成功");
     }
     //创建数据表的sql语句
-    NSString *stringCreateTable=@"create table if not exists checked(count integer primary key,id integer,checked varchar(20))";
+    NSString *stringCreateTable=@"create table if not exists checked(count integer primary key autoincrement,id integer,checked varchar(20))";
     //检查数据表是否创建成功
     if ([self.database executeUpdate:stringCreateTable]){
         NSLog(@"创建数据表成功");
@@ -61,7 +61,7 @@
     [self createDataBase];
     if (self.database!=nil) {
         if([self.database open]){
-            if ([self.database executeUpdate:@"insert into checked values (?,?,?)",@(self.count),@(self.subject_id),self.checked]) {
+            if ([self.database executeUpdate:@"insert into checked values (?,?,?)",NULL,@(self.subject_id),self.checked]) {
                 NSLog(@"插入数据成功");
             }
         }
