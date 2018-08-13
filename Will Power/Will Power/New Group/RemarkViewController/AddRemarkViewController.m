@@ -15,6 +15,8 @@
 #import "RemarkModel.h"
 #import "NSDate+LocalDate.h"
 #import "NSString+DateTitle.h"
+#import <SCLAlertView.h>
+#import "WrongMusic.h"
 
 @interface AddRemarkViewController ()<UITextFieldDelegate>
 
@@ -45,6 +47,8 @@
     [super viewDidLoad];
     [self loadNav];
     [self loadUI];
+    
+    self.heart_string=@"";
 }
 
 #pragma mark 懒加载部分
@@ -249,20 +253,29 @@
             NSLog(@"右上角的我被惦记了");
             //获得所有需要的界面内容
             //在这里存储构造数据并存储数据,并设置代理更新tableView更新值
-            [RemarkModel shareAddMode].remark_id=[[RemarkModel shareAddMode] countForData]+1;
-            [RemarkModel shareAddMode].remark_title=self.float_Textfield.text;
-            [RemarkModel shareAddMode].remark_content=self.float_TextField_content.text;
-            [RemarkModel shareAddMode].remark_date=self.remark_dateString;
-            [RemarkModel shareAddMode].remark_heart=self.heart_string;
-            
-            [[RemarkModel shareAddMode] insertData];
-            
-            //通知代理已经完成数据存储可以刷新数据了
-            [self.delegate refresh];
-            
-            [self dismissViewControllerAnimated:true completion:^{
+            //非空判断
+            if ([self.float_Textfield.text isEqualToString:@""] | [self.float_TextField_content.text isEqualToString:@""] | [self.remark_dateString isEqualToString:@""] | [self.heart_string isEqualToString:@""]) {
+                //如果为空的话
+                WrongMusic *wrongMusic=[[WrongMusic alloc] init];
+                [wrongMusic playSoundEffect_wrong];
                 
-            }];
+                SCLAlertView *alert = [[SCLAlertView alloc] init];
+                [alert showError:self title:@"仍有未输入的内容" subTitle:@"请确认已输入所有备注必须内容后，再点击保存" closeButtonTitle:@"好的" duration:0.0f];
+            }else{
+                [RemarkModel shareAddMode].remark_title=self.float_Textfield.text;
+                [RemarkModel shareAddMode].remark_content=self.float_TextField_content.text;
+                [RemarkModel shareAddMode].remark_date=self.remark_dateString;
+                [RemarkModel shareAddMode].remark_heart=self.heart_string;
+                
+                [[RemarkModel shareAddMode] insertData];
+                
+                //通知代理已经完成数据存储可以刷新数据了
+                [self.delegate refresh];
+                
+                [self dismissViewControllerAnimated:true completion:^{
+                    
+                }];
+            }
         }];
         
         [nav_view addSubview:right_add_button];
@@ -299,20 +312,29 @@
         NSLog(@"右上角的我被惦记了");
         //获得所有需要的界面内容
         //在这里存储构造数据并存储数据,并设置代理更新tableView更新值
-        [RemarkModel shareAddMode].remark_id=[[RemarkModel shareAddMode] countForData]+arc4random()%10;
-        [RemarkModel shareAddMode].remark_title=self.float_Textfield.text;
-        [RemarkModel shareAddMode].remark_content=self.float_TextField_content.text;
-        [RemarkModel shareAddMode].remark_date=self.remark_dateString;
-        [RemarkModel shareAddMode].remark_heart=self.heart_string;
-     
-        [[RemarkModel shareAddMode] insertData];
-        
-        //通知代理已经完成数据存储可以刷新数据了
-        [self.delegate refresh];
-
-        [self dismissViewControllerAnimated:true completion:^{
+        //非空判断
+        if ([self.float_Textfield.text isEqualToString:@""] | [self.float_TextField_content.text isEqualToString:@""] | [self.remark_dateString isEqualToString:@""] | [self.heart_string isEqualToString:@""]) {
+            //如果为空的话
+            WrongMusic *wrongMusic=[[WrongMusic alloc] init];
+            [wrongMusic playSoundEffect_wrong];
             
-        }];
+            SCLAlertView *alert = [[SCLAlertView alloc] init];
+            [alert showError:self title:@"仍有未输入的内容" subTitle:@"请确认已输入所有备注必须内容后，再点击保存" closeButtonTitle:@"好的" duration:0.0f];
+        }else{
+            [RemarkModel shareAddMode].remark_title=self.float_Textfield.text;
+            [RemarkModel shareAddMode].remark_content=self.float_TextField_content.text;
+            [RemarkModel shareAddMode].remark_date=self.remark_dateString;
+            [RemarkModel shareAddMode].remark_heart=self.heart_string;
+            
+            [[RemarkModel shareAddMode] insertData];
+            
+            //通知代理已经完成数据存储可以刷新数据了
+            [self.delegate refresh];
+            
+            [self dismissViewControllerAnimated:true completion:^{
+                
+            }];
+        }
     }];
     
     [nav_view addSubview:right_add_button];

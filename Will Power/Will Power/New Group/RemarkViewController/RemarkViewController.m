@@ -19,7 +19,7 @@
 #import "ReviewRemarkViewController.h"
 
 static NSString *cell_title_id=@"cell_title";
-@interface RemarkViewController ()<UITableViewDelegate,UITableViewDataSource,refreshAllRemark>
+@interface RemarkViewController ()<UITableViewDelegate,UITableViewDataSource,refreshAllRemark,UIViewControllerPreviewingDelegate>
 
 @property(nonatomic,strong)AlertView *alertView;
 @property(nonatomic,strong)AddRemarkViewController *add_remark_VC;
@@ -27,6 +27,8 @@ static NSString *cell_title_id=@"cell_title";
 @property(nonatomic,strong)NSMutableArray* remark_title_array;
 @property(nonatomic,strong)NSMutableArray* remark_date_array;
 @property(nonatomic,strong)EmptyView *empty;
+
+@property(nonatomic,strong)UIScrollView *scrollView;
 
 @property(nonatomic,strong) PopChallengeViewController *pop_challenge;//用于订阅改变的
 
@@ -37,7 +39,6 @@ static NSString *cell_title_id=@"cell_title";
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self loadUI];
     
     //初始化array，
     self.remark_title_array=[[NSMutableArray alloc] init];
@@ -47,6 +48,19 @@ static NSString *cell_title_id=@"cell_title";
         [self.remark_title_array addObject:[[[[RemarkModel shareAddMode] selectEveryThing] objectAtIndex:i] objectForKey:@"remark_title"]];//获得当前备注的标题
         [self.remark_date_array addObject:[[[[RemarkModel shareAddMode] selectEveryThing] objectAtIndex:i] objectForKey:@"remark_date"]];//获得当前备注的标题
     }
+    
+    self.scrollView=[[UIScrollView alloc] initWithFrame:self.view.frame];
+    if (self.remark_date_array.count>11) {
+        self.scrollView.contentSize=CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT+(self.remark_date_array.count-11)*65);
+    }else{
+        self.scrollView.contentSize=CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT);
+    }
+    self.scrollView.showsVerticalScrollIndicator=false;
+    [self.view addSubview:self.scrollView];
+    
+    [self loadUI];
+    
+    
     
     if (kDevice_Is_iPhoneX) {
         //添加tableView
@@ -60,9 +74,9 @@ static NSString *cell_title_id=@"cell_title";
             self.empty=[[EmptyView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-288)/2, 170, 288, 341)];
             self.empty.imageView.image=[UIImage imageNamed:@"empty_remark_image"];
             
-            [self.view addSubview:self.empty];
+            [self.scrollView addSubview:self.empty];
         }else{
-            [self.view addSubview:self.remarkTitle_tableView];
+            [self.scrollView addSubview:self.remarkTitle_tableView];
         }
     }else{
         //添加tableView
@@ -76,11 +90,14 @@ static NSString *cell_title_id=@"cell_title";
             self.empty=[[EmptyView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-288)/2, 150, 288, 341)];
             self.empty.imageView.image=[UIImage imageNamed:@"empty_remark_image"];
             
-            [self.view addSubview:self.empty];
+            [self.scrollView addSubview:self.empty];
         }else{
-            [self.view addSubview:self.remarkTitle_tableView];
+            [self.scrollView addSubview:self.remarkTitle_tableView];
         }
     }
+    
+    //注册3D touch
+    [self registerForPreviewingWithDelegate:self sourceView:self.remarkTitle_tableView];
     
 }
 
@@ -123,7 +140,7 @@ static NSString *cell_title_id=@"cell_title";
         [nav_view addSubview:right_add_button];
         [nav_view addSubview:title_label];
         [nav_view addSubview:left_back_button];
-        [self.view addSubview:nav_view];
+        [self.scrollView addSubview:nav_view];
     }else{
         UIView *nav_view=[[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 64)];
         nav_view.backgroundColor=NAV_BACKGROUND;
@@ -161,7 +178,7 @@ static NSString *cell_title_id=@"cell_title";
         [nav_view addSubview:right_add_button];
         [nav_view addSubview:title_label];
         [nav_view addSubview:left_back_button];
-        [self.view addSubview:nav_view];
+        [self.scrollView addSubview:nav_view];
     }
     
 }
@@ -230,11 +247,11 @@ static NSString *cell_title_id=@"cell_title";
     [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];//以动画形式删除该行
     
     if (self.remark_title_array.count==0) {
-        [self.view addSubview:self.empty];
+        [self.scrollView addSubview:self.empty];
         [self.remarkTitle_tableView removeFromSuperview];
     }else{
         [self.empty removeFromSuperview];
-        [self.view addSubview:self.remarkTitle_tableView];
+        [self.scrollView addSubview:self.remarkTitle_tableView];
     }
 }
 
@@ -243,6 +260,24 @@ static NSString *cell_title_id=@"cell_title";
     ReviewRemarkViewController *review_VC=[[ReviewRemarkViewController alloc] init];
     review_VC.select_index=indexPath.row;
     [self presentViewController:review_VC animated:true completion:nil];
+}
+
+//pick功能 代理方法
+-(UIViewController *)previewingContext:(id<UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location{
+        //重按了tableView
+        NSIndexPath *indexPath=[self.remarkTitle_tableView indexPathForRowAtPoint:location];
+        if (indexPath) {
+            //如果点击的cell不为空的时候
+            UITableViewCell *cell=[self.remarkTitle_tableView cellForRowAtIndexPath:indexPath];
+            previewingContext.sourceRect=cell.frame;
+        }
+        ReviewRemarkViewController *secondVC=[[ReviewRemarkViewController alloc] init];
+        return secondVC;
+}
+
+//pop功能
+-(void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit{
+    [self showViewController:viewControllerToCommit sender:self];
 }
 
 
@@ -257,11 +292,11 @@ static NSString *cell_title_id=@"cell_title";
             [self.remark_date_array addObject:[[[[RemarkModel shareAddMode] selectEveryThing] objectAtIndex:i] objectForKey:@"remark_date"]];//获得当前备注的标题
         }
         if (self.remark_title_array.count==0) {
-            [self.view addSubview:self.empty];
+            [self.scrollView addSubview:self.empty];
             [self.remarkTitle_tableView removeFromSuperview];
         }else{
             [self.empty removeFromSuperview];
-            [self.view addSubview:self.remarkTitle_tableView];
+            [self.scrollView addSubview:self.remarkTitle_tableView];
         }
     }else{
         //从数据库中查出值,并填充到数组中
@@ -270,11 +305,11 @@ static NSString *cell_title_id=@"cell_title";
             [self.remark_date_array addObject:[[[[RemarkModel shareAddMode] selectEveryThing] objectAtIndex:i] objectForKey:@"remark_date"]];//获得当前备注的标题
         }
         if (self.remark_title_array.count==0) {
-            [self.view addSubview:self.empty];
+            [self.scrollView addSubview:self.empty];
             [self.remarkTitle_tableView removeFromSuperview];
         }else{
             [self.empty removeFromSuperview];
-            [self.view addSubview:self.remarkTitle_tableView];
+            [self.scrollView addSubview:self.remarkTitle_tableView];
         }
     }
     

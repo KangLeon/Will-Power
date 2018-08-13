@@ -244,6 +244,7 @@ static NSString *cell_id_share=@"cell_share";
             cell.cell_title.text=@"每日签到提醒";
             [cell setSelectionStyle:UITableViewCellSelectionStyleNone];//取消选中状态
             self.isSign=[[NSUserDefaults standardUserDefaults] boolForKey:@"isSign"];
+            //初始化，判断偏好设置中是否打开
             if (self.isSign) {
                 cell.cell_switch.on=YES;
                 //如果打开按钮

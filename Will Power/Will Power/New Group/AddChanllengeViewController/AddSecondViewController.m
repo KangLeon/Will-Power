@@ -428,7 +428,6 @@ static NSString *cell_picker_id_add=@"picker_add";
                  3 2 周二 8 30
                  */
                 //每循环一次就存储一条数据到数据库
-                [NotifiModel notifiModel].alarm_id=[[NotifiModel notifiModel] countForData]+arc4random()%10;//关联该任务的数据条数累加
                 [NotifiModel notifiModel].subject_id=[AddModel shareAddMode].subject_id;
                 [NotifiModel notifiModel].alarm_day=day_type;
                 [NotifiModel notifiModel].alarm_hour=hour_type;

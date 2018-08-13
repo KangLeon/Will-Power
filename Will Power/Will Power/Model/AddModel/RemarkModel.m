@@ -46,7 +46,7 @@
         NSLog(@"打开数据库成功");
     }
     //创建数据表的sql语句
-    NSString *stringCreateTable=@"create table if not exists remark(id integer primary key ,remark_title varchar(20),remark_content varchar(20),remark_date varchar(20),remark_heart varchar(20))";
+    NSString *stringCreateTable=@"create table if not exists remark(id integer primary key autoincrement,remark_title varchar(20),remark_content varchar(20),remark_date varchar(20),remark_heart varchar(20))";
     //检查数据表是否创建成功
     if ([self.database executeUpdate:stringCreateTable]){
         NSLog(@"创建数据表成功");
@@ -59,7 +59,7 @@
     [self createDataBase];
     if (self.database!=nil) {
         if([self.database open]){
-            if ([self.database executeUpdate:@"insert into remark values (?,?,?,?,?)",@(self.remark_id),self.remark_title,self.remark_content,self.remark_date,self.remark_heart]) {
+            if ([self.database executeUpdate:@"insert into remark values (?,?,?,?,?)",NULL,self.remark_title,self.remark_content,self.remark_date,self.remark_heart]) {
                 NSLog(@"插入数据成功");
             }
         }
@@ -74,6 +74,18 @@
     if (self.database!=nil) {
         if ([self.database open]) {
             if([self.database executeUpdate:@"delete from remark where remark_title=?",title]){
+                NSLog(@"删除数据成功");
+            }
+        }
+        [self.database close];
+    }
+}
+-(void)deleteData{
+    [self createDataBase];
+    //删除数据，默认已经执行查询数据了
+    if (self.database!=nil) {
+        if ([self.database open]) {
+            if([self.database executeUpdate:@"delete from remark"]){
                 NSLog(@"删除数据成功");
             }
         }

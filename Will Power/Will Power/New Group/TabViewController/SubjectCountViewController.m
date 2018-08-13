@@ -222,7 +222,7 @@ static NSString *cell_id3=@"subject_cell_3";
                 [[NSUserDefaults standardUserDefaults] setBool:NO forKey:[NSString stringWithFormat:@"%@%@",cell.titleLabel.text,[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row] objectForKey:@"reward"]]];
                 cell.subject_isOn_label.text=@"项目提醒关闭";
                 for (NSInteger i=1; i<8; i++)  {
-                    [self removePending:[NSString stringWithFormat:@"%ldnotifiAND%ld",i,(NSInteger)[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row] objectForKey:@"id"]]];//取消指定标识符下的通知
+                    [self removePending:[NSString stringWithFormat:@"%ldnotifiAND%@",i,[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row] objectForKey:@"id"]]];//取消指定标识符下的通知
                 }
                 //业务逻辑总共飞为两部分：1.取消该任务的所有通知
                 //                    2.该任务不应该继续计数了(这是2期的)
@@ -288,7 +288,7 @@ static NSString *cell_id3=@"subject_cell_3";
                 [[NSUserDefaults standardUserDefaults] setBool:NO forKey:[NSString stringWithFormat:@"%@%@",cell.titleLabel.text,[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+1] objectForKey:@"reward"]]];
                 cell.subject_isOn_label.text=@"项目提醒关闭";
                 for (NSInteger i=1; i<8; i++)  {
-                    [self removePending:[NSString stringWithFormat:@"%ldnotifiAND%ld",i,(NSInteger)[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+1] objectForKey:@"id"]]];//取消指定标识符下的通知
+                    [self removePending:[NSString stringWithFormat:@"%ldnotifiAND%@",i,[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+1] objectForKey:@"id"]]];//取消指定标识符下的通知
                 }
                 //业务逻辑总共飞为两部分：1.取消该任务的所有通知
                 //                    2.该任务不应该继续计数了(这是2期的)
@@ -358,7 +358,7 @@ static NSString *cell_id3=@"subject_cell_3";
                 cell.subject_isOn_label.text=@"项目提醒关闭";
                 //取消通知
                 for (NSInteger i=1; i<8; i++)  {
-                    [self removePending:[NSString stringWithFormat:@"%ldnotifiAND%ld",i,(NSInteger)[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+2] objectForKey:@"id"]]];//取消指定标识符下的通知
+                    [self removePending:[NSString stringWithFormat:@"%ldnotifiAND%@",i,[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:indexPath.row+2] objectForKey:@"id"]]];//取消指定标识符下的通知
                 }
                 //业务逻辑总共飞为两部分：1.取消该任务的所有通知
                 //                    2.该任务不应该继续计数了(这是2期的)

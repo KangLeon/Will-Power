@@ -148,7 +148,6 @@ static NSString *cell_id=@"text_cell";
             
                 //每循坏一次，存储一次条任务时间到数据库
                 for (NSInteger i=0; i<[AddModel shareAddMode].goal_total; i++) {
-                    [SubjectModel shareSubjectModel].plus_id=[[SubjectModel shareSubjectModel] countForData]+arc4random()%10;
                     [SubjectModel shareSubjectModel].subject_id=[AddModel shareAddMode].subject_id;//当前任务关联的id
                     [SubjectModel shareSubjectModel].subject_execute=[NSString stringFrom:[start_date_for_subject dateByAddingTimeInterval:i*24*60*60]];//需要执行的任务时间
                     NSDictionary *dic=@{@"subject_id":@([SubjectModel shareSubjectModel].subject_id),
@@ -159,6 +158,7 @@ static NSString *cell_id=@"text_cell";
                 }
                 [[NSUserDefaults standardUserDefaults] setBool:YES forKey:[NSString stringWithFormat:@"%@%@",[AddModel shareAddMode].subject_title,[AddModel shareAddMode].reward]];//该任务正在执行
                 [[SubjectModel shareSubjectModel] insertData];
+                [[SubjectModel shareSubjectModel] selectEveryThing];
                 [self startNotifi];
             
 //                [[SubjectModel shareSubjectModel] selectEveryThing:[AddModel shareAddMode].subject_id];//输出验证一下

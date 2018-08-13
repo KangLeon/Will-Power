@@ -653,7 +653,7 @@ static NSString *cell_id_eighthStep=@"eighth_modify_tableView_cell_id";
                     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:[NSString stringWithFormat:@"%@%@",[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:self.delete_index] objectForKey:@"subject_title"],[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:self.delete_index] objectForKey:@"reward"]]];
                     cell.cell_title.text=@"提醒未开启";
                     for (NSInteger i=1; i<8; i++)  {
-                        [self removePending:[NSString stringWithFormat:@"%ldnotifiAND%ld",i,(NSInteger)[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:self.delete_index] objectForKey:@"id"]]];//取消指定标识符下的通知
+                        [self removePending:[NSString stringWithFormat:@"%ldnotifiAND%@",i,[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:self.delete_index] objectForKey:@"id"]]];//取消指定标识符下的通知
                     }
                     //业务逻辑总共飞为两部分：1.取消该任务的所有通知
                     //                    2.该任务不应该继续计数了(这是2期的)
@@ -882,7 +882,6 @@ static NSString *cell_id_eighthStep=@"eighth_modify_tableView_cell_id";
             //2.再存储
             for (NSDictionary *dic in self.alarm_all_array) {
                 //每循环一次就存储一条数据到数据库
-                [NotifiModel notifiModel].alarm_id=[[NotifiModel notifiModel] countForData]+arc4random()%10;//关联该任务的数据条数累加
                 [NotifiModel notifiModel].subject_id=(self.delete_index+1);
                 [NotifiModel notifiModel].alarm_day=[dic objectForKey:@"alarm_day"];
                 [NotifiModel notifiModel].alarm_hour=[dic objectForKey:@"alarm_hour"];
@@ -891,7 +890,7 @@ static NSString *cell_id_eighthStep=@"eighth_modify_tableView_cell_id";
             }
             NSArray *augasuidg=[[NotifiModel notifiModel] selectEveryThing];
             NSLog(@"%@",augasuidg);
-            //取消之前的通知事项，现在重新确立通知事项
+            //3.1取消之前的通知事项，现在重新确立通知事项
             //关闭每日待办项目提醒
             //根据标识取消每日通知
             //循环所有任务取消所有通知
@@ -900,10 +899,10 @@ static NSString *cell_id_eighthStep=@"eighth_modify_tableView_cell_id";
                     [self removePending:[NSString stringWithFormat:@"%ldnotifiAND%ld",i,[[dic objectForKey:@"id"] integerValue]]];//取消指定标识符下的通知
                 }
             }
-            //重新确立通知
+            //3.2重新确立通知
             [self startNotifi];
             
-            //设置睡眠两秒
+            //3.3设置睡眠两秒（由于FMDB sdk包出现的功能bug，所以这里睡眠两秒，不是太影响用户体验）
             [NSThread sleepForTimeInterval:2];
             
             //返回上一级
@@ -916,10 +915,26 @@ static NSString *cell_id_eighthStep=@"eighth_modify_tableView_cell_id";
         }else if(buttonIndex==1){
             //继续删除
             NSArray *controllers = self.navigationController.viewControllers;
+            
+            //1.移除偏好设置中关于cell上的switch
             [[NSUserDefaults standardUserDefaults] removeObjectForKey:[NSString stringWithFormat:@"%@%@",[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:self.delete_index] objectForKey:@"subject_title"],[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:self.delete_index] objectForKey:@"reward"]]];
             [[AddModel shareAddMode] deleteDataByID:(self.delete_index+1)];
-            //同时将对应任务的偏好设置值也删除掉
             
+            //同时将对应任务的偏好设置值也删除掉
+            //由于没有关联的偏好设置，所以这里的偏好设置不用删掉了
+            
+            //同时将所有的关联对象下的通知也删除掉
+            //取消之前的通知事项，现在重新确立通知事项
+            //关闭每日待办项目提醒
+            //根据标识取消每日通知
+            //循环所有任务取消所有通知
+            for (NSDictionary *dic in [[AddModel shareAddMode] selectEveryThing]) {
+                for (NSInteger i=1; i<8; i++)  {
+                    [self removePending:[NSString stringWithFormat:@"%ldnotifiAND%ld",i,[[dic objectForKey:@"id"] integerValue]]];//取消指定标识符下的通知
+                }
+            }
+            //重新确立通知
+            [self startNotifi];
 
             //返回
             for ( id viewController in controllers) {

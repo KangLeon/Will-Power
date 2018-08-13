@@ -346,6 +346,10 @@
 		59D4D49420ECB454006449E9 /* emoji.json in Resources */ = {isa = PBXBuildFile; fileRef = 59D4D49320ECB454006449E9 /* emoji.json */; };
 		59D4D49820ECD3F1006449E9 /* little_girl_jumping_-_loader.json in Resources */ = {isa = PBXBuildFile; fileRef = 59D4D49720ECD3F1006449E9 /* little_girl_jumping_-_loader.json */; };
 		59D4D49E20ECDC45006449E9 /* SubjectDeleteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 59D4D49D20ECDC45006449E9 /* SubjectDeleteViewController.m */; };
+		59D9C81C2118FF0000746197 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59D9C81B2118FF0000746197 /* NotificationCenter.framework */; };
+		59D9C8202118FF0100746197 /* TodayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 59D9C81F2118FF0100746197 /* TodayViewController.m */; };
+		59D9C8232118FF0100746197 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 59D9C8212118FF0100746197 /* MainInterface.storyboard */; };
+		59D9C8272118FF0100746197 /* Will Power Today.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 59D9C81A2118FF0000746197 /* Will Power Today.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		59E9DD4120B3E92300C86956 /* SubjectCountViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 59E9DD4020B3E92300C86956 /* SubjectCountViewCell.m */; };
 		59E9DD4420C0844C00C86956 /* RemarkModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 59E9DD4320C0844C00C86956 /* RemarkModel.m */; };
 		B507FEC328570D2771FE9B7A /* libPods-Will PowerUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FEF882F89E25D01B6284990 /* libPods-Will PowerUITests.a */; };
@@ -366,7 +370,28 @@
 			remoteGlobalIDString = 5949A41E2070A582003F9106;
 			remoteInfo = "Will Power";
 		};
+		59D9C8252118FF0100746197 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5949A4172070A582003F9106 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 59D9C8192118FF0000746197;
+			remoteInfo = "Will Power Today";
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		59D9C82B2118FF0100746197 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				59D9C8272118FF0100746197 /* Will Power Today.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		0474EA61208C394C00FA3283 /* UILabel+SizeToFit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UILabel+SizeToFit.h"; sourceTree = "<group>"; };
@@ -740,6 +765,12 @@
 		59D4D49720ECD3F1006449E9 /* little_girl_jumping_-_loader.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "little_girl_jumping_-_loader.json"; sourceTree = "<group>"; };
 		59D4D49C20ECDC45006449E9 /* SubjectDeleteViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SubjectDeleteViewController.h; sourceTree = "<group>"; };
 		59D4D49D20ECDC45006449E9 /* SubjectDeleteViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SubjectDeleteViewController.m; sourceTree = "<group>"; };
+		59D9C81A2118FF0000746197 /* Will Power Today.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Will Power Today.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		59D9C81B2118FF0000746197 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
+		59D9C81E2118FF0100746197 /* TodayViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TodayViewController.h; sourceTree = "<group>"; };
+		59D9C81F2118FF0100746197 /* TodayViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TodayViewController.m; sourceTree = "<group>"; };
+		59D9C8222118FF0100746197 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		59D9C8242118FF0100746197 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		59E9DD3F20B3E92300C86956 /* SubjectCountViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SubjectCountViewCell.h; sourceTree = "<group>"; };
 		59E9DD4020B3E92300C86956 /* SubjectCountViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SubjectCountViewCell.m; sourceTree = "<group>"; };
 		59E9DD4220C0844C00C86956 /* RemarkModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RemarkModel.h; sourceTree = "<group>"; };
@@ -775,6 +806,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				B507FEC328570D2771FE9B7A /* libPods-Will PowerUITests.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		59D9C8172118FF0000746197 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				59D9C81C2118FF0000746197 /* NotificationCenter.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -890,6 +929,7 @@
 				5949A4212070A582003F9106 /* Will Power */,
 				5949A43A2070A583003F9106 /* Will PowerTests */,
 				5949A4452070A583003F9106 /* Will PowerUITests */,
+				59D9C81D2118FF0000746197 /* Will Power Today */,
 				5949A4202070A582003F9106 /* Products */,
 				75B8B874195C6F41E6BFB311 /* Pods */,
 				EDFB005289222F196D3861DB /* Frameworks */,
@@ -902,6 +942,7 @@
 				5949A41F2070A582003F9106 /* Will Power.app */,
 				5949A4372070A583003F9106 /* Will PowerTests.xctest */,
 				5949A4422070A583003F9106 /* Will PowerUITests.xctest */,
+				59D9C81A2118FF0000746197 /* Will Power Today.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1515,6 +1556,17 @@
 			path = MusicSelectView;
 			sourceTree = "<group>";
 		};
+		59D9C81D2118FF0000746197 /* Will Power Today */ = {
+			isa = PBXGroup;
+			children = (
+				59D9C81E2118FF0100746197 /* TodayViewController.h */,
+				59D9C81F2118FF0100746197 /* TodayViewController.m */,
+				59D9C8212118FF0100746197 /* MainInterface.storyboard */,
+				59D9C8242118FF0100746197 /* Info.plist */,
+			);
+			path = "Will Power Today";
+			sourceTree = "<group>";
+		};
 		59F270B72071C5230093ABEF /* Request */ = {
 			isa = PBXGroup;
 			children = (
@@ -1542,6 +1594,7 @@
 				DF1C25BA80E48EB92ABB612C /* libPods-Will Power.a */,
 				911194FA46253016D956ADE6 /* libPods-Will PowerTests.a */,
 				8FEF882F89E25D01B6284990 /* libPods-Will PowerUITests.a */,
+				59D9C81B2118FF0000746197 /* NotificationCenter.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1558,10 +1611,12 @@
 				5949A41C2070A582003F9106 /* Frameworks */,
 				5949A41D2070A582003F9106 /* Resources */,
 				880772576E1C20255DC80D93 /* [CP] Copy Pods Resources */,
+				59D9C82B2118FF0100746197 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				59D9C8262118FF0100746197 /* PBXTargetDependency */,
 			);
 			name = "Will Power";
 			productName = "Will Power";
@@ -1606,6 +1661,23 @@
 			productReference = 5949A4422070A583003F9106 /* Will PowerUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		59D9C8192118FF0000746197 /* Will Power Today */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 59D9C82A2118FF0100746197 /* Build configuration list for PBXNativeTarget "Will Power Today" */;
+			buildPhases = (
+				59D9C8162118FF0000746197 /* Sources */,
+				59D9C8172118FF0000746197 /* Frameworks */,
+				59D9C8182118FF0000746197 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Will Power Today";
+			productName = "Will Power Today";
+			productReference = 59D9C81A2118FF0000746197 /* Will Power Today.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1632,6 +1704,9 @@
 						CreatedOnToolsVersion = 9.3;
 						TestTargetID = 5949A41E2070A582003F9106;
 					};
+					59D9C8192118FF0000746197 = {
+						CreatedOnToolsVersion = 9.4.1;
+					};
 				};
 			};
 			buildConfigurationList = 5949A41A2070A582003F9106 /* Build configuration list for PBXProject "Will Power" */;
@@ -1650,6 +1725,7 @@
 				5949A41E2070A582003F9106 /* Will Power */,
 				5949A4362070A583003F9106 /* Will PowerTests */,
 				5949A4412070A583003F9106 /* Will PowerUITests */,
+				59D9C8192118FF0000746197 /* Will Power Today */,
 			);
 		};
 /* End PBXProject section */
@@ -1885,6 +1961,14 @@
 			files = (
 				59D21CC120739B86008DFA94 /* message.mp3 in Resources */,
 				59D21CC720739B86008DFA94 /* tap3.mp3 in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		59D9C8182118FF0000746197 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				59D9C8232118FF0100746197 /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2160,6 +2244,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		59D9C8162118FF0000746197 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				59D9C8202118FF0100746197 /* TodayViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -2172,6 +2264,11 @@
 			isa = PBXTargetDependency;
 			target = 5949A41E2070A582003F9106 /* Will Power */;
 			targetProxy = 5949A4432070A583003F9106 /* PBXContainerItemProxy */;
+		};
+		59D9C8262118FF0100746197 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 59D9C8192118FF0000746197 /* Will Power Today */;
+			targetProxy = 59D9C8252118FF0100746197 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -2190,6 +2287,14 @@
 				5949A42E2070A583003F9106 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		59D9C8212118FF0100746197 /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				59D9C8222118FF0100746197 /* Base */,
+			);
+			name = MainInterface.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -2440,6 +2545,46 @@
 			};
 			name = Release;
 		};
+		59D9C8282118FF0100746197 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = DR4WPFLXBN;
+				INFOPLIST_FILE = "Will Power Today/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.JiYoung.Will-Power.Will-Power-Today";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		59D9C8292118FF0100746197 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = DR4WPFLXBN;
+				INFOPLIST_FILE = "Will Power Today/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.JiYoung.Will-Power.Will-Power-Today";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -2475,6 +2620,15 @@
 			buildConfigurations = (
 				5949A4522070A583003F9106 /* Debug */,
 				5949A4532070A583003F9106 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		59D9C82A2118FF0100746197 /* Build configuration list for PBXNativeTarget "Will Power Today" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				59D9C8282118FF0100746197 /* Debug */,
+				59D9C8292118FF0100746197 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

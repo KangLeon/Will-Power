@@ -140,7 +140,7 @@
         self.array_mission2=[[SubjectModel shareSubjectModel] selectEveryThing:2];
         self.array_mission3=[[SubjectModel shareSubjectModel] selectEveryThing:3];
     }
-    NSLog(@"%@",self.array_mission1);
+    NSLog(@"%@",self.array_mission3);
     
     //初始化一次项目索引
     static dispatch_once_t onceToken;
@@ -997,7 +997,7 @@
                         //如果日期超过了数据库存的最后一条mission
                         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:[NSString stringWithFormat:@"%@%@",[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:j-1] objectForKey:@"subject_title"],[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:j-1] objectForKey:@"reward"]]];
                         for (NSInteger i=1; i<8; i++)  {
-                            [self removePending:[NSString stringWithFormat:@"%ldnotifiAND%ld",i,(NSInteger)[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:j-1] objectForKey:@"id"]]];//取消指定标识符下的通知
+                            [self removePending:[NSString stringWithFormat:@"%ldnotifiAND%@",i,[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:j-1] objectForKey:@"id"]]];//取消指定标识符下的通知
                         }
                     }else{
                         //未超过，所以不做任何操作
@@ -1010,7 +1010,7 @@
                     //如果日期超过了数据库存的最后一条mission
                     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:[NSString stringWithFormat:@"%@%@",[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:j-1] objectForKey:@"subject_title"],[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:j-1] objectForKey:@"reward"]]];
                     for (NSInteger i=1; i<8; i++)  {
-                        [self removePending:[NSString stringWithFormat:@"%ldnotifiAND%ld",i,(NSInteger)[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:j-1] objectForKey:@"id"]]];//取消指定标识符下的通知
+                        [self removePending:[NSString stringWithFormat:@"%ldnotifiAND%@",i,[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:j-1] objectForKey:@"id"]]];//取消指定标识符下的通知
                     }
                 }else{
                     //未超过，所以不做任何操作
@@ -1022,7 +1022,7 @@
                     //如果日期超过了数据库存的最后一条mission
                     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:[NSString stringWithFormat:@"%@%@",[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:j-1] objectForKey:@"subject_title"],[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:j-1] objectForKey:@"reward"]]];
                     for (NSInteger i=1; i<8; i++)  {
-                        [self removePending:[NSString stringWithFormat:@"%ldnotifiAND%ld",i,(NSInteger)[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:j-1] objectForKey:@"id"]]];//取消指定标识符下的通知
+                        [self removePending:[NSString stringWithFormat:@"%ldnotifiAND%@",i,[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:j-1] objectForKey:@"id"]]];//取消指定标识符下的通知
                     }
                 }else{
                     //未超过，所以不做任何操作

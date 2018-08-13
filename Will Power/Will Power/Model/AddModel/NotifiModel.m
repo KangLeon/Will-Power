@@ -50,7 +50,7 @@
         NSLog(@"打开数据库成功");
     }
     //创建数据表的sql语句
-    NSString *stringCreateTable=@"create table if not exists alarm(id integer primary key,subject_id integer,alarm_day varchar(20),alarm_hour varchar(20),alarm_minute varchar(20))";
+    NSString *stringCreateTable=@"create table if not exists alarm(id integer primary key autoincrement,subject_id integer,alarm_day varchar(20),alarm_hour varchar(20),alarm_minute varchar(20))";
     //检查数据表是否创建成功
     if ([self.database executeUpdate:stringCreateTable]){
         NSLog(@"创建数据表成功");
@@ -64,7 +64,7 @@
     [self createDataBase];
     if (self.database!=nil) {
         if([self.database open]){
-            if ([self.database executeUpdate:@"insert into alarm values (?,?,?,?,?)",@(self.alarm_id),@(self.subject_id),self.alarm_day,self.alarm_hour,self.alarm_minute]) {
+            if ([self.database executeUpdate:@"insert into alarm values (?,?,?,?,?)",NULL,@(self.subject_id),self.alarm_day,self.alarm_hour,self.alarm_minute]) {
                 NSLog(@"插入数据成功");
             }
         }

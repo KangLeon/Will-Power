@@ -84,7 +84,7 @@
             [[NSUserDefaults standardUserDefaults] setBool:NO forKey:[NSString stringWithFormat:@"%@%@",view_subject1.titleLabel.text,[dicSelect objectForKey:@"reward"]]];
             view_subject1.subject_isOn_label.text=@"项目提醒关闭";
             for (NSInteger i=1; i<8; i++)  {
-                [self removePending:[NSString stringWithFormat:@"%ldnotifiAND%ld",i,(NSInteger)[dicSelect objectForKey:@"id"]]];//取消指定标识符下的通知
+                [self removePending:[NSString stringWithFormat:@"%ldnotifiAND%@",i,[dicSelect objectForKey:@"id"]]];//取消指定标识符下的通知
             }
             //业务逻辑总共飞为两部分：1.取消该任务的所有通知
             //                    2.该任务不应该继续计数了(这是2期的)
