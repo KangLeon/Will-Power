@@ -902,7 +902,7 @@ static NSString *cell_id_eighthStep=@"eighth_modify_tableView_cell_id";
             //3.2重新确立通知
             [self startNotifi];
             
-            //3.3设置睡眠两秒（由于FMDB sdk包出现的功能bug，所以这里睡眠两秒，不是太影响用户体验）
+            //4.设置睡眠两秒（由于FMDB sdk包出现的功能bug，所以这里睡眠两秒，不是太影响用户体验）
             [NSThread sleepForTimeInterval:2];
             
             //返回上一级
@@ -920,10 +920,10 @@ static NSString *cell_id_eighthStep=@"eighth_modify_tableView_cell_id";
             [[NSUserDefaults standardUserDefaults] removeObjectForKey:[NSString stringWithFormat:@"%@%@",[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:self.delete_index] objectForKey:@"subject_title"],[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:self.delete_index] objectForKey:@"reward"]]];
             [[AddModel shareAddMode] deleteDataByID:(self.delete_index+1)];
             
-            //同时将对应任务的偏好设置值也删除掉
+            //2.同时将对应任务的偏好设置值也删除掉
             //由于没有关联的偏好设置，所以这里的偏好设置不用删掉了
             
-            //同时将所有的关联对象下的通知也删除掉
+            //3.1同时将所有的关联对象下的通知也删除掉
             //取消之前的通知事项，现在重新确立通知事项
             //关闭每日待办项目提醒
             //根据标识取消每日通知
@@ -933,7 +933,7 @@ static NSString *cell_id_eighthStep=@"eighth_modify_tableView_cell_id";
                     [self removePending:[NSString stringWithFormat:@"%ldnotifiAND%ld",i,[[dic objectForKey:@"id"] integerValue]]];//取消指定标识符下的通知
                 }
             }
-            //重新确立通知
+            //3.2重新确立通知
             [self startNotifi];
 
             //返回
