@@ -228,7 +228,7 @@ static NSString *cell_id_share=@"cell_share";
                     //循环所有任务取消所有通知
                      for (NSDictionary *dic in [[AddModel shareAddMode] selectEveryThing]) {
                          for (NSInteger i=1; i<8; i++)  {
-                             [self removePending:[NSString stringWithFormat:@"%ldnotifiAND%ld",i,[[dic objectForKey:@"id"] integerValue]]];//取消指定标识符下的通知
+                             [self removePending:[NSString stringWithFormat:@"% D%ld",i,[[dic objectForKey:@"id"] integerValue]]];//取消指定标识符下的通知
                          }
                      }
                 }

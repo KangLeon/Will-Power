@@ -18,21 +18,27 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="37"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vLS-2E-2f5">
-                                <rect key="frame" x="5" y="3" width="100" height="100"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YlK-Yd-hdd">
+                                <rect key="frame" x="112" y="3" width="97" height="132"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dne-Ga-N0r">
-                                <rect key="frame" x="110" y="3" width="100" height="100"/>
+                                <connections>
+                                    <action selector="loadSecondMission:" destination="M4Y-Lb-cyx" eventType="touchUpInside" id="bH6-n9-GUP"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kmg-SQ-n4o">
+                                <rect key="frame" x="217" y="4" width="97" height="132"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZZU-eA-Rmk">
-                                <rect key="frame" x="215" y="3" width="100" height="100"/>
+                                <connections>
+                                    <action selector="loadThirdMission:" destination="M4Y-Lb-cyx" eventType="touchUpInside" id="CQM-gt-xnM"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LDt-cf-QjL">
+                                <rect key="frame" x="7" y="4" width="97" height="132"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
+                                <connections>
+                                    <action selector="loadFirstMission:" destination="M4Y-Lb-cyx" eventType="touchUpInside" id="9tx-gY-tWZ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="ssy-KU-ocm"/>
@@ -41,14 +47,14 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="37"/>
                     <connections>
-                        <outlet property="firstView" destination="vLS-2E-2f5" id="cy0-Hx-ay3"/>
-                        <outlet property="sencondView" destination="dne-Ga-N0r" id="xxd-3a-0yo"/>
-                        <outlet property="thirdView" destination="ZZU-eA-Rmk" id="PSj-nq-1M4"/>
+                        <outlet property="button_first" destination="LDt-cf-QjL" id="1dK-1V-TSS"/>
+                        <outlet property="button_second" destination="YlK-Yd-hdd" id="gQS-e3-Atm"/>
+                        <outlet property="button_third" destination="kmg-SQ-n4o" id="LBX-jh-MSO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vXp-U4-Rya" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="145" y="35"/>
+            <point key="canvasLocation" x="144.92753623188406" y="34.646739130434788"/>
         </scene>
     </scenes>
 </document>
