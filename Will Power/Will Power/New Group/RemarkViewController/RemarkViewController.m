@@ -272,6 +272,7 @@ static NSString *cell_title_id=@"cell_title";
             previewingContext.sourceRect=cell.frame;
         }
         ReviewRemarkViewController *secondVC=[[ReviewRemarkViewController alloc] init];
+        secondVC.select_index=indexPath.row;
         return secondVC;
 }
 
