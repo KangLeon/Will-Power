@@ -151,8 +151,7 @@ static NSString *cell_id=@"text_cell";
                     [SubjectModel shareSubjectModel].subject_id=[AddModel shareAddMode].subject_id;//当前任务关联的id
                     [SubjectModel shareSubjectModel].subject_execute=[NSString stringFrom:[start_date_for_subject dateByAddingTimeInterval:i*24*60*60]];//需要执行的任务时间
                     NSDictionary *dic=@{@"subject_id":@([SubjectModel shareSubjectModel].subject_id),
-                                        @"subject_execute":[SubjectModel shareSubjectModel].subject_execute,
-                                        @"plus_id":@([SubjectModel shareSubjectModel].plus_id)
+                                        @"subject_execute":[SubjectModel shareSubjectModel].subject_execute
                                         };
                     [[SubjectModel shareSubjectModel].add_array addObject:dic];
                 }
