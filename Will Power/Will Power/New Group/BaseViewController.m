@@ -93,6 +93,7 @@
             }
         }else{
             monthString=[dateString substringWithRange:NSMakeRange(5, 2)];
+            dayString=[dateString substringWithRange:NSMakeRange(8, 1)];
             //在这里处理该情况下的日情况
             //对当前日进行处理
             if ([dayString isEqualToString:@"1"]) {
