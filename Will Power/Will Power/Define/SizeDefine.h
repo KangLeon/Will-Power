@@ -20,7 +20,9 @@
 #define IS_IOS10_OR_ABOVE SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"10.0")
 
 //判断是否是iphone X
-#define kDevice_Is_iPhoneX ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO)
+#define KIsiPhoneX (SCREEN_HEIGHT >= 812.0 ? YES : NO)
+//各种尺寸
+#define SafeAreaTopHeight (SCREEN_HEIGHT >= 812.0 ? 88 : 64)
 
 //友盟AppKey
 #define USHARE_DEMO_APPKEY @"5b222fa7f29d9822d1000189"

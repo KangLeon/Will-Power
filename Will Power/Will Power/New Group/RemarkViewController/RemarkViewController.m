@@ -62,7 +62,7 @@ static NSString *cell_title_id=@"cell_title";
     
     
     
-    if (kDevice_Is_iPhoneX) {
+    if (KIsiPhoneX) {
         //添加tableView
         self.remarkTitle_tableView=[[UITableView alloc] initWithFrame:CGRectMake(10, 110, SCREEN_WIDTH-20, 55*self.remark_title_array.count)];
         self.remarkTitle_tableView.layer.cornerRadius=12;
@@ -102,9 +102,9 @@ static NSString *cell_title_id=@"cell_title";
 }
 
 -(void)loadUI{
-    if (kDevice_Is_iPhoneX) {
+    if (KIsiPhoneX) {
         //如果是IPhone X
-        UIView *nav_view=[[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 84)];
+        UIView *nav_view=[[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 88)];
         nav_view.backgroundColor=NAV_BACKGROUND;
         
         TapMusicButton *left_back_button=[[TapMusicButton alloc] init];
@@ -224,7 +224,7 @@ static NSString *cell_title_id=@"cell_title";
     //更新数组
     self.remark_title_array=[[NSMutableArray alloc] init];
     self.remark_date_array=[[NSMutableArray alloc] init];
-    if (kDevice_Is_iPhoneX) {
+    if (KIsiPhoneX) {
         //从数据库中查出值,并填充到数组中
         for (NSInteger i=0; i<[[RemarkModel shareAddMode] countForData]; i++) {
             [self.remark_title_array addObject:[[[[RemarkModel shareAddMode] selectEveryThing] objectAtIndex:i] objectForKey:@"remark_title"]];//获得当前备注的标题
@@ -286,7 +286,7 @@ static NSString *cell_title_id=@"cell_title";
 -(void)refresh{
     self.remark_title_array=[[NSMutableArray alloc] init];
     self.remark_date_array=[[NSMutableArray alloc] init];
-    if (kDevice_Is_iPhoneX) {
+    if (KIsiPhoneX) {
         //从数据库中查出值,并填充到数组中
         for (NSInteger i=0; i<[[RemarkModel shareAddMode] countForData]; i++) {
             [self.remark_title_array addObject:[[[[RemarkModel shareAddMode] selectEveryThing] objectAtIndex:i] objectForKey:@"remark_title"]];//获得当前备注的标题

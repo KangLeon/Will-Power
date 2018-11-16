@@ -155,6 +155,59 @@
     //添加从3D Touch进入时的通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushToAddFirst) name:@"addNewSubject" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(presentAddRemark) name:@"addRemark" object:nil];
+    
+    //=======================================
+    //这里的操作是为了给widget传值的
+    NSUserDefaults *shared = [[NSUserDefaults alloc] initWithSuiteName:@"group.WillPower"];
+    //根据任务便利出来
+    NSDictionary *add;
+    NSMutableArray *all=[[NSMutableArray alloc] init];
+    NSInteger addModel_count=[[AddModel shareAddMode] countForData];
+    for (NSInteger j=1; j<(addModel_count+1); j++) {
+         //1.标题，2.图片，3.颜色 4.是否完成今日任务 5.是否已经过时任务
+        NSString *titleString=[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:j-1] objectForKey:@"subject_title"];
+        NSString *imageName=[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:j-1] objectForKey:@"image"];
+        NSString *backColor=[[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:j-1] objectForKey:@"image"];
+        BOOL isFinish = false;
+        BOOL isEnd;
+        //判断任务是否已经当日完成
+            if ([titleString isEqualToString: [[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:j-1] objectForKey:@"subject_title"]]) {//如果是当前项目
+                for (NSDictionary *dic in [[CheckedModel shareCheckedModel] selectEveryThingById:j]) {
+                    if([[self stringFrom:[NSDate localdate]] isEqualToString:[dic objectForKey:@"checked"]]){//如果数据库中已经存了今天的数据
+                        //将完成标记存储
+                        isFinish=YES;
+                    }
+                    else{
+                        isFinish=false;
+                    }
+                }
+            }
+        
+        //在这里面判断究竟是任务过期了还是单纯的今天任务没完成
+        if ([titleString isEqualToString: [[[[AddModel shareAddMode] selectEveryThing] objectAtIndex:j-1] objectForKey:@"subject_title"]]) {
+            NSArray *allArray=[[SubjectModel shareSubjectModel] selectEveryThing:j];
+            for (NSDictionary *dic in allArray) {
+                if ([[self stringFrom:[NSDate localdate]] isEqualToString:[dic objectForKey:@"subject_execute"]]) {
+                    isEnd=false;
+                }else{
+                    isEnd=YES;
+                }
+            }
+        }
+    
+        add=[[NSDictionary alloc] init];
+        add=@{@"subject_title":titleString,
+              @"back_image":imageName,
+              @"back_color":backColor,
+              @"isFinish":@(isFinish),
+              @"isEnd":@(isEnd)
+                            };
+        [all addObject:add];
+    }
+   
+    [shared setObject:all forKey:@"allSubject"];
+    [shared synchronize];
+
 }
 #pragma mark 项目配置部分
 
@@ -962,6 +1015,7 @@
     
 }
 -(void)viewWillAppear:(BOOL)animated{
+    
     [super viewWillAppear:animated];
     //如果是根视图控制器就把导航栏颜色置为蓝色，其他的页面不影响
     self.navigationController.navigationBar.barTintColor=BACKGROUND_COLOR;
@@ -1043,8 +1097,15 @@
 }
 
 -(void)pushToAddFirst{
-    AddFirstViewController *addFirst_VC=[[AddFirstViewController alloc] init];
-    [self.navigationController pushViewController:addFirst_VC animated:true];
+    if ([[AddModel shareAddMode] countForData]==3) {
+        //如果有三条任务就不可以继续添加了
+        self.alertView=[[AlertView alloc] init];
+        [self.alertView showAlertWithTitle:@"您已经有三个任务" message:@"无法开始更多任务，" cancelButtonTitle:@"好的"];
+    }else{
+        //正常新建任务逻辑
+        AddFirstViewController *addFirst_VC=[[AddFirstViewController alloc] init];
+        [self.navigationController pushViewController:addFirst_VC animated:true];
+    }
 }
 
 -(void)presentAddRemark{

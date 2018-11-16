@@ -17,8 +17,13 @@
 #import "NSString+DateTitle.h"
 #import <SCLAlertView.h>
 #import "WrongMusic.h"
+#import <Masonry.h>
 
 @interface AddRemarkViewController ()<UITextFieldDelegate>
+
+//承载view
+@property(nonatomic,strong)UIView *for_title_view;
+@property(nonatomic,strong)UIView *for_content_view;
 
 //用于数据库储存值的四个字符串
 @property(nonatomic,strong)JVFloatLabeledTextView *float_TextField_content;
@@ -47,6 +52,43 @@
     [super viewDidLoad];
     [self loadNav];
     [self loadUI];
+    
+    // !!!: 需要把这部分代码放在合适的位置
+    //添加masonry代码
+    //心情承载按钮
+    __weak typeof(self) weakSelf = self;
+    [_heart_select_button mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(weakSelf.for_content_view.mas_bottom).offset(28);
+        make.left.mas_equalTo(@(10));
+        make.width.mas_equalTo(SCREEN_WIDTH*0.4033);
+        make.height.mas_equalTo(50);
+    }];
+    //日期label
+    [_date_label mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(weakSelf.for_content_view.mas_bottom).offset(28);
+        make.right.equalTo(weakSelf.view.mas_right).offset(-10);
+        make.width.mas_equalTo(SCREEN_WIDTH*0.4033);
+        make.height.mas_equalTo(50);
+    }];
+    //心情三个按钮
+    [_normal_button mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.mas_equalTo(weakSelf.heart_select_button.mas_centerX);
+        make.centerY.mas_equalTo(weakSelf.heart_select_button.mas_centerY);
+        make.width.mas_equalTo(46);
+        make.height.mas_equalTo(46);
+    }];
+    [_sad_button mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.mas_equalTo(weakSelf.heart_select_button.mas_centerX);
+        make.centerY.mas_equalTo(weakSelf.heart_select_button.mas_centerY);
+        make.width.mas_equalTo(46);
+        make.height.mas_equalTo(46);
+    }];
+    [_smile_button mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.mas_equalTo(weakSelf.heart_select_button.mas_centerX);
+        make.centerY.mas_equalTo(weakSelf.heart_select_button.mas_centerY);
+        make.width.mas_equalTo(46);
+        make.height.mas_equalTo(46);
+    }];
     
     self.heart_string=@"";
 }
@@ -119,33 +161,40 @@
 
 -(void)loadUI{
     //备注标题部分
-    UIView *for_title_view=[[UIView alloc] initWithFrame:CGRectMake(10, 90, SCREEN_WIDTH-20, 60)];
-    for_title_view.backgroundColor=[UIColor whiteColor];
-    for_title_view.layer.cornerRadius=12;
     
-    self.float_Textfield=[[JVFloatLabeledTextView alloc] initWithFrame:CGRectMake(20, 5, for_title_view.frame.size.width-40, 50)];
+    if(KIsiPhoneX){
+        self.for_title_view=[[UIView alloc] initWithFrame:CGRectMake(10, 116, SCREEN_WIDTH-20, 60)];
+        self.for_title_view.backgroundColor=[UIColor whiteColor];
+        self.for_title_view.layer.cornerRadius=12;
+    }else{
+        self.for_title_view=[[UIView alloc] initWithFrame:CGRectMake(10, 90, SCREEN_WIDTH-20, 60)];
+        self.for_title_view.backgroundColor=[UIColor whiteColor];
+        self.for_title_view.layer.cornerRadius=12;
+    }
+    
+    self.float_Textfield=[[JVFloatLabeledTextView alloc] initWithFrame:CGRectMake(20, 5, self.for_title_view.frame.size.width-40, 50)];
     self.float_Textfield.floatingLabelFont=[UIFont systemFontOfSize:10.0];
     self.float_Textfield.floatingLabelTextColor=BACKGROUND_COLOR;
     
     [self.float_Textfield setPlaceholder:@"请输入备注标题" floatingTitle:@"标题"];
     
     
-    [for_title_view addSubview:self.float_Textfield];
-    [self.view addSubview:for_title_view];
+    [self.for_title_view addSubview:self.float_Textfield];
+    [self.view addSubview:self.for_title_view];
     
     //备注内容部分
-    UIView *for_content_view=[[UIView alloc] initWithFrame:CGRectMake(10, 176, SCREEN_WIDTH-20, SCREEN_HEIGHT-300)];
-    for_content_view.backgroundColor=[UIColor whiteColor];
-    for_content_view.layer.cornerRadius=12;
+    self.for_content_view=[[UIView alloc] initWithFrame:CGRectMake(10, self.for_title_view.frame.origin.y+86, SCREEN_WIDTH-20, SCREEN_HEIGHT-300)];
+    self.for_content_view.backgroundColor=[UIColor whiteColor];
+    self.for_content_view.layer.cornerRadius=12;
     
-    self.float_TextField_content=[[JVFloatLabeledTextView alloc] initWithFrame:CGRectMake(20, 5, for_title_view.frame.size.width-40, SCREEN_HEIGHT-310)];
+    self.float_TextField_content=[[JVFloatLabeledTextView alloc] initWithFrame:CGRectMake(20, 5, self.for_title_view.frame.size.width-40, SCREEN_HEIGHT-310)];
     self.float_TextField_content.floatingLabelFont=[UIFont systemFontOfSize:10.0];
     self.float_TextField_content.floatingLabelTextColor=BACKGROUND_COLOR;
     
     [self.float_TextField_content setPlaceholder:@"请输入备注内容" floatingTitle:@"内容"];
     
-    [for_content_view addSubview:self.float_TextField_content];
-    [self.view addSubview:for_content_view];
+    [self.for_content_view addSubview:self.float_TextField_content];
+    [self.view addSubview:self.for_content_view];
     
     //在备注心情之前首先把要做动画的三个按钮，液体粘连动画需要用到贝塞尔曲线变化知识，后期再来完善这个动画功能。2.或者完整搞一下oc与swift混编下的LiquidFloatingActionButton
     [self.view addSubview:self.normal_button];
@@ -223,8 +272,8 @@
 }
 
 -(void)loadNav{
-    if (kDevice_Is_iPhoneX) {
-        UIView *nav_view=[[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 84)];
+    if (KIsiPhoneX) {
+        UIView *nav_view=[[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 88)];
         nav_view.backgroundColor=NAV_BACKGROUND;
         
         TapMusicButton *left_back_button=[[TapMusicButton alloc] init];

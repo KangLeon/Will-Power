@@ -10,6 +10,7 @@
 #import <NotificationCenter/NotificationCenter.h>
 #import "SizeDefine.h"
 #import "ColorDefine.h"
+#import "GetColor.h"
 
 @interface TodayViewController () <NCWidgetProviding>{
      CAShapeLayer *layer_first;
@@ -48,12 +49,89 @@
     self.preferredContentSize=CGSizeMake(SCREEN_WIDTH-14, 100);
 }
 
+#pragma mark UI初始化
+
 -(void)loadUI{
 //    [self.button_first removeFromSuperview];
 //    [self.button_second removeFromSuperview];
 //    [self.button_third removeFromSuperview];
-    //判断任务有几个然后添加
+    //读取数据
+    NSArray *subject_array=[self readDataFromNSUserDefaults];
     
+    for (int i=1; i<subject_array.count+1; i++) {
+        if (i==1) {
+            NSDictionary *dic=subject_array[0];
+            NSString *subject_title=[dic objectForKey:@"subject_title"];
+            NSString *back_image=[dic objectForKey:@"back_image"];
+            NSString *back_color=[dic objectForKey:@"back_color"];
+            BOOL isFinish=[dic objectForKey:@"isFinish"];
+            BOOL isEnd=[dic objectForKey:@"isEnd"];
+            
+            self.button_first.backgroundColor=[[GetColor shareGetColor] getMyColorWith:back_color];
+            self.title_first.text=subject_title;
+            self.imageView_first.image=[UIImage imageNamed:[NSString stringWithFormat:@"%@-%@",back_image,back_image]];
+            self.backView_first.backgroundColor=[UIColor whiteColor];
+            if (isFinish) {
+                [self loadCheck:self.backView_first layer:layer_first];
+            }else{
+                [self removeCheck:layer_first];
+            }
+            
+            if (isEnd) {
+                [self removeCheck:layer_first];
+                self.button_first.enabled=false;
+            }
+            
+        }else if (i==2){
+            NSDictionary *dic=subject_array[1];
+            NSString *subject_title=[dic objectForKey:@"subject_title"];
+            NSString *back_image=[dic objectForKey:@"back_image"];
+            NSString *back_color=[dic objectForKey:@"back_color"];
+            BOOL isFinish=[dic objectForKey:@"isFinish"];
+            BOOL isEnd=[dic objectForKey:@"isEnd"];
+            
+            self.button_second.backgroundColor=[[GetColor shareGetColor] getMyColorWith:back_color];
+            self.title_second.text=subject_title;
+            self.imageView_second.image=[UIImage imageNamed:[NSString stringWithFormat:@"%@-%@",back_image,back_image]];
+            self.backView_second.backgroundColor=[UIColor whiteColor];
+            
+            if (isFinish) {
+                [self loadCheck:self.backView_second layer:layer_second];
+            }else{
+                [self removeCheck:layer_second];
+            }
+            
+            if (isEnd) {
+                [self removeCheck:layer_second];
+                self.button_second.enabled=false;
+            }
+        }else if (i==3){
+            NSDictionary *dic=subject_array[2];
+            NSString *subject_title=[dic objectForKey:@"subject_title"];
+            NSString *back_image=[dic objectForKey:@"back_image"];
+            NSString *back_color=[dic objectForKey:@"back_color"];
+            BOOL isFinish=[dic objectForKey:@"isFinish"];
+            BOOL isEnd=[dic objectForKey:@"isEnd"];
+            
+            self.button_third.backgroundColor=[[GetColor shareGetColor] getMyColorWith:back_color];
+            self.title_third.text=subject_title;
+            self.imageView_third.image=[UIImage imageNamed:[NSString stringWithFormat:@"%@-%@",back_image,back_image]];
+            self.backView_third.backgroundColor=[UIColor whiteColor];
+            
+            if (isFinish) {
+                [self loadCheck:self.backView_third layer:layer_third];
+            }else{
+                [self removeCheck:layer_third];
+            }
+            
+            if (isEnd) {
+                [self removeCheck:layer_third];
+                self.button_third.enabled=false;
+            }
+        }
+    }
+    
+    //判断任务有几个然后添加UI
     self.button_first.frame=CGRectMake(8, 8, (SCREEN_WIDTH-14-8*4)/3, 100);
     self.button_second.frame=CGRectMake(8+(SCREEN_WIDTH-14-8*4)/3+8, 8, (SCREEN_WIDTH-14-8*4)/3, 100);
     self.button_third.frame=CGRectMake(8+((SCREEN_WIDTH-14-8*4)/3+8)*2, 8, (SCREEN_WIDTH-14-8*4)/3, 100);
@@ -61,10 +139,6 @@
     self.button_first.layer.cornerRadius=12.0;
     self.button_second.layer.cornerRadius=12.0;
     self.button_third.layer.cornerRadius=12.0;
-    
-    self.button_first.backgroundColor=[UIColor orangeColor];
-    self.button_second.backgroundColor=[UIColor orangeColor];
-    self.button_third.backgroundColor=[UIColor orangeColor];
     
     [self.button_first addSubview:self.imageView_first];
     [self.button_second addSubview:self.imageView_second];
@@ -81,30 +155,29 @@
 //    [self loadCheck:self.backView_first layer:layer_first];
 //    [self loadCheck:self.backView_second layer:layer_second];
 //    [self loadCheck:self.backView_third layer:layer_third];
-
     
-    //读取数据
+    
 }
 
 #pragma mark 懒加载部分
 //imageView
 -(UIImageView*)imageView_first{
     if (!_imageView_first) {
-        _imageView_first=[[UIImageView alloc] initWithFrame:CGRectMake(10, 50, 30, 30)];
+        _imageView_first=[[UIImageView alloc] initWithFrame:CGRectMake(5, 45, 40, 40)];
         _imageView_first.image=[UIImage imageNamed:@"1-1"];
     }
     return _imageView_first;
 }
 -(UIImageView*)imageView_second{
     if (!_imageView_second) {
-        _imageView_second=[[UIImageView alloc] initWithFrame:CGRectMake(10, 50, 30, 30)];
+        _imageView_second=[[UIImageView alloc] initWithFrame:CGRectMake(5, 45, 40, 40)];
         _imageView_second.image=[UIImage imageNamed:@"1-1"];
     }
     return _imageView_second;
 }
 -(UIImageView*)imageView_third{
     if (!_imageView_third) {
-        _imageView_third=[[UIImageView alloc] initWithFrame:CGRectMake(10, 50, 30, 30)];
+        _imageView_third=[[UIImageView alloc] initWithFrame:CGRectMake(5, 45, 40, 40)];
         _imageView_third.image=[UIImage imageNamed:@"1-1"];
     }
     return _imageView_third;
@@ -114,9 +187,10 @@
     if (!_title_first) {
         _title_first=[[UILabel alloc] initWithFrame:CGRectMake(10, 10, (SCREEN_WIDTH-14-8*4)/3-20, 20)];
         _title_first.textColor=[UIColor whiteColor];
-        _title_first.font=[UIFont systemFontOfSize:18.0 weight:UIFontWeightMedium];
+        _title_first.font=[UIFont systemFontOfSize:13.0 weight:UIFontWeightMedium];
         _title_first.textAlignment=NSTextAlignmentLeft;
         _title_first.text=@"你好";
+        _title_first.adjustsFontSizeToFitWidth=YES;
     }
     return _title_first;
 }
@@ -124,9 +198,10 @@
     if (!_title_second) {
         _title_second=[[UILabel alloc] initWithFrame:CGRectMake(10, 10, (SCREEN_WIDTH-14-8*4)/3-20, 20)];
         _title_second.textColor=[UIColor whiteColor];
-        _title_second.font=[UIFont systemFontOfSize:18.0 weight:UIFontWeightMedium];
+        _title_second.font=[UIFont systemFontOfSize:13.0 weight:UIFontWeightMedium];
         _title_second.textAlignment=NSTextAlignmentLeft;
         _title_second.text=@"你好";
+        _title_first.adjustsFontSizeToFitWidth=YES;
     }
     return _title_second;
 }
@@ -134,9 +209,10 @@
     if (!_title_third) {
         _title_third=[[UILabel alloc] initWithFrame:CGRectMake(10, 10, (SCREEN_WIDTH-14-8*4)/3-20, 20)];
         _title_third.textColor=[UIColor whiteColor];
-        _title_third.font=[UIFont systemFontOfSize:18.0 weight:UIFontWeightMedium];
+        _title_third.font=[UIFont systemFontOfSize:13.0 weight:UIFontWeightMedium];
         _title_third.textAlignment=NSTextAlignmentLeft;
         _title_third.text=@"你好";
+        _title_first.adjustsFontSizeToFitWidth=YES;
     }
     return _title_third;
 }
@@ -146,7 +222,7 @@
     if (!_backView_first) {
         _backView_first=[[UIView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-14-8*4)/3-40, 50, 30, 30)];
         _backView_first.backgroundColor=[UIColor whiteColor];
-        _backView_first.layer.cornerRadius=9.0;
+        _backView_first.layer.cornerRadius=8.0;
     }
     return _backView_first;
 }
@@ -154,7 +230,7 @@
     if (!_backView_second) {
         _backView_second=[[UIView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-14-8*4)/3-40, 50, 30, 30)];
         _backView_second.backgroundColor=[UIColor whiteColor];
-        _backView_second.layer.cornerRadius=9.0;
+        _backView_second.layer.cornerRadius=8.0;
     }
     return _backView_second;
 }
@@ -162,9 +238,38 @@
     if (!_backView_third) {
         _backView_third=[[UIView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-14-8*4)/3-40, 50, 30, 30)];
         _backView_third.backgroundColor=[UIColor whiteColor];
-        _backView_third.layer.cornerRadius=9.0;
+        _backView_third.layer.cornerRadius=8.0;
     }
     return _backView_third;
+}
+
+-(void)removeCheck:(CAShapeLayer*)layer{
+    [layer removeFromSuperlayer];
+}
+
+//点击事件并存数据
+- (IBAction)loadFirstMission:(id)sender {
+}
+
+- (IBAction)loadSecondMission:(id)sender {
+}
+
+- (IBAction)loadThirdMission:(id)sender {
+}
+
+#pragma mark 功能函数
+
+//保存数据
+- (void)saveDataByNSUserDefaults{
+    NSUserDefaults *shared = [[NSUserDefaults alloc] initWithSuiteName:@"group.WillPower"];
+    [shared setObject:@"asdfasdf" forKey:@"allSubject"];
+    [shared synchronize];
+}
+//读取数据
+- (NSArray *)readDataFromNSUserDefaults{
+    NSUserDefaults *shared = [[NSUserDefaults alloc] initWithSuiteName:@"group.WillPower"];
+    NSArray *allArray = [shared objectForKey:@"allSubject"];
+    return allArray;
 }
 
 //打对勾动画
@@ -189,7 +294,7 @@
     //新建图层——绘制上面的圆圈和勾
     layer = [[CAShapeLayer alloc] init];
     layer.fillColor = [UIColor clearColor].CGColor;
-    layer.strokeColor = [UIColor orangeColor].CGColor;
+    layer.strokeColor = [UIColor whiteColor].CGColor;
     layer.lineWidth = 3;
     layer.path = path.CGPath;
     
@@ -202,34 +307,6 @@
     [view.layer addSublayer:layer];
 }
 
--(void)removeCheck:(CAShapeLayer*)layer{
-    [layer removeFromSuperlayer];
-}
-
-//点击事件并存数据
-- (IBAction)loadFirstMission:(id)sender {
-}
-
-- (IBAction)loadSecondMission:(id)sender {
-}
-
-- (IBAction)loadThirdMission:(id)sender {
-}
-
-//保存数据
-- (void)saveDataByNSUserDefaults{
-    NSUserDefaults *shared = [[NSUserDefaults alloc] initWithSuiteName:@"group.WillPoewr"];
-    [shared setObject:@"asdfasdf" forKey:@"widget"];
-    [shared synchronize];
-    
-}
-//读取数据
-- (NSString *)readDataFromNSUserDefaults{
-    NSUserDefaults *shared = [[NSUserDefaults alloc] initWithSuiteName:@"group.c group.WillPoewr"];
-    NSString *value = [shared valueForKey:@"widget"];
-    return value;
-}
-
 // //抖动并且播放音乐
 //-(void)shakeAndSound:(id)sender{
 //    //播放音乐
@@ -237,7 +314,13 @@
 //    //抖动效果
 //}
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+}
 
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+}
 
 
 - (void)didReceiveMemoryWarning {

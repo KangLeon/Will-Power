@@ -375,9 +375,6 @@
 		59BB616920CCFC7F00923E01 /* PopRemarkView.m in Sources */ = {isa = PBXBuildFile; fileRef = 59BB616820CCFC7F00923E01 /* PopRemarkView.m */; };
 		59BE4E97209B1E4A0001DC02 /* CuteAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 59BE4E96209B1E4A0001DC02 /* CuteAlert.m */; };
 		59D21C3C2071FDDB008DFA94 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 59D21C3B2071FDDB008DFA94 /* BaseViewController.m */; };
-		59D21C412071FE9C008DFA94 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 59D21C402071FE9C008DFA94 /* HomeViewController.m */; };
-		59D21C422071FE9C008DFA94 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 59D21C402071FE9C008DFA94 /* HomeViewController.m */; };
-		59D21C432071FE9C008DFA94 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 59D21C402071FE9C008DFA94 /* HomeViewController.m */; };
 		59D21C5220720AAD008DFA94 /* BallView.m in Sources */ = {isa = PBXBuildFile; fileRef = 59D21C5120720AAD008DFA94 /* BallView.m */; };
 		59D21C5320720AAD008DFA94 /* BallView.m in Sources */ = {isa = PBXBuildFile; fileRef = 59D21C5120720AAD008DFA94 /* BallView.m */; };
 		59D21C5420720AAD008DFA94 /* BallView.m in Sources */ = {isa = PBXBuildFile; fileRef = 59D21C5120720AAD008DFA94 /* BallView.m */; };
@@ -471,11 +468,13 @@
 		59D4D49820ECD3F1006449E9 /* little_girl_jumping_-_loader.json in Resources */ = {isa = PBXBuildFile; fileRef = 59D4D49720ECD3F1006449E9 /* little_girl_jumping_-_loader.json */; };
 		59D4D49E20ECDC45006449E9 /* SubjectDeleteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 59D4D49D20ECDC45006449E9 /* SubjectDeleteViewController.m */; };
 		59D9C81C2118FF0000746197 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59D9C81B2118FF0000746197 /* NotificationCenter.framework */; };
-		59D9C8202118FF0100746197 /* TodayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 59D9C81F2118FF0100746197 /* TodayViewController.m */; };
 		59D9C8232118FF0100746197 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 59D9C8212118FF0100746197 /* MainInterface.storyboard */; };
 		59D9C8272118FF0100746197 /* Will Power Today.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 59D9C81A2118FF0000746197 /* Will Power Today.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		59E9DD4120B3E92300C86956 /* SubjectCountViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 59E9DD4020B3E92300C86956 /* SubjectCountViewCell.m */; };
 		59E9DD4420C0844C00C86956 /* RemarkModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 59E9DD4320C0844C00C86956 /* RemarkModel.m */; };
+		847D831E219D74DE001C40F2 /* GetColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 847D831D219D74DE001C40F2 /* GetColor.m */; };
+		847D8321219D7535001C40F2 /* TodayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 847D8320219D7535001C40F2 /* TodayViewController.m */; };
+		847D8324219D7576001C40F2 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 847D8323219D7576001C40F2 /* HomeViewController.m */; };
 		B507FEC328570D2771FE9B7A /* libPods-Will PowerUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FEF882F89E25D01B6284990 /* libPods-Will PowerUITests.a */; };
 /* End PBXBuildFile section */
 
@@ -930,8 +929,6 @@
 		59D21C3A2071FDDB008DFA94 /* BaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
 		59D21C3B2071FDDB008DFA94 /* BaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
 		59D21C3E2071FE37008DFA94 /* ColorDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ColorDefine.h; sourceTree = "<group>"; };
-		59D21C3F2071FE9C008DFA94 /* HomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
-		59D21C402071FE9C008DFA94 /* HomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		59D21C5020720AAD008DFA94 /* BallView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BallView.h; sourceTree = "<group>"; };
 		59D21C5120720AAD008DFA94 /* BallView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BallView.m; sourceTree = "<group>"; };
 		59D21C6A207215B1008DFA94 /* ToggleView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ToggleView.h; sourceTree = "<group>"; };
@@ -1016,8 +1013,6 @@
 		59D4D49D20ECDC45006449E9 /* SubjectDeleteViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SubjectDeleteViewController.m; sourceTree = "<group>"; };
 		59D9C81A2118FF0000746197 /* Will Power Today.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Will Power Today.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		59D9C81B2118FF0000746197 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
-		59D9C81E2118FF0100746197 /* TodayViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TodayViewController.h; sourceTree = "<group>"; };
-		59D9C81F2118FF0100746197 /* TodayViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TodayViewController.m; sourceTree = "<group>"; };
 		59D9C8222118FF0100746197 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		59D9C8242118FF0100746197 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		59E9DD3F20B3E92300C86956 /* SubjectCountViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SubjectCountViewCell.h; sourceTree = "<group>"; };
@@ -1025,6 +1020,12 @@
 		59E9DD4220C0844C00C86956 /* RemarkModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RemarkModel.h; sourceTree = "<group>"; };
 		59E9DD4320C0844C00C86956 /* RemarkModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RemarkModel.m; sourceTree = "<group>"; };
 		6E179E7FFE025040B54C19D6 /* Pods-Will Power.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Will Power.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Will Power/Pods-Will Power.debug.xcconfig"; sourceTree = "<group>"; };
+		847D831C219D74DE001C40F2 /* GetColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetColor.h; sourceTree = "<group>"; };
+		847D831D219D74DE001C40F2 /* GetColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetColor.m; sourceTree = "<group>"; };
+		847D831F219D7535001C40F2 /* TodayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TodayViewController.h; sourceTree = "<group>"; };
+		847D8320219D7535001C40F2 /* TodayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TodayViewController.m; sourceTree = "<group>"; };
+		847D8322219D7576001C40F2 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
+		847D8323219D7576001C40F2 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		8FEF882F89E25D01B6284990 /* libPods-Will PowerUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Will PowerUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		911194FA46253016D956ADE6 /* libPods-Will PowerTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Will PowerTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		939D436B8FC9409C0FCF17BB /* Pods-Will PowerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Will PowerUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Will PowerUITests/Pods-Will PowerUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -1725,8 +1726,8 @@
 		59D21C3D2071FDE5008DFA94 /* HomeViewController */ = {
 			isa = PBXGroup;
 			children = (
-				59D21C3F2071FE9C008DFA94 /* HomeViewController.h */,
-				59D21C402071FE9C008DFA94 /* HomeViewController.m */,
+				847D8322219D7576001C40F2 /* HomeViewController.h */,
+				847D8323219D7576001C40F2 /* HomeViewController.m */,
 			);
 			path = HomeViewController;
 			sourceTree = "<group>";
@@ -1941,8 +1942,10 @@
 			children = (
 				593B9A7F2133038400857116 /* Resources */,
 				59900730212182CB00C40C85 /* Will Power Today.entitlements */,
-				59D9C81E2118FF0100746197 /* TodayViewController.h */,
-				59D9C81F2118FF0100746197 /* TodayViewController.m */,
+				847D831C219D74DE001C40F2 /* GetColor.h */,
+				847D831D219D74DE001C40F2 /* GetColor.m */,
+				847D831F219D7535001C40F2 /* TodayViewController.h */,
+				847D8320219D7535001C40F2 /* TodayViewController.m */,
 				59D9C8212118FF0100746197 /* MainInterface.storyboard */,
 				59D9C8242118FF0100746197 /* Info.plist */,
 			);
@@ -2675,13 +2678,13 @@
 				59D21C3C2071FDDB008DFA94 /* BaseViewController.m in Sources */,
 				0474EA7B208D867700FA3283 /* CalenderData.m in Sources */,
 				59D21C5220720AAD008DFA94 /* BallView.m in Sources */,
+				847D8324219D7576001C40F2 /* HomeViewController.m in Sources */,
 				5949A4242070A582003F9106 /* AppDelegate.m in Sources */,
 				59D4D49E20ECDC45006449E9 /* SubjectDeleteViewController.m in Sources */,
 				59D21CD220747119008DFA94 /* TapMusicButton.m in Sources */,
 				59D21D3D207E4FCB008DFA94 /* SetSwitchTableViewCell.m in Sources */,
 				5928DEED20E21012008E5423 /* ScoreView.m in Sources */,
 				595EDF4120D2387E008F1D28 /* UINavigationController+FDFullscreenPopGesture.m in Sources */,
-				59D21C412071FE9C008DFA94 /* HomeViewController.m in Sources */,
 				0474EA89208F581300FA3283 /* CheckMusic.m in Sources */,
 				5980F6F020F92B7B00AD9F25 /* ReviewRemarkViewController.m in Sources */,
 				5980F6ED20F8EEEB00AD9F25 /* GetSaying.m in Sources */,
@@ -2715,7 +2718,6 @@
 				59D21C6D207215B1008DFA94 /* ToggleView.m in Sources */,
 				59D21CD320747119008DFA94 /* TapMusicButton.m in Sources */,
 				59D21D18207A04AD008DFA94 /* AddRemarkViewController.m in Sources */,
-				59D21C422071FE9C008DFA94 /* HomeViewController.m in Sources */,
 				59D21CAF20738A14008DFA94 /* TapMusic.m in Sources */,
 				59D21C5320720AAD008DFA94 /* BallView.m in Sources */,
 				59D21CE92074941D008DFA94 /* AddSecondView.m in Sources */,
@@ -2747,7 +2749,6 @@
 				59D21C6E207215B1008DFA94 /* ToggleView.m in Sources */,
 				59D21CD420747119008DFA94 /* TapMusicButton.m in Sources */,
 				59D21D19207A04AD008DFA94 /* AddRemarkViewController.m in Sources */,
-				59D21C432071FE9C008DFA94 /* HomeViewController.m in Sources */,
 				59D21CB020738A14008DFA94 /* TapMusic.m in Sources */,
 				59D21C5420720AAD008DFA94 /* BallView.m in Sources */,
 				59D21CEA2074941D008DFA94 /* AddSecondView.m in Sources */,
@@ -2762,7 +2763,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				59D9C8202118FF0100746197 /* TodayViewController.m in Sources */,
+				847D8321219D7535001C40F2 /* TodayViewController.m in Sources */,
+				847D831E219D74DE001C40F2 /* GetColor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

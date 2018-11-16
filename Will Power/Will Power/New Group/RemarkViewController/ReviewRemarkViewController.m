@@ -120,8 +120,8 @@
 
 //配置导航栏相关
 -(void)loadNav{
-    if (kDevice_Is_iPhoneX) {
-        UIView *nav_view=[[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 84)];
+    if (KIsiPhoneX) {
+        UIView *nav_view=[[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 88)];
         nav_view.backgroundColor=NAV_BACKGROUND;
         
         TapMusicButton *left_back_button=[[TapMusicButton alloc] init];
