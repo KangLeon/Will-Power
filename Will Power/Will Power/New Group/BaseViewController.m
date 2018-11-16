@@ -51,13 +51,16 @@
 //NSString->NSdate
 -(NSDate*)dateFrom:(NSString*)dateString{
     //对数据库中的字符串进行处理，得到可以被转化的格式字符串
-    NSString *yearString=[dateString substringWithRange:NSMakeRange(0, 4)];
-    NSString *monthString=[dateString substringWithRange:NSMakeRange(5, 1)];
-    NSString *dayString=[dateString substringWithRange:NSMakeRange(7, 1)];
+    //2018年11月18日
+    NSString *yearString=[dateString substringWithRange:NSMakeRange(0, 4)];//2018
+    NSString *monthString=[dateString substringWithRange:NSMakeRange(5, 1)];//1
+    NSString *dayString=[dateString substringWithRange:NSMakeRange(7, 1)];//月
     
     //对月份进行处理
     if ([monthString isEqualToString:@"1"]) {
+        //为1可能有两种情况：第一种是为1月，第二种是为10月、11月、12月
         if ([[dateString substringWithRange:NSMakeRange(6, 1)] isEqualToString:@"月"]) {
+            //确定是一月
            monthString=@"01";
             //对当前日进行处理
             if ([dayString isEqualToString:@"1"]) {
@@ -92,27 +95,29 @@
                 dayString=@"09";
             }
         }else{
-            monthString=[dateString substringWithRange:NSMakeRange(5, 2)];
-            dayString=[dateString substringWithRange:NSMakeRange(8, 1)];
-            //在这里处理该情况下的日情况
+            monthString=[dateString substringWithRange:NSMakeRange(5, 2)];//11
+            dayString=[dateString substringWithRange:NSMakeRange(8, 1)];//1
+            //在这里处理该情况下的日情况，日可能有两种情况：第一种是1日，第二种是1*日。
             //对当前日进行处理
             if ([dayString isEqualToString:@"1"]) {
                 if ([[dateString substringWithRange:NSMakeRange(9, 1)] isEqualToString:@"日"]) {
+                    //确定是1号
                     dayString=@"01";
                 }else{
-                    dayString=[dateString substringWithRange:NSMakeRange(9, 2)];
+                    //
+                    dayString=[dateString substringWithRange:NSMakeRange(8, 2)];
                 }
             } else if([dayString isEqualToString:@"2"]){
                 if ([[dateString substringWithRange:NSMakeRange(9, 1)] isEqualToString:@"日"]) {
                     dayString=@"02";
                 }else{
-                    dayString=[dateString substringWithRange:NSMakeRange(9, 2)];
+                    dayString=[dateString substringWithRange:NSMakeRange(8, 2)];
                 }
             }else if([dayString isEqualToString:@"3"]){
                 if ([[dateString substringWithRange:NSMakeRange(9, 1)] isEqualToString:@"日"]) {
                     dayString=@"03";
                 }else{
-                    dayString=[dateString substringWithRange:NSMakeRange(9, 2)];
+                    dayString=[dateString substringWithRange:NSMakeRange(8, 2)];
                 }
             }else if([dayString isEqualToString:@"4"]){
                 dayString=@"04";
@@ -130,6 +135,7 @@
         }
         
     }else if([monthString isEqualToString:@"2"]){
+        //2018年2月31日
         monthString=@"02";
         if ([[dateString substringWithRange:NSMakeRange(8, 1)] isEqualToString:@"日"]) {
             dayString=[dateString substringWithRange:NSMakeRange(7, 1)];
