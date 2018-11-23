@@ -475,6 +475,12 @@
 		847D831E219D74DE001C40F2 /* GetColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 847D831D219D74DE001C40F2 /* GetColor.m */; };
 		847D8321219D7535001C40F2 /* TodayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 847D8320219D7535001C40F2 /* TodayViewController.m */; };
 		847D8324219D7576001C40F2 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 847D8323219D7576001C40F2 /* HomeViewController.m */; };
+		84E6494521A7D87F009302D7 /* LYTableViewUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E6493A21A7D87F009302D7 /* LYTableViewUserInfo.m */; };
+		84E6494621A7D880009302D7 /* LYTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E6493C21A7D87F009302D7 /* LYTableViewCell.m */; };
+		84E6494721A7D880009302D7 /* LYTableViewCellInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E6493D21A7D87F009302D7 /* LYTableViewCellInfo.m */; };
+		84E6494821A7D880009302D7 /* LYTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E6494021A7D87F009302D7 /* LYTableView.m */; };
+		84E6494921A7D880009302D7 /* LYTableViewInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E6494221A7D87F009302D7 /* LYTableViewInfo.m */; };
+		84E6494A21A7D880009302D7 /* LYTableViewSectionInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E6494421A7D87F009302D7 /* LYTableViewSectionInfo.m */; };
 		B507FEC328570D2771FE9B7A /* libPods-Will PowerUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FEF882F89E25D01B6284990 /* libPods-Will PowerUITests.a */; };
 /* End PBXBuildFile section */
 
@@ -1026,6 +1032,18 @@
 		847D8320219D7535001C40F2 /* TodayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TodayViewController.m; sourceTree = "<group>"; };
 		847D8322219D7576001C40F2 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		847D8323219D7576001C40F2 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
+		84E6493921A7D87F009302D7 /* LYTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYTableView.h; sourceTree = "<group>"; };
+		84E6493A21A7D87F009302D7 /* LYTableViewUserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYTableViewUserInfo.m; sourceTree = "<group>"; };
+		84E6493B21A7D87F009302D7 /* LYTableViewInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYTableViewInfo.h; sourceTree = "<group>"; };
+		84E6493C21A7D87F009302D7 /* LYTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYTableViewCell.m; sourceTree = "<group>"; };
+		84E6493D21A7D87F009302D7 /* LYTableViewCellInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYTableViewCellInfo.m; sourceTree = "<group>"; };
+		84E6493E21A7D87F009302D7 /* LYTableViewSectionInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYTableViewSectionInfo.h; sourceTree = "<group>"; };
+		84E6493F21A7D87F009302D7 /* LYTableViewUserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYTableViewUserInfo.h; sourceTree = "<group>"; };
+		84E6494021A7D87F009302D7 /* LYTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYTableView.m; sourceTree = "<group>"; };
+		84E6494121A7D87F009302D7 /* LYTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYTableViewCell.h; sourceTree = "<group>"; };
+		84E6494221A7D87F009302D7 /* LYTableViewInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYTableViewInfo.m; sourceTree = "<group>"; };
+		84E6494321A7D87F009302D7 /* LYTableViewCellInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYTableViewCellInfo.h; sourceTree = "<group>"; };
+		84E6494421A7D87F009302D7 /* LYTableViewSectionInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYTableViewSectionInfo.m; sourceTree = "<group>"; };
 		8FEF882F89E25D01B6284990 /* libPods-Will PowerUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Will PowerUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		911194FA46253016D956ADE6 /* libPods-Will PowerTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Will PowerTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		939D436B8FC9409C0FCF17BB /* Pods-Will PowerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Will PowerUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Will PowerUITests/Pods-Will PowerUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -1336,12 +1354,9 @@
 				59D21C262071F25D008DFA94 /* Model */,
 				59D21C252071F256008DFA94 /* View */,
 				59D21C392071FDA2008DFA94 /* ViewController */,
-				59D21C232071F23C008DFA94 /* ViewModel */,
-				59D21C222071F230008DFA94 /* Venders */,
 				59D21C212071F227008DFA94 /* Util */,
 				59D21C202071F21A008DFA94 /* Resources */,
 				59D21C1F2071F1FF008DFA94 /* Define */,
-				59F270B72071C5230093ABEF /* Request */,
 				5949A4222070A582003F9106 /* AppDelegate.h */,
 				5949A4232070A582003F9106 /* AppDelegate.m */,
 				5949A4282070A582003F9106 /* Main.storyboard */,
@@ -1648,24 +1663,11 @@
 		59D21C212071F227008DFA94 /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				84E649A521A7DBBF009302D7 /* ThirdPart */,
 				0474EA78208D863A00FA3283 /* Category */,
 				0474EA77208D861600FA3283 /* Tools */,
 			);
 			path = Util;
-			sourceTree = "<group>";
-		};
-		59D21C222071F230008DFA94 /* Venders */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Venders;
-			sourceTree = "<group>";
-		};
-		59D21C232071F23C008DFA94 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		59D21C252071F256008DFA94 /* View */ = {
@@ -1952,13 +1954,6 @@
 			path = "Will Power Today";
 			sourceTree = "<group>";
 		};
-		59F270B72071C5230093ABEF /* Request */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Request;
-			sourceTree = "<group>";
-		};
 		75B8B874195C6F41E6BFB311 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1970,6 +1965,33 @@
 				939D436B8FC9409C0FCF17BB /* Pods-Will PowerUITests.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		84E6493821A7D87F009302D7 /* LYTableViewWidget */ = {
+			isa = PBXGroup;
+			children = (
+				84E6493921A7D87F009302D7 /* LYTableView.h */,
+				84E6493A21A7D87F009302D7 /* LYTableViewUserInfo.m */,
+				84E6493B21A7D87F009302D7 /* LYTableViewInfo.h */,
+				84E6493C21A7D87F009302D7 /* LYTableViewCell.m */,
+				84E6493D21A7D87F009302D7 /* LYTableViewCellInfo.m */,
+				84E6493E21A7D87F009302D7 /* LYTableViewSectionInfo.h */,
+				84E6493F21A7D87F009302D7 /* LYTableViewUserInfo.h */,
+				84E6494021A7D87F009302D7 /* LYTableView.m */,
+				84E6494121A7D87F009302D7 /* LYTableViewCell.h */,
+				84E6494221A7D87F009302D7 /* LYTableViewInfo.m */,
+				84E6494321A7D87F009302D7 /* LYTableViewCellInfo.h */,
+				84E6494421A7D87F009302D7 /* LYTableViewSectionInfo.m */,
+			);
+			path = LYTableViewWidget;
+			sourceTree = "<group>";
+		};
+		84E649A521A7DBBF009302D7 /* ThirdPart */ = {
+			isa = PBXGroup;
+			children = (
+				84E6493821A7D87F009302D7 /* LYTableViewWidget */,
+			);
+			path = ThirdPart;
 			sourceTree = "<group>";
 		};
 		EDFB005289222F196D3861DB /* Frameworks */ = {
@@ -2617,6 +2639,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84E6494821A7D880009302D7 /* LYTableView.m in Sources */,
 				594C0B7020915D1800400EF9 /* AddModel.m in Sources */,
 				59D4D48820E3A336006449E9 /* SignView.m in Sources */,
 				59D21CCD20746354008DFA94 /* AddSecondViewController.m in Sources */,
@@ -2662,6 +2685,7 @@
 				0474EA7F208DD70700FA3283 /* CalenderCollectionViewCell.m in Sources */,
 				59D21C7120721C5B008DFA94 /* RewardView.m in Sources */,
 				59D21C9E20736D64008DFA94 /* AlertView.m in Sources */,
+				84E6494921A7D880009302D7 /* LYTableViewInfo.m in Sources */,
 				59D21D40207E5089008DFA94 /* SetLabelTableViewCell.m in Sources */,
 				593D1FEF20C34CC10019789D /* WrongMusic.m in Sources */,
 				5980F6E820F81B6800AD9F25 /* SuccessMusic.m in Sources */,
@@ -2684,7 +2708,11 @@
 				59D21CD220747119008DFA94 /* TapMusicButton.m in Sources */,
 				59D21D3D207E4FCB008DFA94 /* SetSwitchTableViewCell.m in Sources */,
 				5928DEED20E21012008E5423 /* ScoreView.m in Sources */,
+				84E6494621A7D880009302D7 /* LYTableViewCell.m in Sources */,
+				84E6494721A7D880009302D7 /* LYTableViewCellInfo.m in Sources */,
+				84E6494521A7D87F009302D7 /* LYTableViewUserInfo.m in Sources */,
 				595EDF4120D2387E008F1D28 /* UINavigationController+FDFullscreenPopGesture.m in Sources */,
+				84E6494A21A7D880009302D7 /* LYTableViewSectionInfo.m in Sources */,
 				0474EA89208F581300FA3283 /* CheckMusic.m in Sources */,
 				5980F6F020F92B7B00AD9F25 /* ReviewRemarkViewController.m in Sources */,
 				5980F6ED20F8EEEB00AD9F25 /* GetSaying.m in Sources */,
