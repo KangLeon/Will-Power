@@ -39,6 +39,95 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark 初始化配置
+//配置左边按钮标题
+-(void)setNavigationBarLeftItemButtonTitle:(NSString *)title{
+    
+}
+
+/**
+  *  设置navigation左按钮（图片）
+  *
+  *  @param image     normal图片
+  */
+- (void)setNavigationBarLeftItemImage:(NSString *)image{
+    //左上角按钮
+    TapMusicButton *barButton_left=[[TapMusicButton alloc] initWithFrame:CGRectMake(0, 0, 52, 41)];
+    barButton_left.backgroundColor=[UIColor clearColor];
+    [barButton_left setImage:[UIImage imageNamed:image] forState:UIControlStateNormal];
+    [[barButton_left rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+        NSLog(@"左上角的我被惦记了");
+        [self.navigationController popViewControllerAnimated:true];
+        //返回的动作用block设定
+    }];
+    
+    UIBarButtonItem *barButtonItem_left=[[UIBarButtonItem alloc] initWithCustomView:barButton_left];
+    self.navigationItem.leftBarButtonItem=barButtonItem_left;
+}
+
+- (void)setNavigationBarRightFirstItemImage:(NSString *)first_image andSecondItemImage:(NSString *)second_image{
+    //右上帮助按钮
+    TapMusicButton *barButton_right_help=[[TapMusicButton alloc] initWithFrame:CGRectMake(0, 0, 52, 41)];
+    barButton_right_help.backgroundColor=[UIColor clearColor];
+    [barButton_right_help setImage:[UIImage imageNamed:@"need_help_image"] forState:UIControlStateNormal];
+    [[barButton_right_help rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+        NSLog(@"右上角的我被惦记了");
+        self.alertView=[[AlertView alloc] init];
+        [self.alertView showAlertWithTitle:@"我想要" message:@"要想培养一个好习惯或者是克服一个坏习惯，动机是最重要的，仔细想想你的出发点是什么？\n 比如：1.如果自控成功，我会直接收获什么？\n2.如果自控成功,我的家人，我的朋友，我喜欢的人会收获什么？\n3.最终那么美好的自己的是什么样子的？" cancelButtonTitle:@"明白了，开始做计划"];
+    }];
+    
+    UIBarButtonItem *barButtonItem_right_help=[[UIBarButtonItem alloc] initWithCustomView:barButton_right_help];
+    
+    //右上下一步按钮
+    TapMusicButton *barButton_right_next=[[TapMusicButton alloc] initWithFrame:CGRectMake(0, 0, 52, 41)];
+    barButton_right_next.backgroundColor=[UIColor clearColor];
+    [barButton_right_next setImage:[UIImage imageNamed:@"next_image"] forState:UIControlStateNormal];
+    
+    [[barButton_right_next rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+        NSLog(@"右上角的我被惦记了");
+        //在这里判断，如果没有每一项都有内容的话提示用户继续完成输入
+        if (self.isFinish) {
+            
+            //设置model
+            
+            //设置id
+            //对id值进行判断然后进行加值
+            //这里的思路是查询有几条数据
+            if ([[AddModel shareAddMode] countForData]==0) {
+                [AddModel shareAddMode].subject_id=1;
+            }
+            if ([[AddModel shareAddMode] countForData]>0) {
+                //如果有数据就在条数后面+1
+                [AddModel shareAddMode].subject_id=[[AddModel shareAddMode] countForData]+1;
+            }
+            
+            [AddModel shareAddMode].subject_title=self.subject_title;
+            [AddModel shareAddMode].subject_get=self.subject_get;
+            [AddModel shareAddMode].subject_love_get=self.subject_love_get;
+            [AddModel shareAddMode].subject_best_me=self.subject_best_me;
+            [AddModel shareAddMode].subject_image_index=self.subjectLogoView.image_index;
+            
+            //            NSLog(@"%@,%@,%@,%@",self.addModel.subject_title,self.addModel.subject_get,self.addModel.subject_love_get,self.addModel.subject_best_me);
+            
+            AddSecondViewController *addsecond_VC=[[AddSecondViewController alloc] init];
+            [self.navigationController pushViewController:addsecond_VC animated:true];
+        }else{
+            WrongMusic *wrongMusic=[[WrongMusic alloc] init];
+            [wrongMusic playSoundEffect_wrong];
+            
+            SCLAlertView *alert = [[SCLAlertView alloc] init];
+            [alert showError:self title:@"仍有未输入的内容" subTitle:@"请完成本页的所有输入内容后再跳转到下一页面" closeButtonTitle:@"好的" duration:0.0f];
+        }
+        
+    }];
+    
+    UIBarButtonItem *barButtonItem_right_next=[[UIBarButtonItem alloc] initWithCustomView:barButton_right_next];
+    
+    self.navigationItem.rightBarButtonItems=@[barButtonItem_right_next,barButtonItem_right_help];
+}
+
+
+
 #pragma mark 字符串与时间的相关转换方法
 //NSDate->NSString (简单的将NSdate转化为字符串)
 -(NSString *)stringFrom:(NSDate*)date{
