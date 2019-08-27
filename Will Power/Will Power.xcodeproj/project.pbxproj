@@ -170,6 +170,7 @@
 		5949A4552070A989003F9106 /* OC代码规范总结.md in Resources */ = {isa = PBXBuildFile; fileRef = 5949A4542070A989003F9106 /* OC代码规范总结.md */; };
 		594C0B7020915D1800400EF9 /* AddModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 594C0B6F20915D1800400EF9 /* AddModel.m */; };
 		594C0B7320915D5F00400EF9 /* AddFourthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 594C0B7220915D5F00400EF9 /* AddFourthViewController.m */; };
+		595125B3229514830098124C /* Property.plist in Resources */ = {isa = PBXBuildFile; fileRef = 595125B2229514830098124C /* Property.plist */; };
 		595B592020F94AF0008B2B23 /* 51-51@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 595B586620F94AD7008B2B23 /* 51-51@3x.png */; };
 		595B592120F94AF0008B2B23 /* 42-42@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 595B586720F94AD8008B2B23 /* 42-42@3x.png */; };
 		595B592220F94AF0008B2B23 /* 41-41.png in Resources */ = {isa = PBXBuildFile; fileRef = 595B586820F94AD8008B2B23 /* 41-41.png */; };
@@ -714,6 +715,7 @@
 		594C0B6F20915D1800400EF9 /* AddModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddModel.m; sourceTree = "<group>"; };
 		594C0B7120915D5F00400EF9 /* AddFourthViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddFourthViewController.h; sourceTree = "<group>"; };
 		594C0B7220915D5F00400EF9 /* AddFourthViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddFourthViewController.m; sourceTree = "<group>"; };
+		595125B2229514830098124C /* Property.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Property.plist; sourceTree = "<group>"; };
 		595B586620F94AD7008B2B23 /* 51-51@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "51-51@3x.png"; sourceTree = "<group>"; };
 		595B586720F94AD8008B2B23 /* 42-42@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "42-42@3x.png"; sourceTree = "<group>"; };
 		595B586820F94AD8008B2B23 /* 41-41.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "41-41.png"; sourceTree = "<group>"; };
@@ -1325,6 +1327,7 @@
 		5949A4162070A582003F9106 = {
 			isa = PBXGroup;
 			children = (
+				595125B2229514830098124C /* Property.plist */,
 				5949A4542070A989003F9106 /* OC代码规范总结.md */,
 				5949A4212070A582003F9106 /* Will Power */,
 				5949A43A2070A583003F9106 /* Will PowerTests */,
@@ -2280,6 +2283,7 @@
 				595B597020F94AF0008B2B23 /* 42-42.png in Resources */,
 				595B599020F94AF0008B2B23 /* 21-21@3x.png in Resources */,
 				595B593C20F94AF0008B2B23 /* 60-60.png in Resources */,
+				595125B3229514830098124C /* Property.plist in Resources */,
 				595B59B320F94AF0008B2B23 /* 8-8@2x.png in Resources */,
 				595B59A620F94AF0008B2B23 /* 19-19@3x.png in Resources */,
 				595B597720F94AF0008B2B23 /* 29-29@3x.png in Resources */,
@@ -2973,7 +2977,7 @@
 				DEVELOPMENT_TEAM = DR4WPFLXBN;
 				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "/Users/admin/Desktop/MyResposity/WillPower/Will-Power/Will Power/Will Power/Define/PrefixHeader.pch";
+				GCC_PREFIX_HEADER = "/Users/jitengjiao/Desktop/MyResposity/Will-Power/Will Power/Will Power/Define/PrefixHeader.pch";
 				INFOPLIST_FILE = "Will Power/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2985,7 +2989,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Will Power-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -3002,7 +3006,7 @@
 				DEVELOPMENT_TEAM = DR4WPFLXBN;
 				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "/Users/admin/Desktop/MyResposity/WillPower/Will-Power/Will Power/Will Power/Define/PrefixHeader.pch";
+				GCC_PREFIX_HEADER = "/Users/jitengjiao/Desktop/MyResposity/Will-Power/Will Power/Will Power/Define/PrefixHeader.pch";
 				INFOPLIST_FILE = "Will Power/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3013,7 +3017,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Will Power-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

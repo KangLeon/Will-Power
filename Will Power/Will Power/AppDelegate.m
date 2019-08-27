@@ -35,7 +35,7 @@
              if(granted){
                  NSLog(@"注册成功，通知权限获取成功");
                  [center getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings* _Nonnull settings){
-                     
+                     [[UIApplication sharedApplication] registerForRemoteNotifications];
                  }];
              }
              else{
@@ -64,6 +64,24 @@
     
     
     return YES;
+}
+
+-(void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken{
+    NSString *token = [[deviceToken description] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
+    token = [token stringByReplacingOccurrencesOfString:@" " withString:@""];
+    
+    NSLog(@"我获得的deviceToken是：%@", token);
+    
+    UIAlertController *alert=[UIAlertController alertControllerWithTitle:@"" message:token preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil]];
+    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
+}
+
+-(void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error{
+    NSLog(@"推送DeviceToken 获取失败，原因：%@",error);
+    UIAlertController *alert=[UIAlertController alertControllerWithTitle:@"" message:[NSString stringWithFormat:@"%@",error] preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil]];
+    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

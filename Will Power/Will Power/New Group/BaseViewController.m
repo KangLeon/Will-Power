@@ -16,8 +16,11 @@
 #import <SCLAlertView.h>
 #import "SizeDefine.h"
 #import "NSDate+LocalDate.h"
-@interface BaseViewController ()
+#import "AddSecondViewController.h"
 
+@interface BaseViewController ()
+@property(nonatomic,strong)AlertView *alertView;
+@property(nonatomic,assign)BOOL isFinish;
 @end
 
 @implementation BaseViewController
@@ -101,11 +104,11 @@
                 [AddModel shareAddMode].subject_id=[[AddModel shareAddMode] countForData]+1;
             }
             
-            [AddModel shareAddMode].subject_title=self.subject_title;
-            [AddModel shareAddMode].subject_get=self.subject_get;
-            [AddModel shareAddMode].subject_love_get=self.subject_love_get;
-            [AddModel shareAddMode].subject_best_me=self.subject_best_me;
-            [AddModel shareAddMode].subject_image_index=self.subjectLogoView.image_index;
+//            [AddModel shareAddMode].subject_title=self.subject_title;
+//            [AddModel shareAddMode].subject_get=self.subject_get;
+//            [AddModel shareAddMode].subject_love_get=self.subject_love_get;
+//            [AddModel shareAddMode].subject_best_me=self.subject_best_me;
+//            [AddModel shareAddMode].subject_image_index=self.subjectLogoView.image_index;
             
             //            NSLog(@"%@,%@,%@,%@",self.addModel.subject_title,self.addModel.subject_get,self.addModel.subject_love_get,self.addModel.subject_best_me);
             

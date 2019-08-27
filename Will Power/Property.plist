@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+   Property.plist
+   Will Power
+
+   Created by 吉腾蛟 on 2019/5/22.
+   Copyright (c) 2019 JiYoung. All rights reserved.
+-->
+<plist version="1.0">
+    <dict>
+        <key>aps-environment</key>
+        <string>production</string>
+        <key>application-identifier</key>
+        <string>22MKG4BGTP.com.dragonSoftBravoCompany.IDFord</string>
+        <key>keychain-access-groups</key>
+        <array>
+            <string>22MKG4BGTP.*</string>
+        </array>
+        <key>get-task-allow</key>
+        <false/>
+        <key>com.apple.developer.team-identifier</key>
+        <string>22MKG4BGTP</string>
+        
+    </dict>
+</plist>
